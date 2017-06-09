@@ -17,3 +17,10 @@ execute 'ntp_restart' do
 end
 
 package "nginx"
+
+execute 'update' do
+	command 'cp /home/ubuntu/project/chef/cookbooks/baseconfig/files/default/nginx-default /etc/nginx/sites-available/default'
+end
+execute 'nginx_restart' do
+	command 'nginx -s reload'
+end
