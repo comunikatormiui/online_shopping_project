@@ -24,3 +24,5 @@ end
 execute 'nginx_restart' do
 	command 'nginx -s reload'
 end
+
+package "postgresql"
