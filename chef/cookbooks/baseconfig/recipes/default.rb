@@ -16,5 +16,4 @@ execute 'ntp_restart' do
   command 'service ntp restart'
 end
 
-# my config for the demo
-package "ack-grep"
+package "nginx"
