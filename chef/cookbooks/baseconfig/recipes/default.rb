@@ -26,3 +26,7 @@ execute 'nginx_restart' do
 end
 
 package "postgresql"
+
+execute 'create_db_table' do
+	command 'echo "CREATE DATABASE mydb; CREATE USER ubuntu; GRANT ALL PRIVILEGES ON DATABASE mydb TO ubuntu;" | sudo -u postgres psql'
+end
