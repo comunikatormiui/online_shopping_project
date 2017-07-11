@@ -18,17 +18,36 @@ end
 
 package "nginx"
 
+package "python-software-properties"
+
 execute 'install_node' do
 	command 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
 end
 
 package "nodejs"
 
-execute 'update' do
-	command 'cp /home/ubuntu/project/chef/cookbooks/baseconfig/files/default/nginx-default /etc/nginx/sites-available/default'
+execute 'copy_project_cmpt470' do
+	command 'cp /home/ubuntu/project/project_cmpt470 /etc/nginx/sites-available/'
 end
-execute 'nginx_restart' do
-	command 'nginx -s reload'
+
+execute 'create_website_shortcut' do
+	command 'ln -sf /etc/nginx/sites-available/project_cmpt470 /etc/nginx/sites-enabled/project_cmpt470'
+end
+
+execute 'create_project_cmpt470_dir' do
+	command 'mkdir -p /var/www/project_cmpt470/'
+end
+
+execute 'create_node_server' do
+	command 'cp /home/ubuntu/project/app.js /var/www/project_cmpt470/'
+end
+
+execute 'remove_nginx_default' do
+	command 'rm -f /etc/nginx/sites-available/default'
+end
+
+execute 'restart_nginx' do
+	command 'sudo /etc/init.d/nginx restart'
 end
 
 package "postgresql" 
