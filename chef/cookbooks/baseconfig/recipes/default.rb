@@ -26,6 +26,10 @@ end
 
 package "nodejs"
 
+execute 'install_pg' do
+	command 'npm install pg --save'
+end
+
 execute 'install_body_parser' do
 	command 'npm install --save body-parser'
 end
@@ -69,7 +73,11 @@ end
 package "postgresql" 
 
 execute 'create_db_table' do 
-	command 'echo "CREATE DATABASE mydb; CREATE USER ubuntu; GRANT ALL PRIVILEGES ON DATABASE mydb TO ubuntu;" | sudo -u postgres psql'
+	command 'echo "CREATE DATABASE mydb; CREATE USER ubuntu; GRANT ALL PRIVILEGES ON DATABASE mydb TO ubuntu; ALTER USER \"ubuntu\" with PASSWORD \'ubuntu\';" | sudo -u postgres psql'
+end
+
+execute 'create_contacts_table' do
+	command 'node /home/ubuntu/project/create_table.js'
 end
 
 execute 'start_server' do

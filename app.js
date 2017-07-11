@@ -1,3 +1,54 @@
+var pg = require('pg');
+var connectionString = 'postgres://ubuntu:ubuntu@localhost:5432/mydb';
+pg.connect(connectionString, onConnect);
+
+var express = require('express');
+var app = express();
+var bodyParser = require ('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+app.use(require('body-parser').urlencoded());
+
+function onConnect(err, client, done) {
+  	if (err) {
+    	console.error(err);
+    	process.exit(1);
+  	}
+	client.end();
+}
+
+app.get('/view/*', function(req, res)
+{
+	var tableData = '';
+   	var counter = 0;
+   	var client = new pg.Client(connectionString);
+	client.connect();
+  	var query = client.query("SELECT id, name FROM test_table ORDER BY id");
+	query.on("row", function (row, result) {		// this method is called after each row is retrieved
+		if(counter == 0)
+		{
+			tableData += '<ul>';
+		}
+		counter++;
+		tableData += `<li>${row.name}</li>\n`;
+	});
+	query.on("end", function (result) {				// this method is called after database query is completed
+	    client.end();
+	    if(counter > 0){
+	    	tableData += '</ul>';
+	    }
+	    res.send(`
+	   		${getHTMLHead("Contact List")}
+			<h3>Output List</h3>
+			${tableData}
+			${getHTMLTail()}
+	   	`);
+	});
+})
+
 function getHTMLHead(title)
 {
 	return `
@@ -20,16 +71,6 @@ function getHTMLTail()
 		</html>
 	`;
 }
-
-var express = require('express');
-var app = express();
-var bodyParser = require ('body-parser');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
-app.use(require('body-parser').urlencoded());
 
 app.get('/', function (req, res) {
    res.send(`
