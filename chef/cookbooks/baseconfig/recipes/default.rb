@@ -26,6 +26,18 @@ end
 
 package "nodejs"
 
+execute 'install_body_parser' do
+	command 'npm install --save body-parser'
+end
+
+execute 'install_express' do
+	command 'npm install express'
+end
+
+execute 'install_underscore' do
+	command 'npm install underscore'
+end
+
 execute 'install_pm2' do
 	command 'npm install pm2'
 end
