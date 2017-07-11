@@ -26,6 +26,10 @@ end
 
 package "nodejs"
 
+execute 'install_pm2' do
+	command 'npm install pm2'
+end
+
 execute 'copy_project_cmpt470' do
 	command 'cp /home/ubuntu/project/project_cmpt470 /etc/nginx/sites-available/'
 end
@@ -54,4 +58,8 @@ package "postgresql"
 
 execute 'create_db_table' do 
 	command 'echo "CREATE DATABASE mydb; CREATE USER ubuntu; GRANT ALL PRIVILEGES ON DATABASE mydb TO ubuntu;" | sudo -u postgres psql'
+end
+
+execute 'start_server' do
+	command '/node_modules/pm2/bin/pm2 start /home/ubuntu/project/app.js'
 end
