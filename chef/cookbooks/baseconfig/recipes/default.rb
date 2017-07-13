@@ -16,70 +16,56 @@ execute 'ntp_restart' do
   command 'service ntp restart'
 end
 
-package "nginx"
-
-package "python-software-properties"
-
-execute 'install_node' do
-	command 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
+# NodeJS & NPM
+# To get more recent version of Node and NPM
+execute 'install_ppa' do
+  command 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
 end
-
 package "nodejs"
 
-execute 'install_pg' do
-	command 'npm install pg --save'
+# MongoDB
+execute 'get_key_mongodb' do
+  command 'sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6'
+end
+execute 'create_file_mongodb' do
+  command 'echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list'
+end
+execute 'apt_update' do
+  command 'apt-get update'
+end
+package "mongodb-org" # sudo apt-get install -y mongodb-org
+execute 'start_mongodb' do
+  command 'sudo service mongod start'
 end
 
-execute 'install_body_parser' do
-	command 'npm install --save body-parser'
+# Install and update packages
+execute 'npm_install' do
+	command 'npm install'
+  cwd 'home/ubuntu/project/online-shopping'
 end
 
-execute 'install_express' do
-	command 'npm install express'
-end
+# Development mode (Not working yet) --------------
 
-execute 'install_underscore' do
-	command 'npm install underscore'
-end
+# execute 'run_node' do
+#   cwd '/home/ubuntu/project/online-shopping'
+#   command 'nohup npm run devstart > /dev/null 2>&1 &'
+# end
+
+# Production mode ---------------------------------
 
 execute 'install_pm2' do
-	command 'npm install pm2'
+	command 'npm install pm2 -g'
+end
+execute 'start_server' do
+  # Start node app in background using PM2
+	command 'pm2 start bin/www -f'
+  cwd 'home/ubuntu/project/online-shopping'
 end
 
-execute 'copy_project_cmpt470' do
-	command 'cp /home/ubuntu/project/project_cmpt470 /etc/nginx/sites-available/'
+package "nginx"
+cookbook_file "default" do
+  path "/etc/nginx/sites-available/default"
 end
-
-execute 'create_website_shortcut' do
-	command 'ln -sf /etc/nginx/sites-available/project_cmpt470 /etc/nginx/sites-enabled/project_cmpt470'
-end
-
-execute 'create_project_cmpt470_dir' do
-	command 'mkdir -p /var/www/project_cmpt470/'
-end
-
-execute 'create_node_server' do
-	command 'cp /home/ubuntu/project/app.js /var/www/project_cmpt470/'
-end
-
-execute 'remove_nginx_default' do
-	command 'rm -f /etc/nginx/sites-available/default'
-end
-
 execute 'restart_nginx' do
 	command 'sudo /etc/init.d/nginx restart'
-end
-
-package "postgresql" 
-
-execute 'create_db_table' do 
-	command 'echo "CREATE DATABASE mydb; CREATE USER ubuntu; GRANT ALL PRIVILEGES ON DATABASE mydb TO ubuntu; ALTER USER \"ubuntu\" with PASSWORD \'ubuntu\';" | sudo -u postgres psql'
-end
-
-execute 'create_contacts_table' do
-	command 'node /home/ubuntu/project/create_table.js'
-end
-
-execute 'start_server' do
-	command '/node_modules/pm2/bin/pm2 start /home/ubuntu/project/app.js'
 end

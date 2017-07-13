@@ -1,1 +1,1 @@
-Server can be accessed via localhost:3000
+Server can be accessed via localhost:8000
