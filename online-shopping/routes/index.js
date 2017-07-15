@@ -21,19 +21,17 @@ router_export = function(router, passport){
 		});
 	});
 
-/*
 	router.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/profile',
 		failureRedirect : '/signup',
 		failureFlash : true
 	}));
 
-	    app.post('/login', passport.authenticate('local-login', {
+    router.post('/login', passport.authenticate('local-login', {
         successRedirect : '/profile', 
         failureRedirect : '/login', 
         failureFlash : true 
     }));
-*/
 
 	router.get('/logout', function(req, res){
 		req.logout();
