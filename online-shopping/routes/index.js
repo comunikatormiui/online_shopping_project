@@ -1,8 +1,9 @@
-// var express = require('express');
-// var router = express.Router();
+//var express = require('express');
+//var router = express.Router();
 
-router = function(router, passport){
+router_export = function(router, passport){
 	router.get('/', function(req, res, next) {
+		console.log('get /');
 	  res.render('index', { title: 'Express' });
 	});
 
@@ -20,14 +21,21 @@ router = function(router, passport){
 		});
 	});
 
+/*
 	router.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/profile',
 		failureRedirect : '/signup',
-
 		failureFlash : true
 	}));
 
-	app.get('/logout', function(req, res){
+	    app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/profile', 
+        failureRedirect : '/login', 
+        failureFlash : true 
+    }));
+*/
+
+	router.get('/logout', function(req, res){
 		req.logout();
 		res.redirect('/');
 	});
@@ -43,4 +51,4 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
-module.exports = router;
+module.exports = router_export;

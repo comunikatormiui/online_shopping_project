@@ -1,5 +1,5 @@
 {
-  "name": "online-shopping",
+  "name": "exercise-9",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -15,7 +15,13 @@
     "mongoose": "^4.11.2",
     "morgan": "~1.8.1",
     "pug": "~2.0.0-beta11",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "connect-flash": "~0.1.1",
+    "bcrypt-nodejs": "latest",
+    "method-override": "~1.0.0",
+    "express-session": "~1.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
