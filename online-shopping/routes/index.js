@@ -20,6 +20,13 @@ router = function(router, passport){
 		});
 	});
 
+	router.post('/signup', passport.authenticate('local-signup', {
+		successRedirect : '/profile',
+		failureRedirect : '/signup',
+
+		failureFlash : true
+	}));
+
 	app.get('/logout', function(req, res){
 		req.logout();
 		res.redirect('/');
