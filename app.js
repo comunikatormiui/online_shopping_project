@@ -1,86 +1,66 @@
-var pg = require('pg');
-var connectionString = 'postgres://ubuntu:ubuntu@localhost:5432/mydb';
-pg.connect(connectionString, onConnect);
-
 var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
+var passport = require('passport');
+var flash = require('connect-flash');
+var session  = require('express-session');
+//var configDB = require('./config/database.js');
+
+var index = require('./routes/index');
+var users = require('./routes/users');
+
 var app = express();
-var bodyParser = require ('body-parser');
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+// uncomment after placing your favicon in /public
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
-app.use(require('body-parser').urlencoded());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-function onConnect(err, client, done) {
-  	if (err) {
-    	console.error(err);
-    	process.exit(1);
-  	}
-	client.end();
-}
+app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
-app.get('/view/*', function(req, res)
-{
-	var tableData = '';
-   	var counter = 0;
-   	var client = new pg.Client(connectionString);
-	client.connect();
-  	var query = client.query("SELECT id, name FROM test_table ORDER BY id");
-	query.on("row", function (row, result) {		// this method is called after each row is retrieved
-		if(counter == 0)
-		{
-			tableData += '<ul>';
-		}
-		counter++;
-		tableData += `<li>${row.name}</li>\n`;
-	});
-	query.on("end", function (result) {				// this method is called after database query is completed
-	    client.end();
-	    if(counter > 0){
-	    	tableData += '</ul>';
-	    }
-	    res.send(`
-	   		${getHTMLHead("Contact List")}
-			<h3>Output List</h3>
-			${tableData}
-			${getHTMLTail()}
-	   	`);
-	});
-})
+require('./routes/index.js')(app, passport);
 
-function getHTMLHead(title)
-{
-	return `
-	<!DOCTYPE html>
-			<html lang="en">
-			<head>
-			<meta charset="utf-8" />
-			<meta name="viewport" content="width=device-width,initial-scale=1" />
-			<title>${title}</title>
-			<link rel="stylesheet" href="/contacts/static/style.css" />
-			</head>
-			<body>
-	`;
-}
+//app.use('/', index);
+//app.use('/users', users);
 
-function getHTMLTail()
-{
-	return `
-		</body>
-		</html>
-	`;
-}
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-app.get('/', function (req, res) {
-   res.send(`
-   		${getHTMLHead("New Contact")}
-		<h2>Hello World</h2>
-		${getHTMLTail()}
-   	`);
-})
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-var server = app.listen(3000, function () {
-   var host = server.address().address
-   var port = server.address().port
-})
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost:27017/online-shopping';
+mongoose.connect(mongoDB);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+module.exports = app;
