@@ -1,0 +1,4 @@
+This is a first attempt at a messaging system for our project. It's sort of an irc style messaging app. I imagine that we can create a message db for each item for people to discuss it?
+
+
+Launch with "node index.js"
