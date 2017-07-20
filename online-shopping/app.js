@@ -8,9 +8,8 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session  = require('express-session');
-//var configDB = require('./config/database.js');
-
-require('./config/passport')(passport);
+var User = require('./models/user');
+require('./config/passport')(passport, User);
 
 //var index = require('./routes/index');
 var users = require('./routes/users');
@@ -35,7 +34,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-require('./routes/index')(app, passport);
+require('./routes/index')(app, passport, User);
 //app.use('/', routes);
 app.use('/users', users);
 

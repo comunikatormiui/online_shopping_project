@@ -1,7 +1,4 @@
-//var express = require('express');
-//var router = express.Router();
-
-router_export = function(router, passport){
+router_export = function(router, passport, User){
 	router.get('/', function(req, res, next) {
 		console.log('get /');
 	  res.render('index', { title: 'Express' });
@@ -25,13 +22,26 @@ router_export = function(router, passport){
 		}
 	);
 
-/*
-	router.post('/profile', isLoggedIn, function(req, res){
-		successRedirect : '/profile',
-		failureRedirect : '/signup',
-		failureFlash : true
+	router.post('/profile', isLoggedIn, function(req, res) {
+	    console.log(req.user.local.email);
+	    User.update(
+	    	{email: req.user.local.email}, 
+	    	{
+	        	fname: req.body.fname,
+	        	lname: req.body.lname 
+	    	}, 
+	    	function(err, numberAffected, rawResponse) {
+	    		if(err){
+	    			console.log(err.WriteResult.writeConcernError);
+	    		}
+	    		console.log(numberAffected);
+	    	}
+	    );
+	    res.render('profile.pug', {
+	        user : req.user // get the user out of session and pass to template
+	    });
 	});
-*/
+
 	router.post('/signup', 
 		passport.authenticate('local-signup', {
 			successRedirect : '/profile',

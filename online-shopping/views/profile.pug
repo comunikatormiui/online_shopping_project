@@ -5,14 +5,13 @@ block content
 
   form(method='POST' action='')
     div.form-group
+      p Email:  #{user.local.email}
+    div.form-group
       label(for='first_name') First Name:
       input#first_name.form-control(type='text', placeholder='First name (Christian) last' name='first_name' required='true' value=(undefined===user ? 'undef' : user.local.fname) )
     div.form-group  
       label(for='family_name') Family Name:
       input#family_name.form-control(type='text', placeholder='Family name (surname)' name='family_name' required='true' value=(undefined===user ? 'undef' : user.local.lname))
-    div.form-group
-      label(for='email') Email:
-      input#email.form-control(type='text', name='email', value=(undefined===user ? '' : user.local.email) )
     button.btn.btn-primary(type='submit') Submit
   if errors
     ul
