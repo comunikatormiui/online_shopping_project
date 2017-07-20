@@ -2,18 +2,38 @@ extends layout
 
 block content
   h1=title
-
-  form(method='POST' action='')
+  p#profile_name Hello #{user.local.fname}
+    form(method='POST' action='')
     div.form-group
-      p Email:  #{user.local.email}
+      p#user_name Email:  #{user.local.email}
+
     div.form-group
       label(for='first_name') First Name:
+    div.form-group.input
       input#first_name.form-control(type='text', placeholder='First name (Christian) last' name='first_name' required='true' value=(undefined===user ? 'undef' : user.local.fname) )
-    div.form-group  
+  
+    div.form-group
       label(for='family_name') Family Name:
+    div.form-group.input
       input#family_name.form-control(type='text', placeholder='Family name (surname)' name='family_name' required='true' value=(undefined===user ? 'undef' : user.local.lname))
-    button.btn.btn-primary(type='submit') Submit
-  if errors
-    ul
-      for error in errors
-        li!= error.msg
+
+    div.form-group
+      label(for='date_of_birth') Date of birth:
+    div.form-group.input
+      input#date_of_birth.form-control(type='date', name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
+    
+    div.form-group
+      label(for='address') Address:
+    div.form-group.input
+      input#address.form-control(type='text', name='address', value=(undefined===user ? '' : user.local.address))
+    
+    div.form-group
+      label(for='cell_phone') Cell phone:
+    div.form-group.input
+      input#cell_phone.form-control(type='text', name='cell-phone', value=(undefined===user ? '' : user.local.cell_phone))  
+    
+    button.btn.btn-primary(type='submit') Update
+      if errors
+        ul
+          for error in errors
+            li!= error.msg
