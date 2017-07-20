@@ -6,6 +6,7 @@ block content
   
   ul
   each cat in category_list
-    li #{cat.name}
+    li 
+      a(href=cat.url) #{cat.name}
   else
     li No categories
