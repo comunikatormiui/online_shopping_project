@@ -20,14 +20,17 @@ block content
       select#category.form-control(type='select' name='category' required='true')
         option(value='' disabled selected) (Select category)
         for cat in category_list
-          option(value=cat._id) #{cat.name}
+          if item
+            option(value=cat._id selected=(selected_category.equals(cat._id) ? 'selected' : false)) #{cat.name}
+          else
+            option(value=cat._id) #{cat.name}
 
     div.form-group
       label(for='description') Description:
-      if item===undefined
-        textarea#description.form-control(name='description')
-      else
+      if item
         textarea#description.form-control(name='description') #{item.description}
+      else
+        textarea#description.form-control(name='description')
         
 
     div.form-group

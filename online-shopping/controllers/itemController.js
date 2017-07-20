@@ -19,7 +19,7 @@ exports.item_search = function(req, res, next) {
   Item.find({ 'name' : { $regex: keyword, $options: 'i' }})
   .exec(function (err, list_items) {
     if (err) { return next(err); }
-    res.render('item_list', { title: 'Search results for "'+keyword+'"', item_list: list_items });
+    res.render('item_list', { title: 'Search results for "'+keyword+'"', item_list: list_items, keyword: keyword });
   });
 }
 
@@ -100,7 +100,7 @@ exports.item_update_get = function(req, res, next) {
     }
   }, function(err, results) {
     if (err) { next(err); }
-    res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item });
+    res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
   });
 }
 

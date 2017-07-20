@@ -16,7 +16,7 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
         a.nav-link(href='#') Forums
     
     form.form-inline(method='GET' action='/items/search')
-      input.form-control.mr-sm-2(type='text' placeholder='Search' name='keyword')
+      input.form-control.mr-sm-2(type='text' placeholder='Search' name='keyword' value=(keyword===undefined ? '' : keyword))
       button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
     
     ul.navbar-nav
