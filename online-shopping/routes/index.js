@@ -11,21 +11,34 @@ router_export = function(router, passport){
 		res.render('login', {message: req.flash('loginMessage')});
 	});
 
-	router.get('/signup', function(req, res){
-		res.render('signup', {message: req.flash('signupMessage')});
-	});
+	router.get('/signup', 
+		function(req, res){
+			res.render('signup', {message: req.flash('signupMessage')});
+		}
+	);
 
-	router.get('/profile', isLoggedIn, function(req, res){
-		res.render('profile', {
-			user : req.user
-		});
-	});
+	router.get('/profile', isLoggedIn, 
+		function(req, res){
+			res.render('profile', {
+				user : req.user
+			});
+		}
+	);
 
-	router.post('/signup', passport.authenticate('local-signup', {
+/*
+	router.post('/profile', isLoggedIn, function(req, res){
 		successRedirect : '/profile',
 		failureRedirect : '/signup',
 		failureFlash : true
-	}));
+	});
+*/
+	router.post('/signup', 
+		passport.authenticate('local-signup', {
+			successRedirect : '/profile',
+			failureRedirect : '/signup',
+			failureFlash : true
+		})
+	);
 
     router.post('/login', passport.authenticate('local-login', {
         successRedirect : '/profile', 

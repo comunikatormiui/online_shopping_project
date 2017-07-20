@@ -2,16 +2,21 @@ extends layout
 
 block content
 	form(method = 'POST' action = '/signup')
-		div.form-group
-			label(for='fname') First Name:
-			input#name.form-control(type='text', placeholder='First Name' name='fname')
-		div.form-group
-			label(for='lname') Last Name:
-			input#name.form-control(type='text', placeholder='Last Name' name='lname')
-		div.form-group
-			lable(for = 'email') Email:
-			input#name.form-control(type = 'email', placeholder = 'name@email.com' name = 'email')
-		div.form-group
-			lable(for = 'pw') Password:
-			input#pw.form-control(type = 'password' name = 'password')
-		button.btn.btn-primary(type='submit') Sign up
+
+			div.form-group
+				label(for='fname') First Name:
+				input#name.form-control(type='text', placeholder='First Name' name='fname')
+
+			div.form-group
+				label(for='lname') Last Name:
+				input#name.form-control(type='text', placeholder='Last Name' name='lname')
+
+			div.form-group
+				label(for = 'email') Email:
+				input#name.form-control(type = 'email', placeholder = 'name@email.com' name = 'email')
+
+			div.form-group
+				label(for = 'pw') Password:
+				input#pw.form-control(type = 'password' name = 'password')
+
+			button.btn.btn-primary(type='submit') Sign up
