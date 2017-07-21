@@ -23,12 +23,16 @@ router_export = function(router, passport, User){
 	);
 
 	router.post('/profile', isLoggedIn, function(req, res) {
-	    console.log(req.user.local.email);
+	    console.log(req.body.fname);
+	    console.log(req.body.lname);
 	    User.update(
-	    	{email: req.user.local.email}, 
+	    	{'local.email': req.user.local.email}, 
 	    	{
-	        	fname: req.body.fname,
-	        	lname: req.body.lname 
+	        	'local.fname': req.body.fname,
+	        	'local.lname': req.body.lname ,
+	        	'local.date_of_birth': req.body.date_of_birth,
+	        	'local.address': req.body.address,
+	        	'local.cell_phone': req.body.cell_phone
 	    	}, 
 	    	function(err, numberAffected, rawResponse) {
 	    		if(err){
@@ -37,9 +41,7 @@ router_export = function(router, passport, User){
 	    		console.log(numberAffected);
 	    	}
 	    );
-	    res.render('profile.pug', {
-	        user : req.user // get the user out of session and pass to template
-	    });
+	    res.redirect('/profile');
 	});
 
 	router.post('/signup', 
