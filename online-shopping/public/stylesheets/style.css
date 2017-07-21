@@ -24,3 +24,8 @@ input {
 #user_id {
 	color: green;
 }
+
+.error {
+	color: red;
+	margin: 5px;
+}

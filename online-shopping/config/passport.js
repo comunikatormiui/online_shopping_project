@@ -24,17 +24,13 @@ module.exports = function(passport, User) {
     function(req, email, password, done) {
     	var fname = req.body.fname;
     	var lname = req.body.lname;
-//Added
-        var date_of_birth = req.body.date_of_birth;
-        var address = req.body.address;
-        var cell_phone = req.body.cell_phone;
 
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 if (err)
                     return done(err);
                 if (user) {
-                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                    return done(null, false, req.flash('signupMessage', 'The email already exists.'));
                 } 
                 else {
                     var newUser  = new User();
@@ -42,17 +38,6 @@ module.exports = function(passport, User) {
                     newUser.local.lname = lname;
                     newUser.local.email    = email;
                     newUser.local.password = newUser.generateHash(password);
-//Add               
-                 //   if (date_of_birth != null && !date_of_birth.isEmpty()) {
-                        newUser.local.date_of_birth = date_of_birth;
-                 //   }
-                 //   if (cell_phone != null && !cell_phone.isEmpty()){
-                        newUser.local.cell_phone = cell_phone;
-                 //   }
-                 //   if (address != null && !address.isEmpty()){
-                        newUser.local.address = address;
-                 //   }
-                    
                     newUser.save(function(err) {
                         if (err)
                             throw err;

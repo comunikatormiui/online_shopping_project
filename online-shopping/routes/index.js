@@ -23,8 +23,6 @@ router_export = function(router, passport, User){
 	);
 
 	router.post('/profile', isLoggedIn, function(req, res) {
-	    console.log(req.body.fname);
-	    console.log(req.body.lname);
 	    User.update(
 	    	{'local.email': req.user.local.email}, 
 	    	{

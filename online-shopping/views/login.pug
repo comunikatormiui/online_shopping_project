@@ -1,6 +1,7 @@
 extends layout
 
 block content
+	.error #{message}
 	form(method = 'POST' action = '/login')
 		div.form-group
 			lable(for = 'email') Email:
