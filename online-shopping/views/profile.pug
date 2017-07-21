@@ -5,7 +5,7 @@ block content
   p#profile_name Hello #{user.local.fname}
     form(method='POST' action='')
     div.form-group
-      p#user_name Email:  #{user.local.email}
+      p#user_id Email:  #{user.local.email}
 
     div.form-group
       label(for='first_name') First Name:
@@ -20,12 +20,12 @@ block content
     div.form-group
       label(for='date_of_birth') Date of birth:
     div.form-group.input
-      input#date_of_birth.form-control(type='date', name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
+      input#date_of_birth.form-control(type='date', placeholder='' required='true' name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
     
     div.form-group
       label(for='address') Address:
     div.form-group.input
-      input#address.form-control(type='text', name='address', value=(undefined===user ? '' : user.local.address))
+      input#address.form-control(type='text', placeholder='Country, Province, City', name='address', value=(undefined===user ? '' : user.local.address))
     
     div.form-group
       label(for='cell_phone') Cell phone:
