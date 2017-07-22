@@ -55,6 +55,7 @@ end
 
 execute 'install_pm2' do
 	command 'npm install pm2 -g'
+    cwd 'home/ubuntu/project/online-shopping'
 end
 execute 'start_server' do
   # Start node app in background using PM2
