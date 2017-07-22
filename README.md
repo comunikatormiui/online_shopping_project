@@ -22,7 +22,8 @@ You can launch our app locally by:
 2. cd to online_shopping_project
 3. our app has two part:
 	3.1. "cd online_shopping_project/online-shopping" 
-		 "npm install" and then "npm run devstart"
+		 "npm install"
+		 "node populatedb" and then "npm run devstart"
 		 go to "localhost:3000"
 	3.2. "cd online_shopping_project/chat-app" and then "node index.js"
 		 go to "localhost:3001"
