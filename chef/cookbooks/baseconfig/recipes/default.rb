@@ -44,6 +44,12 @@ execute 'npm_install' do
   cwd 'home/ubuntu/project/online-shopping'
 end
 
+# Add default data
+execute 'populatedb' do
+  command 'node populatedb'
+  cwd 'home/ubuntu/project/online-shopping'
+end
+
 # Development mode (Not working yet) --------------
 
 # execute 'run_node' do
