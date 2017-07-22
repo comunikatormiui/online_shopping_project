@@ -53,19 +53,19 @@ end
 
 # Production mode ---------------------------------
 
-execute 'install_pm2' do
-	command 'npm install pm2 -g'
-end
-execute 'start_server' do
-  # Start node app in background using PM2
-	command 'pm2 start bin/www -f'
-  cwd 'home/ubuntu/project/online-shopping'
-end
-
-package "nginx"
-cookbook_file "default" do
-  path "/etc/nginx/sites-available/default"
-end
-execute 'restart_nginx' do
-	command 'sudo /etc/init.d/nginx restart'
-end
+# execute 'install_pm2' do
+# 	command 'npm install pm2 -g'
+# end
+# execute 'start_server' do
+#   # Start node app in background using PM2
+# 	command 'pm2 start bin/www -f'
+#   cwd 'home/ubuntu/project/online-shopping'
+# end
+#
+# package "nginx"
+# cookbook_file "default" do
+#   path "/etc/nginx/sites-available/default"
+# end
+# execute 'restart_nginx' do
+# 	command 'sudo /etc/init.d/nginx restart'
+# end
