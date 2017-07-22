@@ -12,7 +12,6 @@ var User = require('./models/user'); //---------------------
 
 require('./controllers/passport')(passport, User);
 
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 var items = require('./routes/items');
@@ -39,6 +38,11 @@ app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+
+app.use(function(req, res, next) {
+	res.locals.login = req.isAuthenticated();
+	next();
+});
 
 //app.use('/', index);
 require('./routes/index')(app, passport, User);
