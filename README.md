@@ -12,5 +12,5 @@ We also support production mode deployment:
 1. git clone the application
 2. cd to online_shopping_project
 3. vagrant up && vagrant ssh
-4. "cd project/online-shopping/" and then "npm run devstart
-5. go to “localhost:8000"
+4. "cd project/online-shopping
+5. go to “localhost:9000"
