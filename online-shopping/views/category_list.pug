@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h3= title
+  a.btn.btn-secondary.btn-sm(href='/categories/create' role='button') new category
+  
+  ul
+  each cat in category_list
+    li 
+      a(href=cat.url) #{cat.name}
+  else
+    li No categories

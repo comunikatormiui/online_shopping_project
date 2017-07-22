@@ -44,6 +44,12 @@ execute 'npm_install' do
   cwd 'home/ubuntu/project/online-shopping'
 end
 
+# Add default data
+execute 'populatedb' do
+  command 'node populatedb'
+  cwd 'home/ubuntu/project/online-shopping'
+end
+
 # Development mode (Not working yet) --------------
 
 # execute 'run_node' do
@@ -62,10 +68,18 @@ execute 'start_server' do
   cwd 'home/ubuntu/project/online-shopping'
 end
 
+
 package "nginx"
 cookbook_file "default" do
   path "/etc/nginx/sites-available/default"
 end
 execute 'restart_nginx' do
 	command 'sudo /etc/init.d/nginx restart'
+end
+
+
+# testing chat app in vagrant
+execute 'launch_chat' do
+    cwd 'home/ubuntu/project/chat-app'
+    command 'node ./index.js &'
 end

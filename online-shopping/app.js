@@ -5,9 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var passport = require('passport');
+var flash = require('connect-flash');
+var session  = require('express-session');
+var User = require('./models/user'); //---------------------
+
+require('./controllers/passport')(passport, User);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var items = require('./routes/items');
+var categories = require('./routes/categories');
+var wishlist = require('./routes/wishlist');
+
 
 var app = express();
 
@@ -24,8 +34,23 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+//authentication
+app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+app.use(function(req, res, next) {
+	res.locals.login = req.isAuthenticated();
+	next();
+});
+
+//app.use('/', index);
+require('./routes/index')(app, passport, User);
 app.use('/users', users);
+app.use('/items', items);
+app.use('/categories', categories);
+app.use('/wishlist', wishlist);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
