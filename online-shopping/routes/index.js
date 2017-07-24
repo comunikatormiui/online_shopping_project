@@ -62,7 +62,14 @@ router_export = function(router, passport, User){
 		req.logout();
 		res.redirect('/');
 	});
+
+	
+	router.get('/history', function(req, res, next) {
+	  res.render('history');
+	});
+
 };
+
 
 function isLoggedIn(req, res, next) {
 

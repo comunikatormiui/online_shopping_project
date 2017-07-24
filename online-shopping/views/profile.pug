@@ -18,6 +18,11 @@ block content
         input#family_name.form-control(type='text', placeholder='Family name (surname)' name='lname' required='true' value=(undefined===user ? 'undef' : user.local.lname) )
 
       div.form-group
+        label(for='gender') Gender:
+      div.form-group.input
+        input#gender.form-control(type='string', placeholder='' required='true' name='gender', value=(undefined===user ? '' : user.local.gender))
+
+      div.form-group
         label(for='date_of_birth') Date of birth:
       div.form-group.input
         input#date_of_birth.form-control(type='date', placeholder='' required='true' name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
@@ -32,6 +37,11 @@ block content
       div.form-group.input
         input#cell_phone.form-control(type='text', name='cell_phone', value=(undefined===user ? '' : user.local.cell_phone))  
       
+      a.btn.btn-primary(href='/history') Transaction History
+
+      br
+      br
+
       button.btn.btn-primary(type='submit') Update
         if errors
           ul
