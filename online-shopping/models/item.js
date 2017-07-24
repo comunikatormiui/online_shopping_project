@@ -6,7 +6,7 @@ var ItemSchema = Schema({
   name: { type: String, required: true },
   category: { type: Schema.ObjectId, ref: 'Category', required: true },
   description: { type: String },
-  seller: { type: String, required: true }, // will change from string to object later
+  seller: { type: Schema.ObjectId, ref: 'User', required: true },
   price: { type: Number, required: true }
 });
 

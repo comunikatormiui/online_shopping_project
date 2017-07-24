@@ -35,7 +35,7 @@ exports.item_detail = function(req, res, next) {
   });
 }
 
-exports.item_create_get = function(req, res, next) {
+exports.item_create_get = function(req, res) {
   Category.find({}, 'name')
   .sort({ name: 'ascending' })
   .exec(function(err, categories) {
@@ -44,12 +44,11 @@ exports.item_create_get = function(req, res, next) {
   });
 };
 
-exports.item_create_post = function(req, res, next) {
+exports.item_create_post = function(req, res) {
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
   req.checkBody('category', 'Category must be specified').notEmpty();
-  req.checkBody('seller', 'Seller must be specified').notEmpty();
 
   req.filter('name').escape();
   req.filter('name').trim();
@@ -59,15 +58,13 @@ exports.item_create_post = function(req, res, next) {
   req.filter('category').trim();
   req.filter('description').escape();
   req.filter('description').trim();
-  req.filter('seller').escape();
-  req.filter('seller').trim();
 
   var item = new Item({
     name: req.body.name,
     price: req.body.price,
     category: req.body.category,
     description: req.body.description,
-    seller: req.body.seller
+    seller: req.user.local.email
   });
 
   req.getValidationResult().then(function(result) {
