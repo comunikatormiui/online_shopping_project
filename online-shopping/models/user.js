@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
         date_of_birth   : {type: Date},
         address			: {type: String},
         cell_phone 		: {type: String},
-        gender          : {type: String, enum: ["Male", "Female"]},
+        gender          : {type: String, enum: ['Male', 'Female']},
     }
 });
 
