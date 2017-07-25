@@ -1,10 +1,12 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
+var User = require('../models/user');
 
 var async = require('async');
 
 exports.item_list = function(req, res, next) {
   Item.find({}, 'name seller')
+  .populate('seller')
   .exec(function (err, list_items) {
     if (err) { return next(err); }
     res.render('item_list', { title: 'Item Directory', item_list: list_items });
@@ -28,7 +30,7 @@ exports.item_detail = function(req, res, next) {
   req.filter('id').trim();
 
   Item.findById(req.params.id)
-  .populate('category')
+  .populate('seller')
   .exec(function (err, item) {
     if (err) { return next(err); }
     res.render('item_detail', { title: item.name, item: item });
@@ -39,12 +41,14 @@ exports.item_create_get = function(req, res) {
   Category.find({}, 'name')
   .sort({ name: 'ascending' })
   .exec(function(err, categories) {
-    if (err) { next(err); }
+    if (err) {
+      next(err);
+    }
     res.render('item_form', { title: 'Create New Item', category_list: categories });
   });
 };
 
-exports.item_create_post = function(req, res) {
+exports.item_create_post = function(req, res, next) {
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
@@ -59,28 +63,42 @@ exports.item_create_post = function(req, res) {
   req.filter('description').escape();
   req.filter('description').trim();
 
-  var item = new Item({
-    name: req.body.name,
-    price: req.body.price,
-    category: req.body.category,
-    description: req.body.description,
-    seller: req.user.local.email
-  });
-
-  req.getValidationResult().then(function(result) {
-    var errors = result.array();
-    if (errors.length > 0) {
-      Category.find({}, 'name')
-      .exec(function(err, categories) {
-        if (err) { return next(err); }
-        res.render('item_form', { title: 'Create New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
-      });
-    } else {
-      item.save(function(err) {
-        if (err) { next(err); }
-        res.redirect(item.url);
-      });
+  User.findOne({'local.email': req.user.local.email}, function(err, user){
+    if(err){
+      throw err;
     }
+    if(!user){
+      console.log('Invalid email received: ' + req.user.local.email);
+      next(err);
+    }
+    console.log('User id: ' + user._id);
+    var item = new Item({
+      name: req.body.name,
+      price: req.body.price,
+      category: req.body.category,
+      description: req.body.description,
+      seller: user._id
+    });
+    req.getValidationResult().then(function(result) {
+      var errors = result.array();
+      if (errors.length > 0) {
+        Category.find({}, 'name')
+        .exec(function(err, categories) {
+          if (err) {
+            return next(err);
+          }
+          res.render('item_form', { title: 'Create New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
+        });
+      } else {
+        item.save(function(err) {
+          if (err) {
+            throw err;
+            next(err);
+          }
+          res.redirect(item.url);
+        });
+      }
+    });
   });
 };
 
@@ -96,7 +114,9 @@ exports.item_update_get = function(req, res, next) {
       Category.find({}, 'name').sort({ name: 'ascending'}).exec(callback);
     }
   }, function(err, results) {
-    if (err) { next(err); }
+    if (err) {
+      next(err);
+    }
     res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
   });
 }
@@ -136,7 +156,9 @@ exports.item_update_post = function(req, res, next) {
     if (errors.length > 0) {
       Category.find({}, 'name')
       .exec(function(err, categories) {
-        if (err) { return next(err); }
+        if (err) {
+          return next(err);
+        }
         res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
       });
     } else {
