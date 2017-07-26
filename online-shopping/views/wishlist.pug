@@ -1,5 +1,7 @@
 extends layout
 
 block content
- h1= title
- p Welcome to #{title}
+  h1=title
+  p#profile_name #{user.local.fname}'s wishlist
+    form(method='POST' action='/profile')
+    
