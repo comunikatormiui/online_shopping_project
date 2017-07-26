@@ -1,19 +1,23 @@
 router_export = function(router, passport, User){
+
+//request root directory and render Express Main Page
 	router.get('/', function(req, res, next) {
 		console.log('get /');
 	  res.render('index', { title: 'Express' });
 	});
 
+//request login and render login message
 	router.get('/login', function(req, res){
 		res.render('login', {message: req.flash('loginMessage')});
 	});
 
+//request signup and render signup
 	router.get('/signup',
 		function(req, res){
 			res.render('signup', {message: req.flash('signupMessage')});
 		}
 	);
-
+//request wishlist, check if logged in and render user information
 	router.get('/wishlist', isLoggedIn, function(req, res) {
 		res.render('wishlist', {
 			user : req.user
@@ -21,6 +25,7 @@ router_export = function(router, passport, User){
 	}
 );
 
+//request profile, check if logged in and render user information
 	router.get('/profile', isLoggedIn,
 		function(req, res){
 			res.render('profile', {
@@ -30,7 +35,7 @@ router_export = function(router, passport, User){
 	);
 
 
-
+//request profile, check if logged in and update user forms, redirect to /profile
 	router.post('/profile', isLoggedIn, function(req, res) {
 	    User.update(
 	    	{'local.email': req.user.local.email},
@@ -51,6 +56,7 @@ router_export = function(router, passport, User){
 	    res.redirect('/profile');
 	});
 
+//authenticate signup, if sucess then redirect to root, else redirect to signup
 	router.post('/signup',
 		passport.authenticate('local-signup', {
 			successRedirect : '/',
@@ -60,6 +66,7 @@ router_export = function(router, passport, User){
 		})
 	);
 
+//autheticate login, redirect to root else redirect to login
     router.post('/login', passport.authenticate('local-login', {
     	successRedirect : '/',
         //successRedirect : '/profile',
@@ -67,12 +74,14 @@ router_export = function(router, passport, User){
         failureFlash : true
     }));
 
+//logout, log user out and redirect to root
 	router.get('/logout', function(req, res){
 		req.logout();
 		res.redirect('/');
 	});
 };
 
+//check if user is authenticated else redirect to home page
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on

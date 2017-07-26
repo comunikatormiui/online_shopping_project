@@ -4,4 +4,10 @@ block content
   h1=title
   p#profile_name #{user.local.fname}'s wishlist
     form(method='POST' action='/profile')
-    
+
+  br
+  h2= title
+  br
+  p #[strong Price:] CDN$ #{item.price}
+  p #[strong Category:] #{item.category.name}
+  p #[strong Sold by:] #{item.seller}
