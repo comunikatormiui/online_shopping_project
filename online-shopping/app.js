@@ -54,6 +54,28 @@ app.use('/categories', categories);
 app.use('/wishlist', wishlist);
 app.use('/imagefile', image);
 
+
+app.get('/images', function(req, res) {
+  routes.getImages(function(err, genres) {
+    if (err) {throw err;}
+    res.json(genres);
+  });
+});
+ 
+// URL : http://localhost:3000/images/(give you collectionID)
+// To get the single image/File using id from the MongoDB
+app.get('/images/:id', function(req, res) {
+  //calling the function from index.js class using routes object..
+  routes.getImageById(req.params.id, function(err, genres) {
+    if (err) {throw err;}
+    //res.download(genres.path);
+    res.send(genres.path)
+  });
+});
+ 
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
