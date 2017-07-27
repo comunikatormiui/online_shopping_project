@@ -24,13 +24,14 @@ function categoryCreate(name, cb) {
   });
 }
 
-function itemCreate(name, category, description, seller, price, cb) {
+function itemCreate(name, category, description, seller, price, image, cb) {
   var item = new Item({
     name: name,
     category: category,
     description: description,
     seller: seller,
-    price: price
+    price: price,
+    image: image
   });
   item.save(function (err) {
     if (err) {
@@ -89,7 +90,7 @@ function createCategories(cb) {
 }
 // 0 - Books, 1 - Music, 2 - Movies, 3 - Electronics, 4 - Software, 5 - Video games, 6 - Home
 // 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive
-// name, category, description, seller, price, cb
+// name, category, description, seller, price, image, cb
 
 function createItems(cb) {
   async.parallel([
