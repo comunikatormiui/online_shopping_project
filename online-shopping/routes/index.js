@@ -1,7 +1,7 @@
 router_export = function(router, passport, User){
 	router.get('/', function(req, res, next) {
 		console.log('get /');
-	  res.render('index', { title: 'Express' });
+	  res.render('index', { title: 'Our Shopping Page' });
 	});
 
 	router.get('/login', function(req, res){

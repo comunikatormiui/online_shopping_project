@@ -81,6 +81,6 @@ end
 
 # testing chat app in vagrant
 execute 'launch_chat' do
-    cwd 'home/ubuntu/project/chat-app'
+    cwd 'home/ubuntu/project/online-shopping/chat-app'
     command 'node ./index.js &'
 end
