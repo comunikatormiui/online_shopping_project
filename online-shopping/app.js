@@ -56,9 +56,9 @@ app.use('/imagefile', image);
 
 
 app.get('/images', function(req, res) {
-  routes.getImages(function(err, genres) {
+  image.getImages(function(err, cb) {
     if (err) {throw err;}
-    res.json(genres);
+    res.json(cb);
   });
 });
  
@@ -66,10 +66,10 @@ app.get('/images', function(req, res) {
 // To get the single image/File using id from the MongoDB
 app.get('/images/:id', function(req, res) {
   //calling the function from index.js class using routes object..
-  routes.getImageById(req.params.id, function(err, genres) {
+  image.getImageById(req.params.id, function(err, cb) {
     if (err) {throw err;}
     //res.download(genres.path);
-    res.send(genres.path)
+    res.send(cb.path)
   });
 });
  
