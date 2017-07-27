@@ -9,9 +9,15 @@ block content
   if item.description
     p #[strong Description:] #{item.description}
 
-  a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
+  if (user == 'seller')
+    a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
 
-  form(method='POST' action=item.url+'/delete')
-      div.form-group
-        input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
-      button.btn.btn-danger(type='submit') Delete
+    form(method='POST' action=item.url+'/delete')
+        div.form-group
+          input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        button.btn.btn-danger(type='submit') Delete
+  else
+    form(method='GET' action=item.url+'/buy')
+        div.form-group
+          input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        button.btn.btn-danger(type='submit') Buy

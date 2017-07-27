@@ -1,8 +1,10 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
 var User = require('../models/user');
+var Transaction = require('../models/transaction');
 
 var async = require('async');
+
 
 exports.item_list = function(req, res, next) {
   Item.find({}, 'name seller')
@@ -30,10 +32,17 @@ exports.item_detail = function(req, res, next) {
   req.filter('id').trim();
 
   Item.findById(req.params.id)
-  .populate('seller')
+  .populate('seller').populate('category')
   .exec(function (err, item) {
     if (err) { return next(err); }
-    res.render('item_detail', { title: item.name, item: item });
+    if (req.user != null && item.seller.local.email == req.user.local.email){
+      user = 'seller';
+    }
+    else{
+      user = 'buyer';
+    }
+    res.render('item_detail', { title: item.name, item: item, user : user });
+    console.log(user);
   });
 }
 
@@ -178,3 +187,84 @@ exports.item_delete = function(req, res, next) {
     res.redirect('/items');
   })
 }
+
+exports.item_buy_get = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .populate('seller')
+  .exec(function (err, item) {
+    if (err) { return next(err); }
+    res.render('item_buy', { title: 'Check out', item: item, user : user });
+    console.log(user);
+  });
+}
+
+
+exports.item_buy_post = function(req, res, next) {
+  req.checkBody('quantity', 'quantity must be specified').notEmpty();
+  req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
+  req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
+  req.checkBody('credit_card_number', 'credit card number: only floating-point number is allowed').isInt();
+  req.checkBody('cvv', 'CVV must be specified').notEmpty();
+  req.checkBody('cvv', 'CVV : only integer number is allowed').isInt();
+  req.checkBody('expiry_date', 'expiry date: only date format is allowed').notEmpty().isDate();
+
+  req.filter('quantity').escape();
+  req.filter('quantity').trim();
+  req.filter('ship_address').escape();
+  req.filter('ship_address').trim();
+  req.filter('credit_card_number').escape();
+  req.filter('credit_card_number').trim();
+  req.filter('cvv').escape();
+  req.filter('cvv').trim();
+  req.filter('expiry_date').escape();
+  req.filter('expiry_date').trim();
+
+  User.findOne({'local.email': req.user.local.email}, function(err, user){
+    if(err){
+      throw err;
+    }
+    if(!user){
+      console.log('Invalid email received: ' + req.user.local.email);
+      next(err);
+    }
+    console.log('User id: ' + user._id);
+    console.log(req.body.quantity);
+    console.log(req.body.ship_address);
+    console.log(req.body.credit_number);
+    console.log(req.body.cvv);
+    console.log(req.body.itemid);
+    console.log(req.body.expiry_date);
+    var transaction = new Transaction({
+      seller: user._id,
+      item: req.body.itemid,
+      quantity: req.body.quantity,
+      ship_address: req.body.ship_address,
+      credit_card_number: req.body.credit_card_number,
+      cvv: req.body.cvv,
+      expiry_date: req.body.expiry_date
+    });
+    req.getValidationResult().then(function(result) {
+      var errors = result.array();
+      if (errors.length > 0) {
+        Category.find({}, 'name')
+        .exec(function(err, categories) {
+          if (err) {
+            return next(err);
+          }
+          res.render('transaction_result', { title: 'you placed your order'})
+        });
+      } else {
+        transaction.save(function(err) {
+          if (err) {
+            throw err;
+            next(err);
+          }
+          res.redirect(item.url);
+        });
+      }
+    });
+  });
+};
