@@ -1,7 +1,10 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
+var multer = require('multer');
 
 var async = require('async');
+
+
 
 exports.item_list = function(req, res, next) {
   Item.find({}, 'name seller')
@@ -62,12 +65,21 @@ exports.item_create_post = function(req, res, next) {
   req.filter('seller').escape();
   req.filter('seller').trim();
 
+  //res.send(req.files);
+  var path = req.files[0].path;
+  var imageName = req.files[0].originalname;
+
+  /*var imagepath = {}; //imagepath contains two objects, path and the imageName
+  imagepath['path'] = path;
+  imagepath['originalname'] = imageName;*/
+
   var item = new Item({
     name: req.body.name,
     price: req.body.price,
     category: req.body.category,
     description: req.body.description,
-    seller: req.body.seller
+    seller: req.body.seller,
+    image : imageName
   });
 
   req.getValidationResult().then(function(result) {
@@ -125,12 +137,17 @@ exports.item_update_post = function(req, res, next) {
   req.filter('seller').escape();
   req.filter('seller').trim();
 
+  res.send(req.files);
+  var path = req.files[0].path;
+  var imageName = req.files[0].originalname;
+
   var item = new Item({
     name: req.body.name,
     price: req.body.price,
     category: req.body.category,
     description: req.body.description,
     seller: req.body.seller,
+    image: imageName,
     _id: req.params.id
   });
 

@@ -2,8 +2,8 @@ extends layout
 
 block content
   h3= title
-  
-  form(method='POST' action='')
+
+  form(method='POST' action='', enctype='multipart/form-data' )
     div.form-group
       label(for='name') Name:
       input#name.form-control(type='text' name='name' value=(undefined===item ? '' : item.name) required='true')
@@ -36,6 +36,9 @@ block content
     div.form-group
       label(for='seller') Seller:
       input#seller.form-control(type='text' name='seller' value=(undefined===item ? '' : item.seller) required='true')
+
+    input(type='file', name='imageupload')
+    input(type='submit', name='uploadimage', value='Upload Image')
 
     button.btn.btn-primary(type='submit') Submit
   

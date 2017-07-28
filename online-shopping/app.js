@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 var session  = require('express-session');
 var multer = require("multer");
 var User = require('./models/user'); //---------------------
+var image = require('./routes/imagefile');
 
 require('./controllers/passport')(passport, User);
 
@@ -18,7 +19,6 @@ var users = require('./routes/users');
 var items = require('./routes/items');
 var categories = require('./routes/categories');
 var wishlist = require('./routes/wishlist');
-var image = require('./routes/imagefile');
 
 var app = express();
 
@@ -62,19 +62,13 @@ app.get('/images', function(req, res) {
   });
 });
  
-// URL : http://localhost:3000/images/(give you collectionID)
-// To get the single image/File using id from the MongoDB
+// URL : http://localhost:3000/images/(give you collectionID); To get the single image/File using id from the MongoDB
 app.get('/images/:id', function(req, res) {
-  //calling the function from index.js class using routes object..
   image.getImageById(req.params.id, function(err, cb) {
     if (err) {throw err;}
-    //res.download(genres.path);
     res.send(cb.path)
   });
 });
- 
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
