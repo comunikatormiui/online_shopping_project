@@ -1,4 +1,8 @@
 var login_routing = require('./login_routing');
+var Item = require('../models/item');
+var Category = require('../models/category');
+var User = require('../models/user');
+var Transaction = require('../models/transaction');
 
 router_export = function(router, passport, User){
 	router.get('/', function(req, res, next) {
@@ -59,6 +63,23 @@ router_export = function(router, passport, User){
         failureRedirect : '/login',
         failureFlash : true
     }));
+
+	router.get('/transactions', login_routing.isLoggedIn,
+		function(req, res) {
+			User.findOne({'local.email': req.user.local.email},
+				function(err, user){
+					Transaction.find({'buyer': user._id})
+					.populate('item')
+					.exec(function(err, transactions) {
+					if (err) {
+						console.log('err');
+						return next(err);
+					}
+					console.log(transactions);
+					res.render('transaction_list', { title: 'List of Past Transactions', transaction_list: transactions});
+				});
+			});
+		});
 
 	router.get('/logout', function(req, res){
 		req.logout();

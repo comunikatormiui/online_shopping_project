@@ -14,18 +14,18 @@ block content
       input#quantity.form-control(type='text' name='quantity' required='true')
     div.form-group
       label(for='ship_address') Shipping address:
-      input#ship_address.form-control(type='text', placeholder='Country, Province, City', name='ship_address', value=(undefined===user ? '' : ''))
+      input#ship_address.form-control(type='text', placeholder='Country, Province, City', name='ship_address', value='')
     br
     h3="Payment method"
     div.form-group
-      label(for='credit_number') Credit Number:
-      input#credit_number.form-control(type='text' name='credit_number'  required='true' value=(undefined===item ? '' : ''))
+      label(for='credit_card_number') Credit Number:
+      input#credit_card_number.form-control(type='text' name='credit_card_number'  required='true' value='')
     div.form-group
       label(for='cvv') CVV:
       input#cvv.form-control(type='text' name='cvv'  required='true')
     div.form-group.input
       label(for='expiry_date') Expiry Date:
-      input#expiry_date.form-control(type='date', placeholder='' required='true' name='expiry_date', value=(undefined===user ? '' : ''))
+      input#expiry_date.form-control(type='date', placeholder='' required='true' name='expiry_date', value='')
 
     br
     h3="Bill"

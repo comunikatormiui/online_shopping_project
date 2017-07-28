@@ -2,6 +2,7 @@ var Item = require('../models/item');
 var Category = require('../models/category');
 var User = require('../models/user');
 var Transaction = require('../models/transaction');
+var util = require('util');
 
 var async = require('async');
 
@@ -80,7 +81,6 @@ exports.item_create_post = function(req, res, next) {
       console.log('Invalid email received: ' + req.user.local.email);
       next(err);
     }
-    console.log('User id: ' + user._id);
     var item = new Item({
       name: req.body.name,
       price: req.body.price,
@@ -196,7 +196,7 @@ exports.item_buy_get = function(req, res, next) {
   .populate('seller')
   .exec(function (err, item) {
     if (err) { return next(err); }
-    res.render('item_buy', { title: 'Check out', item: item, user : user });
+    res.render('item_buy', { title: 'Check out', item: item });
     console.log(user);
   });
 }
@@ -206,7 +206,7 @@ exports.item_buy_post = function(req, res, next) {
   req.checkBody('quantity', 'quantity must be specified').notEmpty();
   req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
   req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
-  req.checkBody('credit_card_number', 'credit card number: only floating-point number is allowed').isInt();
+  req.checkBody('credit_card_number', 'Credit card number: only integer number is allowed').isInt();
   req.checkBody('cvv', 'CVV must be specified').notEmpty();
   req.checkBody('cvv', 'CVV : only integer number is allowed').isInt();
   req.checkBody('expiry_date', 'expiry date: only date format is allowed').notEmpty().isDate();
@@ -230,39 +230,31 @@ exports.item_buy_post = function(req, res, next) {
       console.log('Invalid email received: ' + req.user.local.email);
       next(err);
     }
-    console.log('User id: ' + user._id);
-    console.log(req.body.quantity);
-    console.log(req.body.ship_address);
-    console.log(req.body.credit_number);
-    console.log(req.body.cvv);
-    console.log(req.body.itemid);
-    console.log(req.body.expiry_date);
+    var currentDate = new Date();
     var transaction = new Transaction({
-      seller: user._id,
+      buyer: user._id,
       item: req.body.itemid,
       quantity: req.body.quantity,
       ship_address: req.body.ship_address,
       credit_card_number: req.body.credit_card_number,
       cvv: req.body.cvv,
-      expiry_date: req.body.expiry_date
+      expiry_date: req.body.expiry_date,
+      purchase_date: currentDate
     });
     req.getValidationResult().then(function(result) {
       var errors = result.array();
       if (errors.length > 0) {
-        Category.find({}, 'name')
-        .exec(function(err, categories) {
-          if (err) {
-            return next(err);
-          }
-          res.render('transaction_result', { title: 'you placed your order'})
-        });
+        res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+        return;
       } else {
         transaction.save(function(err) {
           if (err) {
             throw err;
             next(err);
           }
-          res.redirect(item.url);
+          else{
+            res.render('transaction_result', { title: 'Successful' });
+          }
         });
       }
     });
