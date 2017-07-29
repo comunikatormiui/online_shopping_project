@@ -17,7 +17,7 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
       li.nav-item
         form.form-inline(method='GET' action='/items/search')
           div.input-group
-            input.form-control(type='text' placeholder='Search' name='keyword' value=(keyword===undefined ? '' : keyword))
+            input.form-control(type='text' placeholder='Search' name='keyword' value=(keyword===undefined ? '' : keyword) required='true')
             span.input-group-btn
               button.btn.btn-secondary(type='submit')
                 i.fa.fa-search(aria-hidden='true')
