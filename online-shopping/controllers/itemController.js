@@ -4,7 +4,8 @@ var Category = require('../models/category');
 var async = require('async');
 
 exports.item_list = function(req, res, next) {
-  Item.find({}, 'name seller')
+  Item.find({}, 'name seller category price')
+  .populate('category')
   .exec(function (err, list_items) {
     if (err) { return next(err); }
     res.render('item_list', { title: 'Item Directory', item_list: list_items });
@@ -40,7 +41,7 @@ exports.item_create_get = function(req, res, next) {
   .sort({ name: 'ascending' })
   .exec(function(err, categories) {
     if (err) { next(err); }
-    res.render('item_form', { title: 'Create New Item', category_list: categories });
+    res.render('item_form', { title: 'New item', category_list: categories });
   });
 };
 

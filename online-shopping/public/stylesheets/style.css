@@ -33,6 +33,63 @@ input {
 	margin: 5px;
 }
 
+/* Item List */
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item-list li {
+  overflow: hidden;
+  padding: 1em 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.item-list img {
+  margin-right: 1em;
+  max-width: 100%;
+  height: auto;
+}
+
+.item-list .name {
+  display: block;
+  word-wrap: break-word;   /*start new line*/
+}
+
+.item-list .seller {
+  display: block;
+}
+
+.item-list .category {
+  display: block;
+}
+
+.item-list .price {
+  float: right;
+  margin-top: 0;
+}
+
+.item-list .rating {
+  display: block;
+  margin-top: 1em;
+}
+
+@media (max-width: 576px) {
+
+  .item-list .price {
+    float: none;
+    margin-top: 1em;
+    display: block;
+  }
+
+  .item-list .detail {
+    margin-top: 1em;
+    text-align: center;
+  }
+}
+
+
 /* Category List */
 
 .cat-list {
