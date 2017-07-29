@@ -32,3 +32,38 @@ input {
 	color: red;
 	margin: 5px;
 }
+
+/* Category List */
+
+.cat-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cat-list li {
+  padding: 0.5em;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.cat-list li:nth-child(odd) {
+  border-right: 1px solid #d3d3d3;
+}
+
+.cat-list li:first-child, .cat-list li:nth-child(2) {
+  border-top: 1px solid #d3d3d3;
+}
+
+@media (max-width: 576px) {
+  .cat-list li:nth-child(2) {
+    border-top: 0;
+  }
+  .cat-list li:nth-child(odd) {
+    border-right: 0;
+  }
+}
+
+/* Heading */
+
+h3 {
+  display: inline-block;
+}
