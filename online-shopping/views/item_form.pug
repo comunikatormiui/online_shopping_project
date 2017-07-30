@@ -46,16 +46,12 @@ block content
 
         div.form-group
           label(for='long') Longitude:
-<<<<<<< HEAD
-            input#lng.form-control(type='text' name='lng' value=(undefined===item ? '-122.1' : item.lng) require='true')
-=======
-            input#long.form-control(type='text' name='long' value=(undefined===item ? '-122.1' : item.long) require='true')
-        
+          input#lng.form-control(type='text' name='lng' value=(undefined===item ? '-122.1' : item.lng) require='true')
+
         input(type='file', name='imageupload')
         input(type='submit', name='uploadimage', value='Upload Image')
         br
         br
->>>>>>> e3ae12037dca81229860f4cb127c7795a668661b
 
         button.btn.btn-primary(type='submit') Submit
         a.btn.btn-secondary.float-right(href='/items') Cancel

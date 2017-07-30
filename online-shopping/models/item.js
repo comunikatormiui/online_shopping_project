@@ -10,12 +10,8 @@ var ItemSchema = Schema({
   seller: { type: String, required: true }, // will change from string to object later
   price: { type: Number, required: true },
   lat: { type: Number, required: true },
-<<<<<<< HEAD
-  lng: { type: Number, required: true}
-=======
-  long: { type: Number, required: true},
-  image: { type: String }
->>>>>>> e3ae12037dca81229860f4cb127c7795a668661b
+  lng: { type: Number, required: true},
+  image: { type: String, required: true }
 });
 
 ItemSchema
