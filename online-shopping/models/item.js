@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 
 var Schema = mongoose.Schema;
 
@@ -15,5 +16,7 @@ ItemSchema
 .get(function() {
   return '/items/' + this._id;
 });
+
+ItemSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Item', ItemSchema);
