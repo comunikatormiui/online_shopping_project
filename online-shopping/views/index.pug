@@ -1,8 +1,33 @@
 extends layout
 
 block content
+  link(rel='stylesheet', href='/stylesheets/index.css')
+  script(src='js/index.js')
   h1= title
   p Welcome to #{title}
 
+  #content-index
+  div(data-ride='carousel', data-interval='5000').carousel.slide#carousel-featured
+    ol.carousel-indicators
+      li(data-target='#carousel-featured', data-slide-to='0').active
+      li(data-target='#carousel-featured', data-slide-to='1')
+    .carousel-inner
+      .item.active
+        .container
+          .item-inner
+            .item-content
+              .row
+                .col-md-3
+                  img(src='/uploads/TheWar.jpg').img-circle
+      .item
+        .container
+          .item-inner
+            .item-content
+              .row
+                .col-md-3
+                  img(src='/uploads/GoPro.jpg').img-circle
+    a(role='button', data-slide='prev', href='#carousel-featured').carousel-control.left
+      span.glyphicon.glyphicon-chevron-left
+    a(role='button', data-slide='next', href='#carousel-featured').carousel-control.right
+      span.glyphicon.glyphicon-chevron-right
 
-  
