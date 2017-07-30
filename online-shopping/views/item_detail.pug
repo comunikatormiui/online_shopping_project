@@ -23,6 +23,11 @@ block content
     });
     }
 
+  if item.image
+    img(src=item.imageUrl)
+
+  br
+  br
   a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
 
   form(method='POST' action=item.url+'/delete')
