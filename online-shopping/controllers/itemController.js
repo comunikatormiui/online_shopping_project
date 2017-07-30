@@ -66,8 +66,8 @@ exports.item_create_post = function(req, res, next) {
   req.filter('seller').trim();
 
   //res.send(req.files);
-  var path = req.files[0].path;
-  var imageName = req.files[0].originalname;
+  //var path = req.files[0].path;
+  //var imageName = req.files[0].originalname;
 
   /*var imagepath = {}; //imagepath contains two objects, path and the imageName
   imagepath['path'] = path;
@@ -79,7 +79,7 @@ exports.item_create_post = function(req, res, next) {
     category: req.body.category,
     description: req.body.description,
     seller: req.body.seller,
-    image : imageName
+    image : req.files[0].originalname
   });
 
   req.getValidationResult().then(function(result) {
@@ -137,9 +137,9 @@ exports.item_update_post = function(req, res, next) {
   req.filter('seller').escape();
   req.filter('seller').trim();
 
-  res.send(req.files);
-  var path = req.files[0].path;
-  var imageName = req.files[0].originalname;
+  //res.send(req.files);
+  //var path = req.files[0].path;
+  //var imageName = req.files[0].originalname;
 
   var item = new Item({
     name: req.body.name,
@@ -147,7 +147,7 @@ exports.item_update_post = function(req, res, next) {
     category: req.body.category,
     description: req.body.description,
     seller: req.body.seller,
-    image: imageName,
+    image: req.files[0].originalname,
     _id: req.params.id
   });
 

@@ -9,6 +9,12 @@ block content
   if item.description
     p #[strong Description:] #{item.description}
 
+  if item.image
+    img(src=item.imageUrl)
+    p #{item.imageUrl}
+
+  br
+  br
   a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
   
   form(method='POST' action=item.url+'/delete')

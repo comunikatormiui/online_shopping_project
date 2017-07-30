@@ -25,6 +25,7 @@ function categoryCreate(name, cb) {
 }
 
 function itemCreate(name, category, description, seller, price, image, cb) {
+   //res.send(req.files);
   var item = new Item({
     name: name,
     category: category,
@@ -95,7 +96,9 @@ function createCategories(cb) {
 function createItems(cb) {
   async.parallel([
     function(callback) {
-      itemCreate('Sapiens: A Brief History of Humankind', categories[0], '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', 'Yuval Noah Harari', 14.85, callback);
+      itemCreate('Sapiens: A Brief History of Humankind', categories[0], 
+        '100,000 years ago, at least six species of human inhabited the earth. 
+        Today there is just one. Us.Homo Sapiens.', 'Yuval Noah Harari', 14.85, sapiens.png, callback);
     },
     function(callback) {
       itemCreate('To The Bone', categories[1], 'Pre-order now.', 'Steven Wilson', 15.25, callback);

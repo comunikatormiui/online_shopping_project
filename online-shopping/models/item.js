@@ -23,4 +23,10 @@ ItemSchema
   return '/uploads/' + this.image;
 });
 
+ItemSchema
+.virtual('lalala')
+.get(function(){
+	return this.image;
+})
+
 module.exports = mongoose.model('Item', ItemSchema);
