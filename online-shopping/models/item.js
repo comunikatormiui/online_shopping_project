@@ -8,7 +8,8 @@ var ItemSchema = Schema({
   description: { type: String },
   seller: { type: String, required: true }, // will change from string to object later
   price: { type: Number, required: true },
-  gpsLocation: { type: String }
+  lat: { type: Number, required: true },
+  long: { type: Number, required: true}
 });
 
 ItemSchema

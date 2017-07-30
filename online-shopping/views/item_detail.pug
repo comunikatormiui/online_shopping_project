@@ -8,12 +8,24 @@ block content
   p #[strong Sold by:] #{item.seller}
   if item.description
     p #[strong Description:] #{item.description}
+  p Item Location
+  #map
+  script.
+    function initMap() {
+    var uluru = {lat:#{item.lat}, lng:#{item.long}};
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: uluru
+    });
+    var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+    });
+    }
 
   a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
-  
+
   form(method='POST' action=item.url+'/delete')
       div.form-group
         input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
       button.btn.btn-danger(type='submit') Delete
-  
-  

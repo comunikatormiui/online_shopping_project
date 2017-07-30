@@ -50,6 +50,10 @@ exports.item_create_post = function(req, res, next) {
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
   req.checkBody('category', 'Category must be specified').notEmpty();
   req.checkBody('seller', 'Seller must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
+  req.checkBody('long', 'Longitude must be specified').notEmpty();
+  req.checkBody('long', 'Longitude: only floating-point number is allowed').isFloat();
 
   req.filter('name').escape();
   req.filter('name').trim();
@@ -61,13 +65,19 @@ exports.item_create_post = function(req, res, next) {
   req.filter('description').trim();
   req.filter('seller').escape();
   req.filter('seller').trim();
+  req.filter('lat').escape();
+  req.filter('lat').trim();
+  req.filter('long').escape();
+  req.filter('long').trim();
 
   var item = new Item({
     name: req.body.name,
     price: req.body.price,
     category: req.body.category,
     description: req.body.description,
-    seller: req.body.seller
+    seller: req.body.seller,
+    lat: req.body.lat,
+    long: req.body.long
   });
 
   req.getValidationResult().then(function(result) {
@@ -113,6 +123,10 @@ exports.item_update_post = function(req, res, next) {
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
   req.checkBody('category', 'Category must be specified').notEmpty();
   req.checkBody('seller', 'Seller must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
+  req.checkBody('long', 'Longitude must be specified').notEmpty();
+  req.checkBody('long', 'Longitude: only floating-point number is allowed').isFloat();
 
   req.filter('name').escape();
   req.filter('name').trim();
@@ -124,6 +138,10 @@ exports.item_update_post = function(req, res, next) {
   req.filter('description').trim();
   req.filter('seller').escape();
   req.filter('seller').trim();
+  req.filter('lat').escape();
+  req.filter('lat').trim();
+  req.filter('long').escape();
+  req.filter('long').trim();
 
   var item = new Item({
     name: req.body.name,
@@ -131,7 +149,9 @@ exports.item_update_post = function(req, res, next) {
     category: req.body.category,
     description: req.body.description,
     seller: req.body.seller,
-    _id: req.params.id
+    _id: req.params.id,
+    lat: req.body.lat,
+    long: req.body.long
   });
 
   req.getValidationResult().then(function(result) {
