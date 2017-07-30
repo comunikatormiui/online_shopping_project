@@ -1,10 +1,7 @@
 extends layout
 block content
-<<<<<<< HEAD
     p Item's Near You:
-=======
     h1 Welcome to our shopping site
-    
     p.center SFU Trade Center
     div.container
       div#myCarousel.carousel.slide(data-ride='carousel')
@@ -25,13 +22,12 @@ block content
 
         a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
           span.glyphicon.glyphicon-chevron-left
-          span(sr-only='true') 
+          span(sr-only='true')
         a.right.carousel-control(href='#myCarousel', role='button',data-slide='next')
           span.glyphicon.glyphicon-chevron-right
-          span(sr-only='true') 
-    
+          span(sr-only='true')
+
     p Somewhere in Austrialia.... Dingo ate my baby!
->>>>>>> e3ae12037dca81229860f4cb127c7795a668661b
     #map
     script.
       function initMap() {
@@ -46,24 +42,3 @@ block content
       });
       }
     script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
-
-
-    // Try to get the user's location
-    script.
-      if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-      };
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
-      infoWindow.open(map);
-      map.setCenter(pos);
-      }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-      });
-      } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-      }
