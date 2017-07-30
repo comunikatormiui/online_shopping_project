@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
 }
 
 nav {
@@ -32,3 +33,11 @@ input {
 	color: red;
 	margin: 5px;
 }
+
+.center {
+    text-align: center;
+    border: 3px solid green;
+	font: 40px Arial, sans-serif;
+	color:blue;
+}
+

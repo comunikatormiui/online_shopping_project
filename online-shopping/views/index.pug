@@ -1,33 +1,30 @@
 extends layout
 
 block content
-  link(rel='stylesheet', href='/stylesheets/index.css')
-  script(src='js/index.js')
-  h1= title
-  p Welcome to #{title}
+    br
+    br
+    p.center SFU Trade Center
+    div.container
+      div#myCarousel.carousel.slide(data-ride='carousel')
+        ol.carousel-indicators
+          li(data-target='#myCarousel', data-slide-to='0', class='active')
+          li(data-target='#myCarousel', data-slide-to='1')
+          li(data-target='#myCarousel', data-slide-to='2')
 
-  #content-index
-  div(data-ride='carousel', data-interval='5000').carousel.slide#carousel-featured
-    ol.carousel-indicators
-      li(data-target='#carousel-featured', data-slide-to='0').active
-      li(data-target='#carousel-featured', data-slide-to='1')
-    .carousel-inner
-      .item.active
-        .container
-          .item-inner
-            .item-content
-              .row
-                .col-md-3
-                  img(src='/uploads/TheWar.jpg').img-circle
-      .item
-        .container
-          .item-inner
-            .item-content
-              .row
-                .col-md-3
-                  img(src='/uploads/GoPro.jpg').img-circle
-    a(role='button', data-slide='prev', href='#carousel-featured').carousel-control.left
-      span.glyphicon.glyphicon-chevron-left
-    a(role='button', data-slide='next', href='#carousel-featured').carousel-control.right
-      span.glyphicon.glyphicon-chevron-right
+        div.carousel-inner(role='listbox')
+          div.item.active
+            img(src='uploads/TheWar.jpg')
+            div.carousel-caption
+              h3 EXO KoKoBop is coming!
+          div.item
+            img(src='uploads/GoPro.jpg')
+          div.item
+            img(src='uploads/toTheBone.jpg')
 
+        a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+          span.glyphicon.glyphicon-chevron-left
+          span(sr-only='true') 
+        a.right.carousel-control(href='#myCarousel', role='button',data-slide='next')
+          span.glyphicon.glyphicon-chevron-right
+          span(sr-only='true') 
+    
