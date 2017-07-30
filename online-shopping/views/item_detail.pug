@@ -24,6 +24,11 @@ block content
     }
   script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
 
+  if item.image
+    img(src=item.imageUrl)
+
+  br
+  br
   a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
 
   form(method='POST' action=item.url+'/delete')

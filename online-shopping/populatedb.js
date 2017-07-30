@@ -24,16 +24,25 @@ function categoryCreate(name, cb) {
   });
 }
 
+<<<<<<< HEAD
 function itemCreate(name, category, description, seller, price, lat, lng, cb) {
+=======
+function itemCreate(name, category, description, seller, price, image, cb) {
+   //res.send(req.files);
+>>>>>>> e3ae12037dca81229860f4cb127c7795a668661b
   var item = new Item({
     name: name,
     category: category,
     description: description,
     seller: seller,
     price: price,
+<<<<<<< HEAD
     lat: lat,
     lng: lng
 
+=======
+    image: image
+>>>>>>> e3ae12037dca81229860f4cb127c7795a668661b
   });
   item.save(function (err) {
     if (err) {
@@ -94,12 +103,13 @@ function createCategories(cb) {
   cb);
 }
 // 0 - Books, 1 - Music, 2 - Movies, 3 - Electronics, 4 - Software, 5 - Video games, 6 - Home
-// 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive, 13 - Other
-// name, category, description, seller, price, cb
+// 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive
+// name, category, description, seller, price, image, cb
 
 function createItems(cb) {
   async.parallel([
     function(callback) {
+<<<<<<< HEAD
       itemCreate('Sapiens: A Brief History of Humankind', categories[0], '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us. Homo Sapiens.', 'Yuval Noah Harari', 14.85, 49.286787, -122.932259, callback);
     },
     function(callback) {
@@ -117,9 +127,34 @@ function createItems(cb) {
     function(callback) {
       itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', 'Amazon', 9.99, 49.336787, -122.732259, callback);
     }
+=======
+      itemCreate('The War (4th Album) [KOREAN / Private ver.]', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', 'EXO',48.70,'TheWar.jpg', callback);
+    },
+    function(callback) {
+      itemCreate('Sapiens: A Brief History of Humankind', categories[0],
+        '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', 'Yuval Noah Harari', 14.85, 'sapiens.png', callback);
+    },
+    function(callback) {
+      itemCreate('To The Bone', categories[1], 'Pre-order now.', 'Steven Wilson', 15.25, 'toTheBone.jpg', callback);
+    },
+    function(callback) {
+      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', 'GoPro', 529.99, 'GoPro.jpg',callback);
+    },
+    function(callback) {
+      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', 'SODIAL(R)', 20, 'OfficeChairArmrest.jpg',callback);
+    },
+    function(callback) {
+      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', 'Kaspersky', 34.99, 'KasperskyInternetSecurity2017.jpg',callback);
+    },
+    function(callback) {
+      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', 'Amazon', 9.99,'AmericanDad-Volume4.jpg', callback);
+    },
+>>>>>>> e3ae12037dca81229860f4cb127c7795a668661b
   ],
   cb);
 }
+  Item.collection.drop();
+  Category.collection.drop();
 
 Item.collection.drop();
 Category.collection.drop();

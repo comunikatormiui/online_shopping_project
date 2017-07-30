@@ -1,6 +1,37 @@
 extends layout
 block content
+<<<<<<< HEAD
     p Item's Near You:
+=======
+    h1 Welcome to our shopping site
+    
+    p.center SFU Trade Center
+    div.container
+      div#myCarousel.carousel.slide(data-ride='carousel')
+        ol.carousel-indicators
+          li(data-target='#myCarousel', data-slide-to='0', class='active')
+          li(data-target='#myCarousel', data-slide-to='1')
+          li(data-target='#myCarousel', data-slide-to='2')
+
+        div.carousel-inner(role='listbox')
+          div.item.active
+            img(src='uploads/TheWar.jpg')
+            div.carousel-caption
+              h3 EXO KoKoBop is coming!
+          div.item
+            img(src='uploads/GoPro.jpg')
+          div.item
+            img(src='uploads/toTheBone.jpg')
+
+        a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+          span.glyphicon.glyphicon-chevron-left
+          span(sr-only='true') 
+        a.right.carousel-control(href='#myCarousel', role='button',data-slide='next')
+          span.glyphicon.glyphicon-chevron-right
+          span(sr-only='true') 
+    
+    p Somewhere in Austrialia.... Dingo ate my baby!
+>>>>>>> e3ae12037dca81229860f4cb127c7795a668661b
     #map
     script.
       function initMap() {

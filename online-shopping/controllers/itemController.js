@@ -1,9 +1,12 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
 var paginate = require('express-paginate');
+var multer = require('multer');
 
 
 var async = require('async');
+
+
 
 exports.item_list = function(req, res, next) {
   var page = req.query.page ? req.query.page : 1;
@@ -80,6 +83,14 @@ exports.item_create_post = function(req, res, next) {
   req.filter('lng').escape();
   req.filter('lng').trim();
 
+  //res.send(req.files);
+  //var path = req.files[0].path;
+  //var imageName = req.files[0].originalname;
+
+  /*var imagepath = {}; //imagepath contains two objects, path and the imageName
+  imagepath['path'] = path;
+  imagepath['originalname'] = imageName;*/
+
   var item = new Item({
     name: req.body.name,
     price: req.body.price,
@@ -87,7 +98,8 @@ exports.item_create_post = function(req, res, next) {
     description: req.body.description,
     seller: req.body.seller,
     lat: req.body.lat,
-    long: req.body.long
+    long: req.body.long,
+    image : req.files[0].originalname
   });
 
   req.getValidationResult().then(function(result) {
@@ -153,15 +165,20 @@ exports.item_update_post = function(req, res, next) {
   req.filter('lng').escape();
   req.filter('lng').trim();
 
+  //res.send(req.files);
+  //var path = req.files[0].path;
+  //var imageName = req.files[0].originalname;
+
   var item = new Item({
     name: req.body.name,
     price: req.body.price,
     category: req.body.category,
     description: req.body.description,
     seller: req.body.seller,
-    _id: req.params.id,
     lat: req.body.lat,
-    long: req.body.long
+    long: req.body.long,
+    image: req.files[0].originalname,
+    _id: req.params.id
   });
 
   req.getValidationResult().then(function(result) {
