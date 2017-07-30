@@ -18,7 +18,7 @@ function categoryCreate(name, cb) {
       cb(err, null);
       return;
     }
-    console.log('New category: ' + category);
+    // console.log('New category: ' + category);
     categories.push(category);
     cb(null, category);
   });
@@ -37,14 +37,14 @@ function itemCreate(name, category, description, seller, price, cb) {
       cb(err, null);
       return;
     }
-    console.log('New item: ' + item);
+    // console.log('New item: ' + item);
     items.push(item);
     cb(null, item);
   });
 }
 
 function createCategories(cb) {
-  async.parallel([
+  async.series([
     function(callback) {
       categoryCreate('Books', callback); // 0
     },
@@ -83,12 +83,15 @@ function createCategories(cb) {
     },
     function(callback) {
       categoryCreate('Automotive & Industrial', callback); // 12
+    },
+    function(callback) {
+      categoryCreate('Other', callback); // 13
     }
   ],
   cb);
 }
 // 0 - Books, 1 - Music, 2 - Movies, 3 - Electronics, 4 - Software, 5 - Video games, 6 - Home
-// 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive
+// 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive, 13 - Other
 // name, category, description, seller, price, cb
 
 function createItems(cb) {
