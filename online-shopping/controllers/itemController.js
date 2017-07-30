@@ -62,8 +62,8 @@ exports.item_create_post = function(req, res, next) {
   req.checkBody('seller', 'Seller must be specified').notEmpty();
   req.checkBody('lat', 'Latitude must be specified').notEmpty();
   req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
-  req.checkBody('long', 'Longitude must be specified').notEmpty();
-  req.checkBody('long', 'Longitude: only floating-point number is allowed').isFloat();
+  req.checkBody('lng', 'Longitude must be specified').notEmpty();
+  req.checkBody('lng', 'Longitude: only floating-point number is allowed').isFloat();
 
   req.filter('name').escape();
   req.filter('name').trim();
@@ -77,8 +77,8 @@ exports.item_create_post = function(req, res, next) {
   req.filter('seller').trim();
   req.filter('lat').escape();
   req.filter('lat').trim();
-  req.filter('long').escape();
-  req.filter('long').trim();
+  req.filter('lng').escape();
+  req.filter('lng').trim();
 
   var item = new Item({
     name: req.body.name,
@@ -135,8 +135,8 @@ exports.item_update_post = function(req, res, next) {
   req.checkBody('seller', 'Seller must be specified').notEmpty();
   req.checkBody('lat', 'Latitude must be specified').notEmpty();
   req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
-  req.checkBody('long', 'Longitude must be specified').notEmpty();
-  req.checkBody('long', 'Longitude: only floating-point number is allowed').isFloat();
+  req.checkBody('lng', 'Longitude must be specified').notEmpty();
+  req.checkBody('lng', 'Longitude: only floating-point number is allowed').isFloat();
 
   req.filter('name').escape();
   req.filter('name').trim();
@@ -150,8 +150,8 @@ exports.item_update_post = function(req, res, next) {
   req.filter('seller').trim();
   req.filter('lat').escape();
   req.filter('lat').trim();
-  req.filter('long').escape();
-  req.filter('long').trim();
+  req.filter('lng').escape();
+  req.filter('lng').trim();
 
   var item = new Item({
     name: req.body.name,

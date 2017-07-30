@@ -12,7 +12,7 @@ block content
   #map
   script.
     function initMap() {
-    var uluru = {lat:#{item.lat}, lng:#{item.long}};
+    var uluru = {lat:#{item.lat}, lng:#{item.lng}};
     var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: uluru
@@ -22,6 +22,7 @@ block content
     map: map
     });
     }
+  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
 
   a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
 

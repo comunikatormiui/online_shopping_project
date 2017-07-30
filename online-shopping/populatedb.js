@@ -24,13 +24,16 @@ function categoryCreate(name, cb) {
   });
 }
 
-function itemCreate(name, category, description, seller, price, cb) {
+function itemCreate(name, category, description, seller, price, lat, lng, cb) {
   var item = new Item({
     name: name,
     category: category,
     description: description,
     seller: seller,
-    price: price
+    price: price,
+    lat: lat,
+    lng: lng
+
   });
   item.save(function (err) {
     if (err) {
@@ -97,22 +100,22 @@ function createCategories(cb) {
 function createItems(cb) {
   async.parallel([
     function(callback) {
-      itemCreate('Sapiens: A Brief History of Humankind', categories[0], '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', 'Yuval Noah Harari', 14.85, callback);
+      itemCreate('Sapiens: A Brief History of Humankind', categories[0], '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us. Homo Sapiens.', 'Yuval Noah Harari', 14.85, 49.286787, -122.932259, callback);
     },
     function(callback) {
-      itemCreate('To The Bone', categories[1], 'Pre-order now.', 'Steven Wilson', 15.25, callback);
+      itemCreate('To The Bone', categories[1], 'Pre-order now.', 'Steven Wilson', 15.25, 49.25287, -122.54259, callback);
     },
     function(callback) {
-      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', 'GoPro', 529.99, callback);
+      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', 'GoPro', 529.99, 49.21287, -122.55659, callback);
     },
     function(callback) {
-      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', 'SODIAL(R)', 20, callback);
+      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', 'SODIAL(R)', 20, 49.24287, -122.16659, callback);
     },
     function(callback) {
-      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', 'Kaspersky', 34.99, callback);
+      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', 'Kaspersky', 34.99, 49.116787, -122.82259, callback);
     },
     function(callback) {
-      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', 'Amazon', 9.99, callback);
+      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', 'Amazon', 9.99, 49.336787, -122.732259, callback);
     }
   ],
   cb);
