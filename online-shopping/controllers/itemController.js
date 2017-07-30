@@ -1,13 +1,23 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
+var paginate = require('express-paginate');
+
 
 var async = require('async');
 
 exports.item_list = function(req, res, next) {
-  Item.find({}, 'name seller')
-  .exec(function (err, list_items) {
-    if (err) { return next(err); }
-    res.render('item_list', { title: 'Item Directory', item_list: list_items });
+  var page = req.query.page ? req.query.page : 1;
+  var limit = 5;
+  Item.paginate({}, { page: page, limit: limit })
+  .then(function(items) {
+    res.render('item_list', {
+      title: 'Item Directory',
+      item_list: items.docs,
+      pageCount: items.pages,
+      itemCount: items.limit,
+      pages: paginate.getArrayPages(req)(3, items.pages, page),
+      currentPage: page
+    });
   });
 };
 
@@ -40,7 +50,7 @@ exports.item_create_get = function(req, res, next) {
   .sort({ name: 'ascending' })
   .exec(function(err, categories) {
     if (err) { next(err); }
-    res.render('item_form', { title: 'Create New Item', category_list: categories });
+    res.render('item_form', { title: 'New item', category_list: categories });
   });
 };
 

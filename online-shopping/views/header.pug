@@ -13,11 +13,15 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
       li.nav-item
         a.nav-link(href="http://localhost:9001") Chat
       li.nav-item
-        a.nav-link(href='#') Forums
-
-    form.form-inline(method='GET' action='/items/search')
-      input.form-control.mr-sm-2(type='text' placeholder='Search' name='keyword' value=(keyword===undefined ? '' : keyword))
-      button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+        a.nav-link.mr-5(href='#') Forums
+      li.nav-item
+        form.form-inline(method='GET' action='/items/search')
+          div.input-group
+            input.form-control(type='text' placeholder='Search' name='keyword' value=(keyword===undefined ? '' : keyword) required='true')
+            span.input-group-btn
+              button.btn.btn-secondary(type='submit')
+                i.fa.fa-search(aria-hidden='true')
+    
 
     ul.navbar-nav
       if login

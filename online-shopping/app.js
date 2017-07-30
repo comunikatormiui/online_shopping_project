@@ -9,6 +9,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session  = require('express-session');
 var User = require('./models/user'); //---------------------
+var paginate = require('express-paginate');
 
 require('./controllers/passport')(passport, User);
 
@@ -30,9 +31,10 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator());
 app.use(cookieParser());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(paginate.middleware(10, 10));
 
 //authentication
 app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
