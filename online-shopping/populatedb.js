@@ -115,6 +115,9 @@ function createItems(cb) {
   cb);
 }
 
+Item.collection.drop();
+Category.collection.drop();
+
 async.series([
   createCategories,
   createItems
