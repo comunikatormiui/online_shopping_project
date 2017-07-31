@@ -52,3 +52,11 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
   background: #FFF
 }
+
+.error {
+  color: red;
+}
+
+.message {
+  color: green;
+}

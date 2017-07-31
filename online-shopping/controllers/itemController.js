@@ -2,6 +2,7 @@ var Item = require('../models/item');
 var Category = require('../models/category');
 var User = require('../models/user');
 var Transaction = require('../models/transaction');
+var Review = require('../models/review');
 var util = require('util');
 
 var async = require('async');
@@ -259,4 +260,59 @@ exports.item_buy_post = function(req, res, next) {
       }
     });
   });
-};
+}
+
+  exports.item_review_post = function(req, res, next) {
+    req.checkBody('item', 'Item name must be specified').notEmpty();
+    req.checkBody('rating', 'rating must be specified').notEmpty().isInt();
+
+
+    req.filter('item').escape();
+    req.filter('item').trim();
+    req.filter('review').escape();
+    req.filter('review').trim();
+    req.filter('rating').escape();
+    req.filter('rating').trim();
+
+    User.findOne({'local.email': req.user.local.email}, function(err, user){
+      if(err){
+        throw err;
+      }
+      if(!user){
+        console.log('Invalid email received: ' + req.user.local.email);
+        next(err);
+      }
+      var itemID = req.params.id;
+      Item.findById(itemID)
+      .populate('seller')
+      .exec(function (err, item) {
+        if (err) { return next(err); }
+        if (req.user != null && item.seller.local.email == req.user.local.email){
+          //res.render('item_detail', { title: item.name, item: item, user : 'seller',
+          //                            error : 'Seller cannot rate his/her own item.'});
+          res.redirect(item.url);
+          return;
+        }
+        var review = new Review({
+          item: itemID,
+          reviewer: user._id,
+          review: req.body.review,
+          rating: req.body.rating,
+        });
+
+        Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
+          {upsert:true}, function(err, review){
+            if(err){
+              //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
+              //                            error : 'Failed to add your review. Please try again.'});
+              res.redirect(item.url);
+            }
+            else {
+              //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
+              //                            message: "Thanks for providing your feedback."});
+              res.redirect(item.url);
+            }
+        });
+    });
+  });
+}
