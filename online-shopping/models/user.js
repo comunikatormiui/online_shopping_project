@@ -7,7 +7,7 @@ var userSchema = mongoose.Schema({
         fname           : {type: String, required: true, max: 100},
         lname           : {type: String, required: true, max: 100},
         password     	: {type: String, required: true },
-        date_of_birth   : {type: Date},
+        dateOfBirth   : {type: Date},
         address			: {type: String},
         cell_phone 		: {type: String},
         gender          : {type: String, enum: ['Male', 'Female']},

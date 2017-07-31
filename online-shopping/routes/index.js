@@ -50,7 +50,7 @@ router_export = function(router, passport, User){
 	    	{
 	        	'local.fname': req.body.fname,
 	        	'local.lname': req.body.lname ,
-	        	'local.date_of_birth': req.body.date_of_birth,
+	        	'local.dateOfBirth': req.body.dateOfBirth,
 	        	'local.address': req.body.address,
 						'local.gender': req.body.gender,
 	        	'local.cell_phone': req.body.cell_phone,
