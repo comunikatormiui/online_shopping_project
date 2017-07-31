@@ -101,7 +101,7 @@ exports.item_create_post = function(req, res, next) {
     description: req.body.description,
     seller: req.body.seller,
     lat: req.body.lat,
-    lng: req.body.long,
+    lng: req.body.lng,
     image : imageName
   });
 
@@ -179,7 +179,7 @@ exports.item_update_post = function(req, res, next) {
     description: req.body.description,
     seller: req.body.seller,
     lat: req.body.lat,
-    long: req.body.long,
+    lng: req.body.lng,
     image: req.files[0].originalname,
     _id: req.params.id
   });

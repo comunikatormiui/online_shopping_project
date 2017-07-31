@@ -2,13 +2,14 @@ extends layout
 block content
   br
   div.container
-    h1 Welcome to our shopping site
-    p.center-text SFU Trade Center
+    h1.center-text SFU Trade Center
+    p Welcome to our shopping site
 
     div.carouselframe
-      p.dailyDeals Daily Deals 
-      a.seeItemDetail(href='/items') See All
       div#myCarousel.carousel.slide(data-ride='carousel')
+        div.carousel-outer
+          p.dailyDeals Daily Deals 
+          a.seeItemDetail(href='/items') See All
         ol.carousel-indicators
           li(data-target='#myCarousel', data-slide-to='0', class='active')
           li(data-target='#myCarousel', data-slide-to='1')
