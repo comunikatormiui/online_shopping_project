@@ -6,6 +6,7 @@ var util = require('util');
 var paginate = require('express-paginate');
 var multer = require('multer');
 
+
 var async = require('async');
 
 
@@ -263,9 +264,10 @@ exports.item_update_post = function(req, res, next) {
   req.filter('lng').escape();
   req.filter('lng').trim();
 
-  //res.send(req.files);
-  //var path = req.files[0].path;
-  //var imageName = req.files[0].originalname;
+  if (req.files[0])
+    var imageName = req.files[0].originalname;
+  else
+    var imageName = 'question-mark.svg';
 
   var item = new Item({
     name: req.body.name,
@@ -275,7 +277,7 @@ exports.item_update_post = function(req, res, next) {
     seller: req.body.seller,
     lat: req.body.lat,
     lng: req.body.lng,
-    image: req.files[0].originalname,
+    image: imageName,
     _id: req.params.id
   });
 
