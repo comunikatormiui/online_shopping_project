@@ -3,11 +3,14 @@ body {
 }
 
 nav {
+  padding-top: 40px;
   margin-bottom: 1em;
+  display: block;
 }
 
 a {
   color: #00B7FF;
+  display: block;
 }
 
 input {
@@ -31,4 +34,10 @@ input {
 .error {
 	color: red;
 	margin: 5px;
+}
+
+
+.card-deck {
+  display: inline-flex;
+  flex-wrap: nowrap;
 }

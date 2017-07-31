@@ -1,6 +1,7 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
 
+
 var async = require('async');
 
 exports.item_list = function(req, res, next) {
@@ -10,6 +11,15 @@ exports.item_list = function(req, res, next) {
     res.render('item_list', { title: 'Item Directory', item_list: list_items });
   });
 };
+
+exports.wishlist = function(req, res, next) {
+  Item.find({}, 'name seller')
+  .exec(function (err, list_items) {
+    if (err) { return next(err); }
+    res.render('wishlist', { title: 'wishlist', wishlist: list_items });
+  });
+};
+
 
 exports.item_search = function(req, res, next) {
   req.sanitizeQuery('keyword').escape();
