@@ -2,9 +2,16 @@ extends layout
 block content
   br
   div.container
-    h1.center-text SFU Trade Center
-    p Welcome to our shopping site
-
+    h1 SFU Trade Center
+    p.titlep Welcome to our shopping site
+    div.shopByDepartment.dropdown
+      a.btn.btn-secondary.dropdown-toggle(id='dropdownMenuLink', href='#', data-toggle='dropdown', aria-haspopup='false', aria-expanded='false') Shop by Department
+      div.dropdown-menu.dropdown-menu-right(aria-labelledby='dropdownMenuLink')
+        each cat in catListForHome
+          a.dropdown-item(href='/categories/'+cat._id) #{cat.name}
+    
+    br
+    br
     div.carouselframe
       div#myCarousel.carousel.slide(data-ride='carousel')
         div.carousel-outer

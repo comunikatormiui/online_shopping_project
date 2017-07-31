@@ -1,10 +1,14 @@
+var category_controller = require('../controllers/categoryController');
+
 router_export = function(router, passport, User){
 
 //request root directory and render Express Main Page
-	router.get('/', function(req, res, next) {
+	/*router.get('/', function(req, res, next) {
 		console.log('get /');
 	  res.render('index', { title: 'Our Shopping Page' });
-	});
+	});*/
+	router.get('/', category_controller.catListForHome);
+
 
 //request login and render login message
 	router.get('/login', function(req, res){
