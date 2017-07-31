@@ -7,30 +7,39 @@ block content
       div.form-group
         p#user_id Email:  #{user.local.email}
 
-      div.form-group
-        label(for='first_name') First Name:
       div.form-group.input
+        label(for='first_name') First Name:
         input#first_name.form-control(type='text', placeholder='First name (Christian) last' name='fname' required='true' value=(undefined===user ? 'undef' : user.local.fname) )
 
-      div.form-group
-        label(for='family_name') Family Name:
       div.form-group.input
+        label(for='family_name') Family Name:
         input#family_name.form-control(type='text', placeholder='Family name (surname)' name='lname' required='true' value=(undefined===user ? 'undef' : user.local.lname) )
 
-      div.form-group
-        label(for='date_of_birth') Date of birth:
       div.form-group.input
+        label(for='gender') Gender:
+        select#gender.form-control(type='select', placeholder='Select your Gender', name='gender' value=(undefined===user ? 'undef' : user.local.gender)) 
+          option(value='') 
+          option(value='Male') Male 
+          option(value='Female') Female        
+          
+      div.form-group.input
+        label(for='date_of_birth') Date of birth:
+        input#date_of_birth.form-control(type='date', placeholder='' name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
+
+      div.form-group.input
+        label(for='address') Address:
         input#date_of_birth.form-control(type='date', placeholder='' required='true' name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
 
-      div.form-group
-        label(for='address') Address:
-      div.form-group.input
-        input#address.form-control(type='text', placeholder='Country, Province, City', name='address', value=(undefined===user ? '' : user.local.address))
 
-      div.form-group
-        label(for='cell_phone') Cell phone:
       div.form-group.input
+        label(for='cell_phone') Cell phone:
         input#cell_phone.form-control(type='text', name='cell_phone', value=(undefined===user ? '' : user.local.cell_phone))
+
+
+      a.btn.btn-primary(href='/history') Transaction History
+
+      br
+      br
 
       button.btn.btn-primary(type='submit') Update
         if errors

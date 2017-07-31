@@ -1,0 +1,14 @@
+if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+  ul.pagination.justify-content-center
+    li.page-item(class= paginate.hasPreviousPages ? '' : 'disabled')
+      a.page-link(href=paginate.href(true))
+        i.fa.fa-chevron-left(aria-hidden='true')
+        |  &nbsp;Previous
+    if pages
+      each _page in pages
+        li.page-item(class= _page.number == page ? 'active' : '')
+          a.page-link(href=_page.url)= _page.number
+    li.page-item(class= paginate.hasNextPages(pageCount) ? '' : 'disabled')
+      a.page-link(href=paginate.href())
+        | Next &nbsp;
+        i.fa.fa-chevron-right(aria-hidden='true')

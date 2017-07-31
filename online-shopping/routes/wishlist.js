@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var item_controller = require('../controllers/itemController');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
- res.render('wishlist', { title: 'Wishlist' });
-});
+
+router.post('/:id/delete', item_controller.item_delete);
+router.get('/:id', item_controller.item_detail);
+router.get('/', item_controller.wishlist);
+
 
 module.exports = router;

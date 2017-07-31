@@ -1,27 +1,26 @@
 extends layout
 
 block content
-  h3= title
-  a.btn.btn-secondary.btn-sm.float-right(href='/items/create' role='button') Add Item
-
+      
   - var startIndex = Math.min(itemCount, ((page - 1) * limit) + 1);
   - var endIndex = Math.min(itemCount, startIndex + limit - 1);
-
+  
   div.list-head
     div.left
       if itemCount <= limit
-        | #{itemCount} results
+        | #{itemCount} results for&nbsp;#[strong #{keyword}]
       else
-        | #{startIndex}-#{endIndex} of #{itemCount} results
+        | #{startIndex}-#{endIndex} of #{itemCount} results for&nbsp;#[strong #{keyword}]
     div.right
       span Sort By: &nbsp;
       form(method='GET' action='')
+        input(type='hidden' name='keyword' value=keyword)
         select(type='select' name='sort' onchange='this.form.submit()')
-          option(value='alpha' selected=(sortBy=='alpha' ? 'selected' : false)) Alphabetical
+          option(value='relevant' selected=(sortBy=='alpha' ? 'selected' : false)) Relevant
           option(value='popular' selected=(sortBy=='popular' ? 'selected' : false)) Popularity
           option(value='price-asc' selected=(sortBy=='price-asc' ? 'selected' : false)) Price: Low to High
           option(value='price-desc' selected=(sortBy=='price-desc' ? 'selected' : false)) Price: High to Low
-
+      
   ol.item-list
     each item in item_list
       li
@@ -31,8 +30,8 @@ block content
           div.detail.col-sm-9
             span.name
               a(href=item.url) #{item.name}
-            span.seller
-              | by #{item.seller.local.fname} #{item.seller.local.lname}
+            span.seller 
+              | by #{item.seller}
             span.category
               | #{item.category.name}
             span.price
@@ -41,9 +40,9 @@ block content
               | ★★★★
             span
               | #{item.view_count} views
-
+      
     else
       li No items
-
+  
 
   include pagination
