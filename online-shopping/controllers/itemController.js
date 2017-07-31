@@ -43,8 +43,12 @@ exports.item_detail = function(req, res, next) {
     else{
       user = 'buyer';
     }
-    res.render('item_detail', { title: item.name, item: item, user : user });
-    console.log(user);
+    Review.find({item_id: req.params.id}, 'review')
+    .exec(function (err, list_reviews){
+      if (err){return next(err);}
+      res.render('item_detail', { title: item.name, item: item, user : user, review_list: list_reviews });
+      console.log(user);
+    });
   });
 }
 

@@ -32,6 +32,15 @@ block content
       div.form-group
         input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
       button.btn.btn-danger(type='submit') Write A reviews
+
+    br
+    ul
+    each review in review_list
+      li
+        #{review.review}
+    else
+      li No review
+    
   if (error)
     p(class="error") #{error}
 
