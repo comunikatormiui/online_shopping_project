@@ -4,6 +4,20 @@ block content
   h3= title
   a.btn.btn-secondary.btn-sm.float-right(href='/items/create' role='button') Add Item
       
+  - var startIndex = Math.min(itemCount, ((page - 1) * limit) + 1);
+  - var endIndex = Math.min(itemCount, startIndex + limit - 1);
+  
+  div.list-head
+    div.left
+      | #{startIndex}-#{endIndex} of #{itemCount} results
+    div.right
+      span Sort By: &nbsp;
+      form(method='GET' action='')
+        select(type='select' name='sort' onchange='this.form.submit()')
+          option(value='alpha' selected=(sortBy=='alpha' ? 'selected' : false)) Alphabetical
+          option(value='price-asc' selected=(sortBy=='price-asc' ? 'selected' : false)) Price: Low to High
+          option(value='price-desc' selected=(sortBy=='price-desc' ? 'selected' : false)) Price: High to Low
+      
   ol.item-list
     each item in item_list
       li
@@ -26,5 +40,5 @@ block content
       li No items
   
   //- If pagination info is passed from controller
-  if currentPage
+  if page
     include pagination

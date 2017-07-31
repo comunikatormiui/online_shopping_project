@@ -9,17 +9,41 @@ var async = require('async');
 
 
 exports.item_list = function(req, res, next) {
+  req.sanitizeQuery('sort').escape();
+  req.sanitizeQuery('sort').trim();
+
+  // Sort items according to given value of sort parameter
+  // Default is alphabetical
+  var sort = { name: 'asc' };
+  if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
+  else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+  else if (req.query.sort=='alpha') { sort = { name: 'asc' } }
+
+  // Check if a page number is given
+  // If not, default is 1
   var page = req.query.page ? req.query.page : 1;
+  // Limit of items per page
   var limit = 5;
-  Item.paginate({}, { page: page, limit: limit })
+
+  // Create an object to pass into paginate method
+  var options = {
+    page: page,
+    limit: limit,
+    sort: sort
+  };
+
+  // Get items and render the view
+  Item.paginate({}, options)
   .then(function(items) {
     res.render('item_list', {
       title: 'Item Directory',
       item_list: items.docs,
       pageCount: items.pages,
-      itemCount: items.limit,
+      itemCount: items.total,
       pages: paginate.getArrayPages(req)(3, items.pages, page),
-      currentPage: page
+      page: page,
+      limit: items.limit,
+      sortBy: req.query.sort
     });
   });
 };

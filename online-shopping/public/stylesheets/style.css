@@ -105,6 +105,24 @@ input {
   }
 }
 
+.list-head {
+  border-top: 1px solid #dedede;
+  margin: 0.5em 0 0.5em 0;
+  padding: 1em 0 0.5em 0;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.list-head .left {
+  display: flex;
+}
+
+.list-head .right {
+  display: flex;
+}
+
 
 /* Category List */
 
