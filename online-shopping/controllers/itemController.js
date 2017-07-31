@@ -58,6 +58,7 @@ exports.item_create_get = function(req, res, next) {
 };
 
 exports.item_create_post = function(req, res, next) {
+  console.log(req.body);
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
@@ -98,7 +99,7 @@ exports.item_create_post = function(req, res, next) {
     description: req.body.description,
     seller: req.body.seller,
     lat: req.body.lat,
-    long: req.body.long,
+    lng: req.body.lng,
     image : req.files[0].originalname
   });
 
@@ -176,7 +177,7 @@ exports.item_update_post = function(req, res, next) {
     description: req.body.description,
     seller: req.body.seller,
     lat: req.body.lat,
-    long: req.body.long,
+    lng: req.body.lng,
     image: req.files[0].originalname,
     _id: req.params.id
   });
