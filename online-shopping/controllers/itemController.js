@@ -68,6 +68,7 @@ exports.item_create_post = function(req, res, next) {
   req.checkBody('lng', 'Longitude must be specified').notEmpty();
   req.checkBody('lng', 'Longitude: only floating-point number is allowed').isFloat();
 
+
   req.filter('name').escape();
   req.filter('name').trim();
   req.filter('price').escape();
@@ -85,8 +86,10 @@ exports.item_create_post = function(req, res, next) {
 
   //res.send(req.files);
   //var path = req.files[0].path;
-  //var imageName = req.files[0].originalname;
-
+  if (req.files[0])
+    var imageName = req.files[0].originalname;
+  else
+    var imageName = 'question-mark.svg';
   /*var imagepath = {}; //imagepath contains two objects, path and the imageName
   imagepath['path'] = path;
   imagepath['originalname'] = imageName;*/
@@ -98,8 +101,8 @@ exports.item_create_post = function(req, res, next) {
     description: req.body.description,
     seller: req.body.seller,
     lat: req.body.lat,
-    long: req.body.long,
-    image : req.files[0].originalname
+    lng: req.body.long,
+    image : imageName
   });
 
   req.getValidationResult().then(function(result) {
