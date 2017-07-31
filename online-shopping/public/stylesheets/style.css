@@ -29,15 +29,117 @@ input {
 	color: green;
 }
 
+#map {
+  padding: 20px;
+  width: 100%;
+  height: 400px;
+  background-color: tan;
+}
+
+#homeMap {
+  padding: 20px;
+  width: 100%;
+  height: 400px;
+  background-color: tan;
+}
+
 .error {
 	color: red;
 	margin: 5px;
 }
 
-.center {
-    text-align: center;
-    border: 3px solid green;
-	font: 40px Arial, sans-serif;
-	color:blue;
+/* Item List */
+
+.item-list {
+  list-style: none;
+  padding: 0;
 }
 
+.item-list li {
+  overflow: hidden;
+  padding: 1em 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.item-list img {
+  margin-right: 1em;
+  max-width: 100%;
+  height: auto;
+}
+
+.item-list .name {
+  display: block;
+  word-wrap: break-word;   /*start new line*/
+}
+
+.item-list .seller {
+  display: block;
+}
+
+.item-list .category {
+  display: block;
+}
+
+.item-list .price {
+  float: right;
+  margin-top: 0;
+}
+
+.item-list .rating {
+  display: block;
+  margin-top: 1em;
+}
+
+@media (max-width: 576px) {
+
+  .item-list .price {
+    float: none;
+    margin-top: 1em;
+    display: block;
+  }
+
+  .item-list .detail {
+    margin-top: 1em;
+    text-align: center;
+  }
+}
+
+
+/* Category List */
+
+.cat-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cat-list li {
+  padding: 0.7em;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.cat-list li:nth-child(odd) {
+  border-right: 1px solid #d3d3d3;
+}
+
+.cat-list li:first-child, .cat-list li:nth-child(2) {
+  border-top: 1px solid #d3d3d3;
+}
+
+@media (max-width: 576px) {
+
+  .cat-list li {
+    padding: 1em;
+  }
+  .cat-list li:nth-child(2) {
+    border-top: 0;
+  }
+  .cat-list li:nth-child(odd) {
+    border-right: 0;
+  }
+}
+
+/* Heading */
+
+h3 {
+  display: inline-block;
+}

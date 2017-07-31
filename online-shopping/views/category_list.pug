@@ -1,12 +1,17 @@
 extends layout
 
 block content
-  h3= title
-  a.btn.btn-secondary.btn-sm(href='/categories/create' role='button') new category
+  h3 #{title}
+  a.btn.btn-secondary.btn-sm.float-right(href='/categories/create' role='button') Add Category
   
-  ul
-  each cat in category_list
-    li 
-      a(href=cat.url) #{cat.name}
-  else
-    li No categories
+  ul.cat-list.row
+    each cat in category_list
+      li.col-sm-6
+        a(href='/categories/'+cat._id) #{cat.name}
+        if cat.count == 0
+          span.badge.badge-warning.badge-pill.float-right #{cat.count}
+        else
+          span.badge.badge-success.badge-pill.float-right #{cat.count}
+
+    else
+      li No categories

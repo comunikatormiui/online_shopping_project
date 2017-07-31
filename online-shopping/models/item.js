@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 
 var Schema = mongoose.Schema;
 
@@ -8,7 +9,9 @@ var ItemSchema = Schema({
   description: { type: String },
   seller: { type: String, required: true }, // will change from string to object later
   price: { type: Number, required: true },
-  image: { type: String }
+  lat: { type: Number, required: true },
+  lng: { type: Number, required: true},
+  image: { type: String, required: true }
 });
 
 ItemSchema
@@ -23,10 +26,6 @@ ItemSchema
   return '/uploads/' + this.image;
 });
 
-ItemSchema
-.virtual('lalala')
-.get(function(){
-	return this.image;
-})
+ItemSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Item', ItemSchema);

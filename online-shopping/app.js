@@ -10,7 +10,9 @@ var flash = require('connect-flash');
 var session  = require('express-session');
 var multer = require("multer");
 var User = require('./models/user'); //---------------------
+var paginate = require('express-paginate');
 var image = require('./routes/imagefile');
+
 
 require('./controllers/passport')(passport, User);
 
@@ -31,9 +33,10 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator());
 app.use(cookieParser());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(paginate.middleware(10, 10));
 
 //authentication
 app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
@@ -61,7 +64,7 @@ app.get('/images', function(req, res) {
     res.json(cb);
   });
 });
- 
+
 // URL : http://localhost:3000/images/(give you collectionID); To get the single image/File using id from the MongoDB
 app.get('/images/:id', function(req, res) {
   image.getImageById(req.params.id, function(err, cb) {

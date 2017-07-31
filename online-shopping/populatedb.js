@@ -18,13 +18,13 @@ function categoryCreate(name, cb) {
       cb(err, null);
       return;
     }
-    console.log('New category: ' + category);
+    // console.log('New category: ' + category);
     categories.push(category);
     cb(null, category);
   });
 }
 
-function itemCreate(name, category, description, seller, price, image, cb) {
+function itemCreate(name, category, description, seller, price, lat, lng, image, cb) {
    //res.send(req.files);
   var item = new Item({
     name: name,
@@ -32,6 +32,8 @@ function itemCreate(name, category, description, seller, price, image, cb) {
     description: description,
     seller: seller,
     price: price,
+    lat: lat,
+    lng: lng,
     image: image
   });
   item.save(function (err) {
@@ -39,14 +41,14 @@ function itemCreate(name, category, description, seller, price, image, cb) {
       cb(err, null);
       return;
     }
-    console.log('New item: ' + item);
+    // console.log('New item: ' + item);
     items.push(item);
     cb(null, item);
   });
 }
 
 function createCategories(cb) {
-  async.parallel([
+  async.series([
     function(callback) {
       categoryCreate('Books', callback); // 0
     },
@@ -85,6 +87,9 @@ function createCategories(cb) {
     },
     function(callback) {
       categoryCreate('Automotive & Industrial', callback); // 12
+    },
+    function(callback) {
+      categoryCreate('Other', callback); // 13
     }
   ],
   cb);
@@ -96,32 +101,35 @@ function createCategories(cb) {
 function createItems(cb) {
   async.parallel([
     function(callback) {
-      itemCreate('The War (4th Album) [KOREAN / Private ver.]', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', 'EXO',48.70,'TheWar.jpg', callback);
+      itemCreate('The War (4th Album) [KOREAN / Private ver.]', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', 'EXO',48.70, 49.21287, -122.55659, 'TheWar.jpg', callback);
     },
     function(callback) {
-      itemCreate('Sapiens: A Brief History of Humankind', categories[0], 
-        '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', 'Yuval Noah Harari', 14.85, 'sapiens.png', callback);
+      itemCreate('Sapiens: A Brief History of Humankind', categories[0],
+        '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', 'Yuval Noah Harari', 14.85, 49.286787, -122.932259, 'sapiens.png', callback);
     },
     function(callback) {
-      itemCreate('To The Bone', categories[1], 'Pre-order now.', 'Steven Wilson', 15.25, 'toTheBone.jpg', callback);
+      itemCreate('To The Bone', categories[1], 'Pre-order now.', 'Steven Wilson', 15.25, 49.25287, -122.54259, 'toTheBone.jpg', callback);
     },
     function(callback) {
-      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', 'GoPro', 529.99, 'GoPro.jpg',callback);
+      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', 'GoPro', 529.99, 49.21287, -122.55659, 'GoPro.jpg',callback);
     },
     function(callback) {
-      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', 'SODIAL(R)', 20, 'OfficeChairArmrest.jpg',callback);
+      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', 'SODIAL(R)', 20, 49.21287, -122.55659, 'OfficeChairArmrest.jpg',callback);
     },
     function(callback) {
-      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', 'Kaspersky', 34.99, 'KasperskyInternetSecurity2017.jpg',callback);
+      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', 'Kaspersky', 34.99, 49.21287, -122.55659, 'KasperskyInternetSecurity2017.jpg',callback);
     },
     function(callback) {
-      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', 'Amazon', 9.99,'AmericanDad-Volume4.jpg', callback);
+      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', 'Amazon', 9.99, 49.21287, -122.55659, 'AmericanDad-Volume4.jpg', callback);
     },
   ],
   cb);
 }
   Item.collection.drop();
   Category.collection.drop();
+
+Item.collection.drop();
+Category.collection.drop();
 
 async.series([
   createCategories,

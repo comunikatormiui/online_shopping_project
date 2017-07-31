@@ -1,8 +1,7 @@
 extends layout
-
 block content
-    br
-    br
+    p Item's Near You:
+    h1 Welcome to our shopping site
     p.center SFU Trade Center
     div.container
       div#myCarousel.carousel.slide(data-ride='carousel')
@@ -23,8 +22,23 @@ block content
 
         a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
           span.glyphicon.glyphicon-chevron-left
-          span(sr-only='true') 
+          span(sr-only='true')
         a.right.carousel-control(href='#myCarousel', role='button',data-slide='next')
           span.glyphicon.glyphicon-chevron-right
-          span(sr-only='true') 
-    
+          span(sr-only='true')
+
+    p Somewhere in Austrialia.... Dingo ate my baby!
+    #map
+    script.
+      function initMap() {
+      var uluru = {lat: -25.363, lng: 131.044};
+      var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: uluru
+      });
+      var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+      });
+      }
+    script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')

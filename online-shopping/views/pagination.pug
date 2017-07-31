@@ -1,0 +1,14 @@
+if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+  ul.pagination.justify-content-center
+    li(class= paginate.hasPreviousPages ? 'page-item' : 'page-item disabled')
+      a.page-link(href=paginate.href(true))
+        i.fa.fa-chevron-left(aria-hidden='true')
+        |  &nbsp;Previous
+    if pages
+      each page in pages
+        li(class= page.number == currentPage ? 'page-item active' : 'page-item')
+          a.page-link(href=page.url)= page.number
+    li(class= paginate.hasNextPages(pageCount) ? 'page-item' : 'page-item disabled')
+      a.page-link(href=paginate.href())
+        | Next &nbsp;
+        i.fa.fa-chevron-right(aria-hidden='true')

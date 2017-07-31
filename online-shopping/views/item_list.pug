@@ -2,12 +2,29 @@ extends layout
 
 block content
   h3= title
-  a.btn.btn-secondary.btn-sm(href='/items/create' role='button') new item
+  a.btn.btn-secondary.btn-sm.float-right(href='/items/create' role='button') Add Item
   
-  ul
-  each item in item_list
-    li 
-      a(href=item.url) #{item.name}
-      |  by #{item.seller}
-  else
-    li No items
+  ol.item-list
+    each item in item_list
+      li
+        div.row
+          div.pic.col-sm-3.text-center
+            img(src='/uploads/question-mark.svg')
+          div.detail.col-sm-9
+            span.name
+              a(href=item.url) #{item.name}
+            span.seller 
+              | by #{item.seller}
+            span.category
+              | #{item.category.name}
+            span.price
+              | CDN$ #{item.price}
+            span.rating
+              | ★★★★
+      
+    else
+      li No items
+  
+  //- If pagination info is passed from controller
+  if currentPage
+    include pagination

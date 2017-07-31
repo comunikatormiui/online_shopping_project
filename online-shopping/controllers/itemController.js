@@ -1,16 +1,26 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
+var paginate = require('express-paginate');
 var multer = require('multer');
+
 
 var async = require('async');
 
 
 
 exports.item_list = function(req, res, next) {
-  Item.find({}, 'name seller')
-  .exec(function (err, list_items) {
-    if (err) { return next(err); }
-    res.render('item_list', { title: 'Item Directory', item_list: list_items });
+  var page = req.query.page ? req.query.page : 1;
+  var limit = 5;
+  Item.paginate({}, { page: page, limit: limit })
+  .then(function(items) {
+    res.render('item_list', {
+      title: 'Item Directory',
+      item_list: items.docs,
+      pageCount: items.pages,
+      itemCount: items.limit,
+      pages: paginate.getArrayPages(req)(3, items.pages, page),
+      currentPage: page
+    });
   });
 };
 
@@ -43,7 +53,7 @@ exports.item_create_get = function(req, res, next) {
   .sort({ name: 'ascending' })
   .exec(function(err, categories) {
     if (err) { next(err); }
-    res.render('item_form', { title: 'Create New Item', category_list: categories });
+    res.render('item_form', { title: 'New item', category_list: categories });
   });
 };
 
@@ -53,6 +63,10 @@ exports.item_create_post = function(req, res, next) {
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
   req.checkBody('category', 'Category must be specified').notEmpty();
   req.checkBody('seller', 'Seller must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
+  req.checkBody('lng', 'Longitude must be specified').notEmpty();
+  req.checkBody('lng', 'Longitude: only floating-point number is allowed').isFloat();
 
   req.filter('name').escape();
   req.filter('name').trim();
@@ -64,6 +78,10 @@ exports.item_create_post = function(req, res, next) {
   req.filter('description').trim();
   req.filter('seller').escape();
   req.filter('seller').trim();
+  req.filter('lat').escape();
+  req.filter('lat').trim();
+  req.filter('lng').escape();
+  req.filter('lng').trim();
 
   //res.send(req.files);
   //var path = req.files[0].path;
@@ -79,6 +97,8 @@ exports.item_create_post = function(req, res, next) {
     category: req.body.category,
     description: req.body.description,
     seller: req.body.seller,
+    lat: req.body.lat,
+    long: req.body.long,
     image : req.files[0].originalname
   });
 
@@ -125,6 +145,10 @@ exports.item_update_post = function(req, res, next) {
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
   req.checkBody('category', 'Category must be specified').notEmpty();
   req.checkBody('seller', 'Seller must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude must be specified').notEmpty();
+  req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
+  req.checkBody('lng', 'Longitude must be specified').notEmpty();
+  req.checkBody('lng', 'Longitude: only floating-point number is allowed').isFloat();
 
   req.filter('name').escape();
   req.filter('name').trim();
@@ -136,6 +160,10 @@ exports.item_update_post = function(req, res, next) {
   req.filter('description').trim();
   req.filter('seller').escape();
   req.filter('seller').trim();
+  req.filter('lat').escape();
+  req.filter('lat').trim();
+  req.filter('lng').escape();
+  req.filter('lng').trim();
 
   //res.send(req.files);
   //var path = req.files[0].path;
@@ -147,6 +175,8 @@ exports.item_update_post = function(req, res, next) {
     category: req.body.category,
     description: req.body.description,
     seller: req.body.seller,
+    lat: req.body.lat,
+    long: req.body.long,
     image: req.files[0].originalname,
     _id: req.params.id
   });
