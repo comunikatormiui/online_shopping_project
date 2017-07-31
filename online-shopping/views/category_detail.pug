@@ -2,7 +2,7 @@ extends layout
 
 block content
   h3= title
-  a.btn.btn-secondary.btn-sm(href='/categories/'+category._id+'/update' role='button') edit category
+  a.btn.btn-secondary.btn-sm.float-right(href='/categories/'+category._id+'/update' role='button') Edit Category
   
   ul
   each item in item_list

@@ -1,46 +1,66 @@
 extends layout
 
 block content
-  h3= title
-  
-  form(method='POST' action='')
-    div.form-group
-      label(for='name') Name:
-      input#name.form-control(type='text' name='name' value=(undefined===item ? '' : item.name) required='true')
-    
-    div.form-group
-      label(for='price') Price (CDN$):
-      input#price.form-control(type='text' name='price' value=(undefined===item ? '' : item.price) required='true')
 
-    div.form-group
-      label(for='category') Category:
-      if category_list.length == 0
-        p.text-danger There are no categories, 
-          a(href='/categories/create') create one
-      select#category.form-control(type='select' name='category' required='true')
-        option(value='' disabled selected) (Select category)
-        for cat in category_list
+  div.row
+    div.col-lg-2
+      h4= title
+    div.col-lg-10
+      form(method='POST' action='' enctype='multipart/form-data')
+        div.form-group
+          label(for='name') Name:
+          input#name.form-control(type='text' name='name' value=(undefined===item ? '' : item.name) required='true')
+
+        div.form-group
+          label(for='price') Price (CDN$):
+          input#price.form-control(type='text' name='price' value=(undefined===item ? '' : item.price) required='true')
+
+        div.form-group
+          label(for='category') Category:
+          if category_list.length == 0
+            p.text-danger There are no categories,
+              a(href='/categories/create') create one
+          select#category.form-control(type='select' name='category' required='true')
+            option(value='' disabled selected) (Select category)
+            for cat in category_list
+              if item
+                option(value=cat._id selected=(selected_category.equals(cat._id) ? 'selected' : false)) #{cat.name}
+              else
+                option(value=cat._id) #{cat.name}
+
+        div.form-group
+          label(for='description') Description:
           if item
-            option(value=cat._id selected=(selected_category.equals(cat._id) ? 'selected' : false)) #{cat.name}
+            textarea#description.form-control(name='description') #{item.description}
           else
-            option(value=cat._id) #{cat.name}
+            textarea#description.form-control(name='description')
 
-    div.form-group
-      label(for='description') Description:
-      if item
-        textarea#description.form-control(name='description') #{item.description}
-      else
-        textarea#description.form-control(name='description')
-        
 
-    div.form-group
-      label(for='seller') Seller:
-      input#seller.form-control(type='text' name='seller' value=(undefined===item ? '' : item.seller) required='true')
+        div.form-group
+          label(for='seller') Seller:
+          input#seller.form-control(type='text' name='seller' value=(undefined===item ? '' : item.seller) required='true')
 
-    button.btn.btn-primary(type='submit') Submit
-  
-  if errors
-    ul
-      for error in errors
-        li!= error.msg
-    
+        div.form-group
+          label(for='lat') Latitude:
+            input#lat.form-control(type='text' name='lat' value=(undefined===item ? '49.8' : item.lat) require='true')
+
+        div.form-group
+          label(for='lng') Longitude:
+          input#lng.form-control(type='text' name='lng' value=(undefined===item ? '-122.1' : item.lng) require='true')
+
+        br
+        //-if item.image
+        //-  img(src=item.imageUrl)
+        //-else
+        p Upload your image here: #[input(type='file', name='imageupload')]
+        //-input(type='submit', name='uploadimage', value='Upload Image')
+        br
+        br
+
+        button.btn.btn-primary(type='submit') Submit
+        a.btn.btn-secondary.float-right(href='/items') Cancel
+
+      if errors
+        ul
+          for error in errors
+            li!= error.msg
