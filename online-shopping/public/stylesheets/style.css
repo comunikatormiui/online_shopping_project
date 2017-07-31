@@ -62,8 +62,9 @@ input {
 
 .item-list img {
   margin-right: 1em;
-  max-width: 100%;
-  height: auto;
+  max-width: 100%; /* img-responsive */
+  height: auto;  /* img-responsive */
+  max-height: 220px;
 }
 
 .item-list .name {

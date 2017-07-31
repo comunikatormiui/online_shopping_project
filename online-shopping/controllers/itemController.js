@@ -58,6 +58,7 @@ exports.item_create_get = function(req, res, next) {
 };
 
 exports.item_create_post = function(req, res, next) {
+  console.log(req.body);
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
