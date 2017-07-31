@@ -35,11 +35,6 @@ block content
           else
             textarea#description.form-control(name='description')
 
-
-        div.form-group
-          label(for='seller') Seller:
-          input#seller.form-control(type='text' name='seller' value=(undefined===item ? '' : item.seller) required='true')
-
         div.form-group
           label(for='lat') Latitude:
             input#lat.form-control(type='text' name='lat' value=(undefined===item ? '49.8' : item.lat) require='true')

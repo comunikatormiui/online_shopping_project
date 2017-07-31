@@ -5,7 +5,7 @@ block content
   br
   p #[strong Price:] CDN$ #{item.price}
   p #[strong Category:] #{item.category.name}
-  p #[strong Sold by:] #{item.seller}
+  p #[strong Sold by:] #{item.seller.local.fname} #{item.seller.local.lname}
   if item.description
     p #[strong Description:] #{item.description}
   if item.image
@@ -31,9 +31,16 @@ block content
 
   br
   br
-  a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
 
-  form(method='POST' action=item.url+'/delete')
-      div.form-group
-        input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
-      button.btn.btn-danger(type='submit') Delete
+  if (user == 'seller')
+    a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
+
+    form(method='POST' action=item.url+'/delete')
+        div.form-group
+          input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        button.btn.btn-danger(type='submit') Delete
+  else
+    form(method='GET' action=item.url+'/buy')
+        div.form-group
+          input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        button.btn.btn-danger(type='submit') Buy

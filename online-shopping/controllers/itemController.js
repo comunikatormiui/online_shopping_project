@@ -1,12 +1,13 @@
 var Item = require('../models/item');
 var Category = require('../models/category');
+var User = require('../models/user');
+var Transaction = require('../models/transaction');
+var util = require('util');
 var paginate = require('express-paginate');
 var multer = require('multer');
 
 
-
 var async = require('async');
-
 
 
 exports.item_list = function(req, res, next) {
@@ -31,7 +32,8 @@ exports.item_list = function(req, res, next) {
   var options = {
     page: page,
     limit: limit,
-    sort: sort
+    sort: sort,
+    populate: 'seller'
   };
 
   // Get items and render the view
@@ -52,6 +54,7 @@ exports.item_list = function(req, res, next) {
 
 exports.wishlist = function(req, res, next) {
   Item.find({}, 'name seller')
+  .populate('seller')
   .exec(function (err, list_items) {
     if (err) { return next(err); }
     res.render('wishlist', { title: 'wishlist', wishlist: list_items });
@@ -106,19 +109,27 @@ exports.item_detail = function(req, res, next) {
   req.filter('id').trim();
 
   Item.findById(req.params.id)
-  .populate('category')
+  .populate('seller').populate('category')
   .exec(function (err, item) {
     if (err) { return next(err); }
+
+    if (req.user != null && item.seller.local.email == req.user.local.email){
+      user = 'seller';
+    }
+    else{
+      user = 'buyer';
+    }
+
     // Increment view count and save
     item.view_count++;
     item.save( function(err, updatedItem) {
       if (err) { return next(err); }
-      res.render('item_detail', { title: updatedItem.name, item: updatedItem });
+      res.render('item_detail', { title: updatedItem.name, item: updatedItem, user : user });
     });
   });
 }
 
-exports.item_create_get = function(req, res, next) {
+exports.item_create_get = function(req, res) {
   Category.find({}, 'name')
   .sort({ name: 'ascending' })
   .exec(function(err, categories) {
@@ -133,7 +144,6 @@ exports.item_create_post = function(req, res, next) {
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
   req.checkBody('category', 'Category must be specified').notEmpty();
-  req.checkBody('seller', 'Seller must be specified').notEmpty();
   req.checkBody('lat', 'Latitude must be specified').notEmpty();
   req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
   req.checkBody('lng', 'Longitude must be specified').notEmpty();
@@ -148,8 +158,6 @@ exports.item_create_post = function(req, res, next) {
   req.filter('category').trim();
   req.filter('description').escape();
   req.filter('description').trim();
-  req.filter('seller').escape();
-  req.filter('seller').trim();
   req.filter('lat').escape();
   req.filter('lat').trim();
   req.filter('lng').escape();
@@ -165,31 +173,46 @@ exports.item_create_post = function(req, res, next) {
   imagepath['path'] = path;
   imagepath['originalname'] = imageName;*/
 
-  var item = new Item({
-    name: req.body.name,
-    price: req.body.price,
-    category: req.body.category,
-    description: req.body.description,
-    seller: req.body.seller,
-    lat: req.body.lat,
-    lng: req.body.lng,
-    image : imageName
-  });
-
-  req.getValidationResult().then(function(result) {
-    var errors = result.array();
-    if (errors.length > 0) {
-      Category.find({}, 'name')
-      .exec(function(err, categories) {
-        if (err) { return next(err); }
-        res.render('item_form', { title: 'Create New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
-      });
-    } else {
-      item.save(function(err) {
-        if (err) { next(err); }
-        res.redirect(item.url);
-      });
+  User.findOne({'local.email': req.user.local.email}, function(err, user){
+    if(err){
+      throw err;
     }
+    if(!user){
+      console.log('Invalid email received: ' + req.user.local.email);
+      next(err);
+    }
+    var item = new Item({
+      name: req.body.name,
+      price: req.body.price,
+      category: req.body.category,
+      description: req.body.description,
+      seller: req.body.seller,
+      lat: req.body.lat,
+      lng: req.body.lng,
+      image : imageName,
+      seller: user._id
+    });
+
+    req.getValidationResult().then(function(result) {
+      var errors = result.array();
+      if (errors.length > 0) {
+        Category.find({}, 'name')
+        .exec(function(err, categories) {
+          if (err) {
+            return next(err);
+          }
+          res.render('item_form', { title: 'Create New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
+        });
+      } else {
+        item.save(function(err) {
+          if (err) {
+            throw err;
+            next(err);
+          }
+          res.redirect(item.url);
+        });
+      }
+    });
   });
 };
 
@@ -205,7 +228,9 @@ exports.item_update_get = function(req, res, next) {
       Category.find({}, 'name').sort({ name: 'ascending'}).exec(callback);
     }
   }, function(err, results) {
-    if (err) { next(err); }
+    if (err) {
+      next(err);
+    }
     res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
   });
 }
@@ -239,9 +264,10 @@ exports.item_update_post = function(req, res, next) {
   req.filter('lng').escape();
   req.filter('lng').trim();
 
-  //res.send(req.files);
-  //var path = req.files[0].path;
-  //var imageName = req.files[0].originalname;
+  if (req.files[0])
+    var imageName = req.files[0].originalname;
+  else
+    var imageName = 'question-mark.svg';
 
   var item = new Item({
     name: req.body.name,
@@ -251,7 +277,7 @@ exports.item_update_post = function(req, res, next) {
     seller: req.body.seller,
     lat: req.body.lat,
     lng: req.body.lng,
-    image: req.files[0].originalname,
+    image: imageName,
     _id: req.params.id
   });
 
@@ -260,7 +286,9 @@ exports.item_update_post = function(req, res, next) {
     if (errors.length > 0) {
       Category.find({}, 'name')
       .exec(function(err, categories) {
-        if (err) { return next(err); }
+        if (err) {
+          return next(err);
+        }
         res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
       });
     } else {
@@ -280,3 +308,76 @@ exports.item_delete = function(req, res, next) {
     res.redirect('/items');
   })
 }
+
+exports.item_buy_get = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .populate('seller')
+  .exec(function (err, item) {
+    if (err) { return next(err); }
+    res.render('item_buy', { title: 'Check out', item: item });
+    console.log(user);
+  });
+}
+
+
+exports.item_buy_post = function(req, res, next) {
+  req.checkBody('quantity', 'quantity must be specified').notEmpty();
+  req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
+  req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
+  req.checkBody('credit_card_number', 'Credit card number: only integer number is allowed').isInt();
+  req.checkBody('cvv', 'CVV must be specified').notEmpty();
+  req.checkBody('cvv', 'CVV : only integer number is allowed').isInt();
+  req.checkBody('expiry_date', 'expiry date: only date format is allowed').notEmpty().isDate();
+
+  req.filter('quantity').escape();
+  req.filter('quantity').trim();
+  req.filter('ship_address').escape();
+  req.filter('ship_address').trim();
+  req.filter('credit_card_number').escape();
+  req.filter('credit_card_number').trim();
+  req.filter('cvv').escape();
+  req.filter('cvv').trim();
+  req.filter('expiry_date').escape();
+  req.filter('expiry_date').trim();
+
+  User.findOne({'local.email': req.user.local.email}, function(err, user){
+    if(err){
+      throw err;
+    }
+    if(!user){
+      console.log('Invalid email received: ' + req.user.local.email);
+      next(err);
+    }
+    var currentDate = new Date();
+    var transaction = new Transaction({
+      buyer: user._id,
+      item: req.body.itemid,
+      quantity: req.body.quantity,
+      ship_address: req.body.ship_address,
+      credit_card_number: req.body.credit_card_number,
+      cvv: req.body.cvv,
+      expiry_date: req.body.expiry_date,
+      purchase_date: currentDate
+    });
+    req.getValidationResult().then(function(result) {
+      var errors = result.array();
+      if (errors.length > 0) {
+        res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+        return;
+      } else {
+        transaction.save(function(err) {
+          if (err) {
+            throw err;
+            next(err);
+          }
+          else{
+            res.render('transaction_result', { title: 'Successful' });
+          }
+        });
+      }
+    });
+  });
+};

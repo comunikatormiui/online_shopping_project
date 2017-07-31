@@ -3,14 +3,7 @@ body {
 }
 
 nav {
-  padding-top: 40px;
   margin-bottom: 1em;
-  display: block;
-}
-
-a {
-  color: #00B7FF;
-  display: block;
 }
 
 input {
@@ -48,6 +41,26 @@ input {
 .error {
 	color: red;
 	margin: 5px;
+}
+
+table {
+  border: 1px solid;
+}
+
+table {
+  width: 80%;
+}
+
+td, th {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+tr:nth-child(even) {
+  background: #CCC
+}
+tr:nth-child(odd) {
+  background: #FFF
 }
 
 /* Item List */
@@ -260,3 +273,7 @@ h3 {
   left: -6px;
 }
 */
+
+.card a {
+  display: block;
+}

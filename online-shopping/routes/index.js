@@ -1,3 +1,8 @@
+var login_routing = require('./login_routing');
+var Item = require('../models/item');
+var Category = require('../models/category');
+var User = require('../models/user');
+var Transaction = require('../models/transaction');
 var category_controller = require('../controllers/categoryController');
 
 router_export = function(router, passport, User){
@@ -30,7 +35,7 @@ router_export = function(router, passport, User){
 ); */
 
 //request profile, check if logged in and render user information
-	router.get('/profile', isLoggedIn,
+	router.get('/profile', login_routing.isLoggedIn,
 		function(req, res){
 			res.render('profile', {
 				user : req.user
@@ -38,9 +43,8 @@ router_export = function(router, passport, User){
 		}
 	);
 
-
-//request profile, check if logged in and update user forms, redirect to /profile
-	router.post('/profile', isLoggedIn, function(req, res) {
+	//request profile, check if logged in and update user forms, redirect to /profile
+	router.post('/profile', login_routing.isLoggedIn, function(req, res) {
 	    User.update(
 	    	{'local.email': req.user.local.email},
 	    	{
@@ -79,7 +83,24 @@ router_export = function(router, passport, User){
         failureFlash : true
     }));
 
-//logout, log user out and redirect to root
+	router.get('/transactions', login_routing.isLoggedIn,
+		function(req, res) {
+			User.findOne({'local.email': req.user.local.email},
+				function(err, user){
+					Transaction.find({'buyer': user._id})
+					.populate('item')
+					.exec(function(err, transactions) {
+					if (err) {
+						console.log('err');
+						return next(err);
+					}
+					console.log(transactions);
+					res.render('transaction_list', { title: 'List of Past Transactions', transaction_list: transactions});
+				});
+			});
+		});
+
+	//logout, log user out and redirect to root
 	router.get('/logout', function(req, res){
 		req.logout();
 		res.redirect('/');

@@ -1,9 +1,7 @@
 
 var LocalStrategy   = require('passport-local').Strategy;
 
-module.exports = function(passport, User) {
-
-   
+module.exports = function(passport, User) {   
     passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
@@ -15,7 +13,7 @@ module.exports = function(passport, User) {
         });
     });
 
-   
+
     passport.use('local-signup', new LocalStrategy({
         usernameField : 'email',
         passwordField : 'password',
@@ -31,7 +29,7 @@ module.exports = function(passport, User) {
                     return done(err);
                 if (user) {
                     return done(null, false, req.flash('signupMessage', 'The email already exists.'));
-                } 
+                }
                 else {
                     var newUser  = new User();
                     newUser.local.fname = fname;
@@ -45,7 +43,7 @@ module.exports = function(passport, User) {
                     });
                 }
 
-            });    
+            });
 
         });
 
@@ -54,9 +52,9 @@ module.exports = function(passport, User) {
     passport.use('local-login', new LocalStrategy({
             usernameField : 'email',
             passwordField : 'password',
-            passReqToCallback : true 
+            passReqToCallback : true
         },
-        function(req, email, password, done) { 
+        function(req, email, password, done) {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 if (err)
                     return done(err);

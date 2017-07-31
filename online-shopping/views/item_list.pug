@@ -32,7 +32,7 @@ block content
             span.name
               a(href=item.url) #{item.name}
             span.seller
-              | by #{item.seller}
+              | by #{item.seller.local.fname} #{item.seller.local.lname}
             span.category
               | #{item.category.name}
             span.price
