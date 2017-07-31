@@ -11,7 +11,7 @@ var ItemSchema = Schema({
   price: { type: Number, required: true },
   lat: { type: Number, required: true },
   lng: { type: Number, required: true},
-  image: { type: String, required: true },
+  image: { type: String},
   view_count: { type: Number, default: 0 }
 });
 

@@ -1,6 +1,5 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-
 }
 
 nav {
@@ -13,10 +12,10 @@ a {
 
 input {
 	border: 2px solid blue;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    padding: 3px;
-    width: 70%
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 3px;
+  width: 70%
 }
 
 #profile_name {
@@ -177,16 +176,49 @@ h3 {
 }
 
 .carousel-control .fa-chevron-left, .carousel-control .fa-chevron-right {
-    position: absolute;
-    top: 50%;
-    z-index: 5;
-    display: inline-block;
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: inline-block;
 }
-
+.fa.fa-chevron-left, .fa.fa-chevron-right{
+  color: #828080;
+}
 .carousel-item img{
   display: block;
-  margin: auto;
+  margin-left: 100px;
+  margin-top:auto;
 }
-.carouselframe{
 
+.carouselframe{
+  color: red;
+  margin-top: 24px;
+  background-color: #c1faf2;
+}
+
+.dailyDeals{
+  font-size: 24px;
+  margin-left: 20px;
+  margin-top: 20px;
+  font: bold;
+  float: left;
+  color: #078889;
+}
+
+.seeItemDetail{
+  float: right;
+  margin-top: 28px;
+  margin-right: 150px;
+  font-size: 20px;
+  color: #078889;
+}
+
+.carousel-caption h2{
+  color: #078889;
+  float: right;
+}
+
+.lalala{
+  border: red;
+  border-style: solid;
 }
