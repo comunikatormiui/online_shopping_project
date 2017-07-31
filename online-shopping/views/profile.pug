@@ -17,11 +17,11 @@ block content
 
       div.form-group.input
         label(for='gender') Gender:
-        select#gender.form-control(type='select', placeholder='Select your Gender', name='gender' value=(undefined===user ? 'undef' : user.local.gender))
-          option(value='')
-          option(value='Male') Male
-          option(value='Female') Female
-
+        select#gender.form-control(type='select', placeholder='Select your Gender', name='gender' value=(undefined===user ? 'undef' : user.local.gender)) 
+          option(value='') 
+          option(value='Male') Male 
+          option(value='Female') Female        
+          
       div.form-group.input
         label(for='date_of_birth') Date of birth:
         input#date_of_birth.form-control(type='date', placeholder='' name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))

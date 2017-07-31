@@ -5,15 +5,10 @@ var async = require('async');
 
 exports.category_list = function(req, res, next) {
   async.parallel({
-    categories: function(callback) {
-      Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);
-    },
-    cat_count: function(callback) {
-      Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);
-    }
+    categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
+    cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);}
   }, function(err, results) {
-      if (err) { next(err); }
-
+      if (err) next(err);
       // add count property to each category object
       var categories = JSON.parse(JSON.stringify(results.categories)); // convert mongoose into json
       for (var i = 0; i < categories.length; i++) {
@@ -24,12 +19,33 @@ exports.category_list = function(req, res, next) {
             found = true;
           }
         }
-        if (!found) {
+        if (!found)
           categories[i].count = 0;
-        }
       }
-
       res.render('category_list', { title: 'Categories', category_list: categories });
+  });
+};
+
+exports.catListForHome = function(req, res, next) {
+  async.parallel({
+    categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
+    cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);}
+  }, function(err, results) {
+      if (err) next(err);
+      // add count property to each category object
+      var categories = JSON.parse(JSON.stringify(results.categories)); // convert mongoose into json
+      for (var i = 0; i < categories.length; i++) {
+        var found = false;
+        for (var j = 0; j < results.cat_count.length && !found ; j++) {
+          if (categories[i]._id == results.cat_count[j]._id) {
+            categories[i].count = results.cat_count[j].count;
+            found = true;
+          }
+        }
+        if (!found)
+          categories[i].count = 0;
+      }
+      res.render('index', { title: 'Our Shopping Page', catListForHome: categories });
   });
 };
 

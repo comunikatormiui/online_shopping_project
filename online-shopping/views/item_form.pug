@@ -49,11 +49,13 @@ block content
           input#lng.form-control(type='text' name='lng' value=(undefined===item ? '-122.1' : item.lng) require='true')
 
         br
-        //-if item.image
-        //-  img(src=item.imageUrl)
-        //-else
-        p Upload your image here: #[input(type='file', name='imageupload')]
-        //-input(type='submit', name='uploadimage', value='Upload Image')
+        if !item
+          p Upload your image here: #[input(type='file', name='imageupload', title='Please choose your image')]
+        else if (item.image == 'question-mark.svg')
+          p Upload your image here: #[input(type='file', name='imageupload', title='Please choose your image')]
+        else if item
+          img(src=item.imageUrl)
+          p OR You can upload a new one: #[input(type='file', name='imageupload', title='Please choose your image')]
         br
         br
 
