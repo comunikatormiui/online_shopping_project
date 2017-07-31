@@ -8,24 +8,26 @@ block content
   p #[strong Sold by:] #{item.seller}
   if item.description
     p #[strong Description:] #{item.description}
-  p Item Location
-  #map
-  script.
-    function initMap() {
-    var uluru = {lat:#{item.lat}, lng:#{item.lng}};
-    var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: uluru
-    });
-    var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-    });
-    }
-  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
-
   if item.image
     img(src=item.imageUrl)
+      
+  div.modal-body
+    div.col-md-6
+      p Item Location
+      #map
+      script.
+        function initMap() {
+        var uluru = {lat:#{item.lat}, lng:#{item.lng}};
+        var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: uluru
+        });
+        var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+        });
+        }
+      script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
 
   br
   br
