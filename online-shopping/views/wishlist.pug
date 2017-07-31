@@ -1,13 +1,21 @@
 extends layout
 
 block content
-  h1=title
-  p#profile_name #{user.local.fname}'s wishlist
-    form(method='POST' action='/profile')
+  h3= title
 
-  br
-  h2= title
-  br
-  p #[strong Price:] CDN$ #{item.price}
-  p #[strong Category:] #{item.category.name}
-  p #[strong Sold by:] #{item.seller}
+
+  ul
+  each item in wishlist
+    br
+    .card(style='width: 20rem;')
+      img.card-img-top(src='...', alt='Card image cap')
+      .card-block
+        a(href=item.url) #{item.name}
+      ul.list-group.list-group-flush
+        li.list-group-item #[strong Price: ] CDN$ #{item.price}
+        li.list-group-item #[strong Sold by:] #{item.seller}
+      .card-block
+        a.card-link(href='#') Card link
+        a.card-link(href='#') Another link
+  else
+    li No items

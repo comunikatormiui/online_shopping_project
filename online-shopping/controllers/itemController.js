@@ -4,35 +4,100 @@ var paginate = require('express-paginate');
 var multer = require('multer');
 
 
+
 var async = require('async');
 
 
 
 exports.item_list = function(req, res, next) {
+  req.sanitizeQuery('sort').escape();
+  req.sanitizeQuery('sort').trim();
+
+  // Sort items according to given value of sort parameter
+  // Default is alphabetical
+  var sort = { name: 'asc' };
+  if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
+  else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+  else if (req.query.sort=='popular') { sort = { view_count: 'desc' } }
+
+
+  // Check if a page number is given
+  // If not, default is 1
   var page = req.query.page ? req.query.page : 1;
+  // Limit of items per page
   var limit = 5;
-  Item.paginate({}, { page: page, limit: limit })
+
+  // Create an object to pass into paginate method
+  var options = {
+    page: page,
+    limit: limit,
+    sort: sort
+  };
+
+  // Get items and render the view
+  Item.paginate({}, options)
   .then(function(items) {
     res.render('item_list', {
       title: 'Item Directory',
       item_list: items.docs,
       pageCount: items.pages,
-      itemCount: items.limit,
+      itemCount: items.total,
       pages: paginate.getArrayPages(req)(3, items.pages, page),
-      currentPage: page
+      page: page,
+      limit: items.limit,
+      sortBy: req.query.sort
     });
   });
 };
 
+exports.wishlist = function(req, res, next) {
+  Item.find({}, 'name seller')
+  .exec(function (err, list_items) {
+    if (err) { return next(err); }
+    res.render('wishlist', { title: 'wishlist', wishlist: list_items });
+  });
+};
+
+
 exports.item_search = function(req, res, next) {
+  req.sanitizeQuery('sort').escape();
+  req.sanitizeQuery('sort').trim();
   req.sanitizeQuery('keyword').escape();
   req.sanitizeQuery('keyword').trim();
   var keyword = req.query.keyword;
 
-  Item.find({ 'name' : { $regex: keyword, $options: 'i' }})
-  .exec(function (err, list_items) {
-    if (err) { return next(err); }
-    res.render('item_list', { title: 'Search results for "'+keyword+'"', item_list: list_items, keyword: keyword });
+  // Default is relevant
+  var sort;
+  if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
+  else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+  else if (req.query.sort=='popular') { sort = { view_count: 'desc' } }
+
+  var page = req.query.page ? req.query.page : 1;
+  var limit = 5;
+
+  var query = {
+    'name' :  { $regex: keyword, $options: 'i' }
+  };
+
+  var options = {
+    page: page,
+    limit: limit,
+    sort: sort
+  };
+
+  Item.paginate(query, options)
+  .then(function(items) {
+    res.render('item_search', {
+      title: 'Search results: ' + keyword,
+      keyword: keyword,
+      item_list: items.docs,
+      pageCount: items.pages,
+      itemCount: items.total,
+      pages: paginate.getArrayPages(req)(3, items.pages, page),
+      page: page,
+      limit: items.limit,
+      sortBy: req.query.sort
+    });
   });
 }
 
@@ -44,7 +109,12 @@ exports.item_detail = function(req, res, next) {
   .populate('category')
   .exec(function (err, item) {
     if (err) { return next(err); }
-    res.render('item_detail', { title: item.name, item: item });
+    // Increment view count and save
+    item.view_count++;
+    item.save( function(err, updatedItem) {
+      if (err) { return next(err); }
+      res.render('item_detail', { title: updatedItem.name, item: updatedItem });
+    });
   });
 }
 

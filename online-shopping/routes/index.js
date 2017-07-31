@@ -22,12 +22,12 @@ router_export = function(router, passport, User){
 		}
 	);
 //request wishlist, check if logged in and render user information
-	router.get('/wishlist', isLoggedIn, function(req, res) {
+	/*router.get('/wishlist', isLoggedIn, function(req, res) {
 		res.render('wishlist', {
 			user : req.user
 		});
 	}
-);
+); */
 
 //request profile, check if logged in and render user information
 	router.get('/profile', isLoggedIn,
