@@ -34,9 +34,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(paginate.middleware(10, 10));
+app.use(expressValidator());
 
 //authentication
 app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
