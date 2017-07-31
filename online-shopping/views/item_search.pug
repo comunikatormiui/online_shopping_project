@@ -7,7 +7,10 @@ block content
   
   div.list-head
     div.left
-      | #{startIndex}-#{endIndex} of #{itemCount} results for&nbsp;#[strong #{keyword}]
+      if itemCount <= limit
+        | #{itemCount} results for&nbsp;#[strong #{keyword}]
+      else
+        | #{startIndex}-#{endIndex} of #{itemCount} results for&nbsp;#[strong #{keyword}]
     div.right
       span Sort By: &nbsp;
       form(method='GET' action='')

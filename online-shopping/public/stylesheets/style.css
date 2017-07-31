@@ -106,13 +106,12 @@ input {
 }
 
 .list-head {
-  border-top: 1px solid #dedede;
+  border-top: 1px solid #d3d3d3;
   margin: 0.5em 0 0.5em 0;
   padding: 1em 0 0.5em 0;
   justify-content: space-between;
   align-items: center;
   display: flex;
-  flex-wrap: nowrap;
 }
 
 .list-head .left {
@@ -123,6 +122,20 @@ input {
   display: flex;
 }
 
+@media (max-width: 576px) {
+
+  .list-head {
+    display: block;
+  }
+
+  .list-head .left {
+    display: block;
+  }
+
+  .list-head .right {
+    margin-top: 1em;
+  }
+}
 
 /* Category List */
 
