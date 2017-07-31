@@ -17,6 +17,8 @@ exports.item_list = function(req, res, next) {
   var sort = { name: 'asc' };
   if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
   else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+  else if (req.query.sort=='popular') { sort = { view_count: 'desc' } }
+
 
   // Check if a page number is given
   // If not, default is 1
@@ -58,6 +60,7 @@ exports.item_search = function(req, res, next) {
   var sort;
   if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
   else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+  else if (req.query.sort=='popular') { sort = { view_count: 'desc' } }
 
   var page = req.query.page ? req.query.page : 1;
   var limit = 5;
@@ -75,7 +78,7 @@ exports.item_search = function(req, res, next) {
   Item.paginate(query, options)
   .then(function(items) {
     res.render('item_search', {
-      title: keyword,
+      title: 'Search results: ' + keyword,
       keyword: keyword,
       item_list: items.docs,
       pageCount: items.pages,
@@ -96,7 +99,12 @@ exports.item_detail = function(req, res, next) {
   .populate('category')
   .exec(function (err, item) {
     if (err) { return next(err); }
-    res.render('item_detail', { title: item.name, item: item });
+    // Increment view count and save
+    item.view_count++;
+    item.save( function(err, updatedItem) {
+      if (err) { return next(err); }
+      res.render('item_detail', { title: updatedItem.name, item: updatedItem });
+    });
   });
 }
 
