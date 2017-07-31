@@ -1,8 +1,6 @@
 extends layout
 
 block content
-  h3= title
-  a.btn.btn-secondary.btn-sm.float-right(href='/items/create' role='button') Add Item
       
   - var startIndex = Math.min(itemCount, ((page - 1) * limit) + 1);
   - var endIndex = Math.min(itemCount, startIndex + limit - 1);
@@ -10,14 +8,15 @@ block content
   div.list-head
     div.left
       if itemCount <= limit
-        | #{itemCount} results
+        | #{itemCount} results for&nbsp;#[strong #{keyword}]
       else
-        | #{startIndex}-#{endIndex} of #{itemCount} results
+        | #{startIndex}-#{endIndex} of #{itemCount} results for&nbsp;#[strong #{keyword}]
     div.right
       span Sort By: &nbsp;
       form(method='GET' action='')
+        input(type='hidden' name='keyword' value=keyword)
         select(type='select' name='sort' onchange='this.form.submit()')
-          option(value='alpha' selected=(sortBy=='alpha' ? 'selected' : false)) Alphabetical
+          option(value='relevant' selected=(sortBy=='alpha' ? 'selected' : false)) Relevant
           option(value='popular' selected=(sortBy=='popular' ? 'selected' : false)) Popularity
           option(value='price-asc' selected=(sortBy=='price-asc' ? 'selected' : false)) Price: Low to High
           option(value='price-desc' selected=(sortBy=='price-desc' ? 'selected' : false)) Price: High to Low

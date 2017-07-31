@@ -125,8 +125,6 @@ function createItems(cb) {
   ],
   cb);
 }
-  Item.collection.drop();
-  Category.collection.drop();
 
 Item.collection.drop();
 Category.collection.drop();
