@@ -5,9 +5,9 @@ if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
         i.fa.fa-chevron-left(aria-hidden='true')
         |  &nbsp;Previous
     if pages
-      each page in pages
-        li.page-item(class= page.number == page ? 'active' : '')
-          a.page-link(href=page.url)= page.number
+      each _page in pages
+        li.page-item(class= _page.number == page ? 'active' : '')
+          a.page-link(href=_page.url)= _page.number
     li.page-item(class= paginate.hasNextPages(pageCount) ? '' : 'disabled')
       a.page-link(href=paginate.href())
         | Next &nbsp;
