@@ -17,7 +17,6 @@ exports.item_list = function(req, res, next) {
   var sort = { name: 'asc' };
   if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
   else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
-  else if (req.query.sort=='alpha') { sort = { name: 'asc' } }
 
   // Check if a page number is given
   // If not, default is 1
@@ -49,14 +48,43 @@ exports.item_list = function(req, res, next) {
 };
 
 exports.item_search = function(req, res, next) {
+  req.sanitizeQuery('sort').escape();
+  req.sanitizeQuery('sort').trim();
   req.sanitizeQuery('keyword').escape();
   req.sanitizeQuery('keyword').trim();
   var keyword = req.query.keyword;
 
-  Item.find({ 'name' : { $regex: keyword, $options: 'i' }})
-  .exec(function (err, list_items) {
-    if (err) { return next(err); }
-    res.render('item_list', { title: 'Search results for "'+keyword+'"', item_list: list_items, keyword: keyword });
+  // Default is relevant
+  var sort;
+  if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
+  else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+
+  var page = req.query.page ? req.query.page : 1;
+  var limit = 5;
+
+  var query = {
+    'name' :  { $regex: keyword, $options: 'i' }
+  };
+
+  var options = {
+    page: page,
+    limit: limit,
+    sort: sort
+  };
+
+  Item.paginate(query, options)
+  .then(function(items) {
+    res.render('item_search', {
+      title: keyword,
+      keyword: keyword,
+      item_list: items.docs,
+      pageCount: items.pages,
+      itemCount: items.total,
+      pages: paginate.getArrayPages(req)(3, items.pages, page),
+      page: page,
+      limit: items.limit,
+      sortBy: req.query.sort
+    });
   });
 }
 
