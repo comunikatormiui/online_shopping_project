@@ -17,19 +17,18 @@ block content
 
       div.form-group.input
         label(for='gender') Gender:
-        select#gender.form-control(type='select', placeholder='Select your Gender', name='gender' value=(undefined===user ? 'undef' : user.local.gender)) 
+        select#gender.form-control(type='select', placeholder='Select your Gender', name='gender') 
           option(value='') 
-          option(value='Male') Male 
-          option(value='Female') Female        
+          option(value='Male' selected=(user.local.gender=='Male' ? 'selected' : false)) Male 
+          option(value='Female' selected=(user.local.gender=='Female' ? 'selected' : false)) Female        
           
       div.form-group.input
         label(for='date_of_birth') Date of birth:
-        input#date_of_birth.form-control(type='date', placeholder='' name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
+        input#date_of_birth.form-control(type='date', placeholder='' name='date_of_birth', value=(undefined===user ? '' : user.dateFormat))
 
       div.form-group.input
         label(for='address') Address:
-        input#date_of_birth.form-control(type='date', placeholder='' required='true' name='date_of_birth', value=(undefined===user ? '' : user.local.date_of_birth))
-
+        input#address.form-control(type='text', placeholder='Country, Province, City', name='address', value=(undefined===user ? '' : user.local.address))
 
       div.form-group.input
         label(for='cell_phone') Cell phone:
