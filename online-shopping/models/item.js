@@ -27,6 +27,12 @@ ItemSchema
   return '/uploads/' + this.image;
 });
 
+ItemSchema
+.virtual('url')
+.get(function() {
+  return '/wishlist/' + this._id;
+});
+
 ItemSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Item', ItemSchema);

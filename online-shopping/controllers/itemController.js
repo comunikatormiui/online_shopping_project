@@ -332,7 +332,7 @@ exports.item_put_wishlist = function(req, res, next) {
   .exec(function (err, item) {
     if (err) { return next(err); }
     res.render('wishlist', { title: 'wishlist', wishlist: item });
-    console.log(user);
+    //console.log(user);
   });
 }
 
