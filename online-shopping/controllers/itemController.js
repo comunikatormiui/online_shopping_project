@@ -300,12 +300,19 @@ exports.item_buy_post = function(req, res, next) {
           res.redirect(item.url);
           return;
         }
+        var currentDate = new Date();
         var review = new Review({
           item: itemID,
           reviewer: user._id,
           review: req.body.review,
           rating: req.body.rating,
+          review_date: currentDate
         });
+        review = review.toObject();
+        console.log(review);
+        delete review["_id"];
+        console.log(review);
+        console.log(review._id);
 
         Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
           {upsert:true}, function(err, review){
@@ -316,7 +323,6 @@ exports.item_buy_post = function(req, res, next) {
               res.redirect(item.url);
             }
             else {
-              console.log('Saved successfully');
               res.redirect(item.url);
             }
         });

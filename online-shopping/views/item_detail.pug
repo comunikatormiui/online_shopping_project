@@ -35,12 +35,22 @@ block content
 
     br
     label(for='previous_reviews') #[strong Previous Reviews:]
+    -function prettyDate(dateString){
+        //if it's already a date object and not a string you don't need this line:
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
     div
       table
           each review in review_list
             tr
               td #{review.review}
               td #{review.reviewer.local.fname}
+              td #{prettyDate(review.review_date)}
           else
             li No review
 
