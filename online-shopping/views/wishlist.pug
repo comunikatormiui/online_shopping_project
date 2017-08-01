@@ -4,18 +4,21 @@ block content
   h3= title
 
 
-  ul
-  each item in wishlist
-    br
-    .card(style='width: 20rem;')
-      img.card-img-top(src='...', alt='Card image cap')
-      .card-block
-        a(href=item.url) #{item.name}
-      ul.list-group.list-group-flush
-        li.list-group-item #[strong Price: ] CDN$ #{item.price}
-        li.list-group-item #[strong Sold by:] #{item.seller}
-      .card-block
-        a.card-link(href='#') Card link
-        a.card-link(href='#') Another link
-  else
-    li No items
+  ol.item-list
+    each item in wishlist
+      li
+        div.row
+          div.pic.col-sm-3.text-center
+            img(src= item.image ? item.imageUrl : '/uploads/question-mark.svg')
+          div.detail.col-sm-9
+            span.name
+              a(href=item.url) #{item.name}
+            span.price
+              | CDN$ #{item.price}
+            span.rating
+              | ★★★★
+            span
+              | #{item.view_count} views
+
+    else
+      li No items

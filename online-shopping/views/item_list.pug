@@ -27,7 +27,7 @@ block content
       li
         div.row
           div.pic.col-sm-3.text-center
-            img(src= item.image ? item.imageUrl : '/uploads/question-mark.svg')
+            img(src= item.imageUrl ? item.imageUrl : '/uploads/question-mark.svg')
           div.detail.col-sm-9
             span.name
               a(href=item.url) #{item.name}
@@ -37,10 +37,16 @@ block content
               | #{item.category.name}
             span.price
               | CDN$ #{item.price}
+              br
+              br
+              button.btn.btn-primary(type='submit') Add To Wishlist
             span.rating
               | ★★★★
             span
               | #{item.view_count} views
+
+
+
 
     else
       li No items
