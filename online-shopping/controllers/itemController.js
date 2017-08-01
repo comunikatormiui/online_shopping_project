@@ -53,11 +53,12 @@ exports.item_list = function(req, res, next) {
 };
 
 exports.wishlist = function(req, res, next) {
-  Item.find({}, 'name seller')
-  .populate('seller')
-  .exec(function (err, list_items) {
+  // Get wishlist from current user
+  User.findById(req.user._id)
+  .populate('local.wishlist')
+  .exec(function(err, user) {
     if (err) { return next(err); }
-    res.render('wishlist', { title: 'wishlist', wishlist: list_items });
+      res.render('wishlist', { title: 'wishlist', wishlist: user.local.wishlist });
   });
 };
 
