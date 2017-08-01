@@ -37,10 +37,16 @@ block content
               | #{item.category.name}
             span.price
               | CDN$ #{item.price}
+              br
+              br
+              button.btn.btn-primary(type='submit') Add To Wishlist
             span.rating
               | ★★★★
             span
               | #{item.view_count} views
+
+
+
 
     else
       li No items
