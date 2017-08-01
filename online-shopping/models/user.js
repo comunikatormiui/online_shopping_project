@@ -18,7 +18,7 @@ var userSchema = mongoose.Schema({
 userSchema
 .virtual('dateFormat')
 .get(function() {
-  return this.local.date_of_birth ? moment(this.local.date_of_birth).format('YYYY-MM-DD') : '';
+  return this.local.date_of_birth ? moment(this.local.date_of_birth).utcOffset(0).format('YYYY-MM-DD') : '';
 });
 
 // generating a hash
