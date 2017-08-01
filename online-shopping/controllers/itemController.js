@@ -52,14 +52,15 @@ exports.item_list = function(req, res, next) {
   });
 };
 
-exports.wishlist = function(req, res, next) {
-  Item.find({}, 'name seller')
-  .populate('seller')
-  .exec(function (err, list_items) {
-    if (err) { return next(err); }
-    res.render('wishlist', { title: 'wishlist', wishlist: list_items });
-  });
-};
+//exports.wishlist = function(req, res, next) {
+  //Item.find({}, 'name seller')
+  //.populate('seller')
+  //.exec(function (err, list_items) {
+    //if (err) { return next(err); }
+    //res.render('wishlist', { title: 'wishlist', wishlist: list_items });
+//  });
+//};
+
 
 
 exports.item_search = function(req, res, next) {
@@ -318,6 +319,19 @@ exports.item_buy_get = function(req, res, next) {
   .exec(function (err, item) {
     if (err) { return next(err); }
     res.render('item_buy', { title: 'Check out', item: item });
+    console.log(user);
+  });
+}
+
+exports.item_put_wishlist = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .populate('seller')
+  .exec(function (err, item) {
+    if (err) { return next(err); }
+    res.render('wishlist', { title: 'wishlist', wishlist: item });
     console.log(user);
   });
 }

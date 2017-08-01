@@ -10,10 +10,11 @@ var ItemSchema = Schema({
   price: { type: Number, required: true }
 });
 
-ItemSchema
+WishlistSchema
 .virtual('url')
 .get(function() {
-  return '/items/' + this._id;
+  return '/wishlist/' + this._id;
 });
 
-module.exports = mongoose.model('Item', ItemSchema);
+
+module.exports = mongoose.model('wishlist', WishlistSchema);

@@ -39,7 +39,14 @@ block content
               | CDN$ #{item.price}
               br
               br
-              button.btn.btn-primary(type='submit') Add To Wishlist
+
+              if (user == 'seller')
+                
+              else
+                form(method='GET' action=item.url+'/wishlist')
+                    div.form-group
+                      input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+                    button.btn.btn-primary(type='submit') Add To Wishlist
             span.rating
               | ★★★★
             span

@@ -100,6 +100,9 @@ router_export = function(router, passport, User){
 			});
 		});
 
+
+
+
 	//logout, log user out and redirect to root
 	router.get('/logout', function(req, res){
 		req.logout();
