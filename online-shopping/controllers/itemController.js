@@ -40,7 +40,7 @@ exports.item_list = function(req, res, next) {
   Item.paginate({}, options)
   .then(function(items) {
     res.render('item_list', {
-      title: 'Item Directory',
+      title: 'Items For Sale',
       item_list: items.docs,
       pageCount: items.pages,
       itemCount: items.total,
