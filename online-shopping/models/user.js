@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var moment = require('moment');
 
 var userSchema = mongoose.Schema({
     local            	: {
@@ -12,6 +13,12 @@ var userSchema = mongoose.Schema({
         cell_phone 		: {type: String},
         gender          : {type: String, enum: ['Male', 'Female']},
     }
+});
+
+userSchema
+.virtual('dateFormat')
+.get(function() {
+  return this.local.date_of_birth ? moment(this.local.date_of_birth).format('YYYY-MM-DD') : '';
 });
 
 // generating a hash

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+  h3= title
+
+  table
+    tr
+      th Date
+      th Item
+      th Quantity
+      th Price
+    each transaction in transaction_list
+      tr
+        td #{transaction.purchase_date}
+        td
+          a(href='/items/' + transaction.item._id) #{transaction.item.name}
+        td #{transaction.quantity}
+        - var price = transaction.quantity*transaction.item.price
+        td #{price}
+    else
+      li You have no past transaction

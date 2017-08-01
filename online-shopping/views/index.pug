@@ -2,13 +2,20 @@ extends layout
 block content
   br
   div.container
-    h1.center-text SFU Trade Center
-    p Welcome to our shopping site
+    h1 SFU Trade Center
+    p.titlep Welcome to our shopping site
+    div.shopByDepartment.dropdown
+      a.btn.btn-secondary.dropdown-toggle(id='dropdownMenuLink', href='#', data-toggle='dropdown', aria-haspopup='false', aria-expanded='false') Shop by Department
+      div.dropdown-menu.dropdown-menu-right(aria-labelledby='dropdownMenuLink')
+        each cat in catListForHome
+          a.dropdown-item(href='/categories/'+cat._id) #{cat.name}
 
+    br
+    br
     div.carouselframe
       div#myCarousel.carousel.slide(data-ride='carousel')
         div.carousel-outer
-          p.dailyDeals Daily Deals 
+          p.dailyDeals Daily Deals
           a.seeItemDetail(href='/items') See All
         ol.carousel-indicators
           li(data-target='#myCarousel', data-slide-to='0', class='active')
@@ -30,18 +37,17 @@ block content
               h2 EXO KoKoBop is Coming!
 
         a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
-            i.fa.fa-chevron-left(aria-hidden='true') 
+            i.fa.fa-chevron-left(aria-hidden='true')
         a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
             i.fa.fa-chevron-right(aria-hidden='true')
 
-    p Item's Near You:
-    p Somewhere in Austrialia.... Dingo ate my baby!
+    h2 Item's Near You:
     #map
     script.
       function initMap() {
-      var uluru = {lat: -25.363, lng: 131.044};
+      var uluru = {lat: 49.278109, lng: -122.919};
       var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
+      zoom: 12,
       center: uluru
       });
       var marker = new google.maps.Marker({
