@@ -26,6 +26,13 @@ router_export = function(router, passport, User){
 			res.render('signup', {message: req.flash('signupMessage')});
 		}
 	);
+
+	router.get('/about',
+		function(req, res){
+			res.render('about')
+		}
+	);
+
 //request wishlist, check if logged in and render user information
 	/*router.get('/wishlist', isLoggedIn, function(req, res) {
 		res.render('wishlist', {

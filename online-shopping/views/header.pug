@@ -18,7 +18,7 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
       li.nav-item
         a.nav-link(href="http://localhost:9001") Chat
       li.nav-item
-        a.nav-link.mr-5(href='#') Forums      
+        a.nav-link.mr-5(href='#') Forums
     ul.navbar-nav
       li.nav-item
         form.form-inline(method='GET' action='/items/search')
@@ -27,7 +27,7 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
             span.input-group-btn
               button.btn.btn-secondary(type='submit')
                 i.fa.fa-search(aria-hidden='true')
-    
+
       if login
         li.nav-item
         a.nav-link(href='/profile') Profile
@@ -44,3 +44,5 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
           a.nav-link(href='/signup') Sign up
         li.nav-item
           a.nav-link(href='/login') Login
+  nav.navbar.fixed-bottom.navbar-light.bg-faded
+   a.nav-link(href='/about') About Us
