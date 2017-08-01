@@ -21,6 +21,10 @@ userSchema
   return this.local.date_of_birth ? moment(this.local.date_of_birth).utcOffset(0).format('YYYY-MM-DD') : '';
 });
 
+userSchema.statics.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
 // generating a hash
 userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
