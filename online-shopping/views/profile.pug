@@ -12,16 +12,16 @@ block content
         input#first_name.form-control(type='text', placeholder='First name (Christian) last' name='fname' required='true' value=(undefined===user ? 'undef' : user.local.fname) )
 
       div.form-group.input
-        label(for='family_name') Family Name:
+        label(for='family_name') Last Name:
         input#family_name.form-control(type='text', placeholder='Family name (surname)' name='lname' required='true' value=(undefined===user ? 'undef' : user.local.lname) )
 
       div.form-group.input
         label(for='gender') Gender:
-        select#gender.form-control(type='select', placeholder='Select your Gender', name='gender') 
-          option(value='') 
-          option(value='Male' selected=(user.local.gender=='Male' ? 'selected' : false)) Male 
-          option(value='Female' selected=(user.local.gender=='Female' ? 'selected' : false)) Female        
-          
+        select#gender.form-control(type='select', placeholder='Select your Gender', name='gender')
+          option(value='')
+          option(value='Male' selected=(user.local.gender=='Male' ? 'selected' : false)) Male
+          option(value='Female' selected=(user.local.gender=='Female' ? 'selected' : false)) Female
+
       div.form-group.input
         label(for='date_of_birth') Date of birth:
         input#date_of_birth.form-control(type='date', placeholder='' name='date_of_birth', value=(undefined===user ? '' : user.dateFormat))
