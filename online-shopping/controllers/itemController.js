@@ -43,10 +43,13 @@ exports.item_detail = function(req, res, next) {
     else{
       user = 'buyer';
     }
-    Review.find({item_id: req.params.id}, 'review')
+    console.log('req.params.id:' + req.params.id);
+    Review.find({item: req.params.id})
+    .populate('reviewer')
     .exec(function (err, list_reviews){
       if (err){return next(err);}
-      res.render('item_detail', { title: item.name, item: item, user : user, review_list: list_reviews });
+      res.render('item_detail', { title: item.name, item: item, user : user, review_list: list_reviews});
+      console.log(list_reviews);
       console.log(user);
     });
   });
@@ -309,11 +312,11 @@ exports.item_buy_post = function(req, res, next) {
             if(err){
               //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
               //                            error : 'Failed to add your review. Please try again.'});
+              console.log(err);
               res.redirect(item.url);
             }
             else {
-              //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
-              //                            message: "Thanks for providing your feedback."});
+              console.log('Saved successfully');
               res.redirect(item.url);
             }
         });

@@ -34,13 +34,16 @@ block content
       button.btn.btn-danger(type='submit') Write A reviews
 
     br
-    ul
-    each review in review_list
-      li
-        #{review.review}
-    else
-      li No review
-    
+    label(for='previous_reviews') #[strong Previous Reviews:]
+    div
+      table
+          each review in review_list
+            tr
+              td #{review.review}
+              td #{review.reviewer.local.fname}
+          else
+            li No review
+
   if (error)
     p(class="error") #{error}
 
