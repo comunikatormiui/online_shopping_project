@@ -3,7 +3,6 @@ extends layout
 block content
   h3= title
   a.btn.btn-secondary.btn-sm.float-right(href='/items/create' role='button') Add Item
-
   - var startIndex = Math.min(itemCount, ((page - 1) * limit) + 1);
   - var endIndex = Math.min(itemCount, startIndex + limit - 1);
 
@@ -52,4 +51,4 @@ block content
       li No items
 
 
-  include pagination
+  include _pagination
