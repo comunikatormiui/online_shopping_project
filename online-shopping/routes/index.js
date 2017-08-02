@@ -17,13 +17,13 @@ router_export = function(router, passport, User){
 
 //request login and render login message
 	router.get('/login', function(req, res){
-		res.render('login');
+		res.render('login', { title: 'Log In' });
 	});
 
 //request signup and render signup
 	router.get('/signup',
 		function(req, res){
-			res.render('signup');
+			res.render('signup', { title: 'Sign Up' });
 		}
 	);
 
@@ -45,7 +45,8 @@ router_export = function(router, passport, User){
 	router.get('/profile', login_routing.isLoggedIn,
 		function(req, res){
 			res.render('profile', {
-				user : req.user
+				user : req.user,
+				title : 'Profile'
 			});
 		}
 	);

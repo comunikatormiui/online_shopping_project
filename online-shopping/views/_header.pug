@@ -30,18 +30,18 @@ header.navbar.navbar-light.bg-faded.navbar-toggleable-md
                 i.fa.fa-search(aria-hidden='true')
 
       if login
-        li.nav-item
-        a.nav-link(href='/profile') Profile
+        li.nav-item(class= title=='Profile' ? 'active' : '')
+          a.nav-link(href='/profile') Profile
 
 
         li.nav-item
           a.nav-link(href='/wishlist') My Wishlist
-        li.nav-item
+        li.nav-item(class= title=='List of Past Transactions' ? 'active' : '')
             a.nav-link(href='/transactions') Transactions
         li.nav-item
           a.nav-link(href='/logout') Log Out
       else
-        li.nav-item
+        li.nav-item(class= title=='Sign Up' ? 'active' : '')
           a.nav-link(href='/signup') Sign up
-        li.nav-item
+        li.nav-item(class= title=='Log In' ? 'active' : '')
           a.nav-link(href='/login') Login
