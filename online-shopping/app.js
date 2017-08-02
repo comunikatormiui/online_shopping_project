@@ -46,6 +46,9 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use(function(req, res, next) {
 	res.locals.login = req.isAuthenticated();
+	res.locals.success_messages = req.flash('success');
+	res.locals.warning_messages = req.flash('warning');
+	res.locals.error_messages = req.flash('error');
 	next();
 });
 

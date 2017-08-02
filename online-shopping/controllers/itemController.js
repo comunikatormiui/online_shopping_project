@@ -197,14 +197,21 @@ exports.item_create_post = function(req, res, next) {
     req.getValidationResult().then(function(result) {
       var errors = result.array();
       if (errors.length > 0) {
+
         Category.find({}, 'name')
         .exec(function(err, categories) {
-          if (err) {
-            return next(err);
+          if (err) { return next(err); }
+          // add errors to flash
+          for (var i = 0; i < errors.length; i++) {
+            req.flash('error', errors[i].msg);
           }
+          res.locals.error_messages = req.flash('error');
+
           res.render('item_form', { title: 'Create New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
         });
+
       } else {
+
         item.save(function(err) {
           if (err) {
             throw err;
@@ -212,6 +219,7 @@ exports.item_create_post = function(req, res, next) {
           }
           res.redirect(item.url);
         });
+
       }
     });
   });
@@ -285,18 +293,28 @@ exports.item_update_post = function(req, res, next) {
   req.getValidationResult().then(function(result) {
     var errors = result.array();
     if (errors.length > 0) {
+
       Category.find({}, 'name')
       .exec(function(err, categories) {
         if (err) {
           return next(err);
         }
+        // add errors to flash
+        for (var i = 0; i < errors.length; i++) {
+          req.flash('error', errors[i].msg);
+        }
+        res.locals.error_messages = req.flash('error');
+        
         res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
       });
+
     } else {
+
       Item.findByIdAndUpdate(req.params.id, item, {}, function(err, theitem) {
         if (err) { return next(err); }
         res.redirect(theitem.url);
       });
+
     }
   });
 }

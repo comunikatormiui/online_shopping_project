@@ -17,13 +17,13 @@ router_export = function(router, passport, User){
 
 //request login and render login message
 	router.get('/login', function(req, res){
-		res.render('login', {message: req.flash('loginMessage')});
+		res.render('login');
 	});
 
 //request signup and render signup
 	router.get('/signup',
 		function(req, res){
-			res.render('signup', {message: req.flash('signupMessage')});
+			res.render('signup');
 		}
 	);
 
