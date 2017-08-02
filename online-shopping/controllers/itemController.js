@@ -2,6 +2,7 @@ var Item = require('../models/item');
 var Category = require('../models/category');
 var User = require('../models/user');
 var Transaction = require('../models/transaction');
+var Review = require('../models/review');
 var util = require('util');
 var paginate = require('express-paginate');
 var multer = require('multer');
@@ -121,12 +122,16 @@ exports.item_detail = function(req, res, next) {
     else{
       user = 'buyer';
     }
-
     // Increment view count and save
     item.view_count++;
-    item.save( function(err, updatedItem) {
-      if (err) { return next(err); }
-      res.render('item_detail', { title: updatedItem.name, item: updatedItem, user : user });
+    item.save(function(err, updatedItem) {
+        if (err) { return next(err); }
+        Review.find({item: req.params.id})
+        .populate('reviewer')
+        .exec(function (err, list_reviews){
+            if (err){return next(err);}
+            res.render('item_detail', { title: updatedItem.name, item: updatedItem, user : user, review_list: list_reviews});
+        });
     });
   });
 }
@@ -400,4 +405,66 @@ exports.item_buy_post = function(req, res, next) {
       }
     });
   });
-};
+}
+
+  exports.item_review_post = function(req, res, next) {
+    req.checkBody('item', 'Item name must be specified').notEmpty();
+    req.checkBody('rating', 'rating must be specified').notEmpty().isInt();
+
+
+    req.filter('item').escape();
+    req.filter('item').trim();
+    req.filter('review').escape();
+    req.filter('review').trim();
+    req.filter('rating').escape();
+    req.filter('rating').trim();
+
+    User.findOne({'local.email': req.user.local.email}, function(err, user){
+      if(err){
+        throw err;
+      }
+      if(!user){
+        console.log('Invalid email received: ' + req.user.local.email);
+        next(err);
+      }
+      var itemID = req.params.id;
+      Item.findById(itemID)
+      .populate('seller')
+      .exec(function (err, item) {
+        if (err) { return next(err); }
+        if (req.user != null && item.seller.local.email == req.user.local.email){
+          //res.render('item_detail', { title: item.name, item: item, user : 'seller',
+          //                            error : 'Seller cannot rate his/her own item.'});
+          res.redirect(item.url);
+          return;
+        }
+        var currentDate = new Date();
+        var review = new Review({
+          item: itemID,
+          reviewer: user._id,
+          review: req.body.review,
+          rating: req.body.rate_field,
+          review_date: currentDate
+        });
+        console.log(req.body.rate_field);
+        review = review.toObject();
+        console.log(review);
+        delete review["_id"];
+        console.log(review);
+        console.log(review._id);
+
+        Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
+          {upsert:true}, function(err, review){
+            if(err){
+              //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
+              //                            error : 'Failed to add your review. Please try again.'});
+              console.log(err);
+              res.redirect(item.url);
+            }
+            else {
+              res.redirect(item.url);
+            }
+        });
+    });
+  });
+}

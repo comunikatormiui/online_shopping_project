@@ -44,3 +44,47 @@ block content
         div.form-group
           input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
         button.btn.btn-danger(type='submit') Buy
+    br
+    form(method='POST' action=item.url+'/review' id='review_form')
+        div.form-group
+            label(for='review') #[strong Rate]
+            .rateyo(data-rateyo-rating='0%', data-rateyo-spacing='10px', data-rateyo-rated-fill='#ffdb03')
+        div.form-group
+          label(for='review') #[strong Review:]
+          textarea#review.form-control(name='review', required='true')
+        div.form-group
+            input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        div.form-group
+            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value='' )
+        button.btn.btn-danger(type='submit') Write A Review
+
+    br
+    label(for='previous_reviews') #[strong Previous Reviews:]
+    -function prettyDate(dateString){
+        //if it's already a date object and not a string you don't need this line:
+        -var date = new Date(dateString);
+        -var d = date.getDate();
+        -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        -var m = monthNames[date.getMonth()];
+        -var y = date.getFullYear();
+        -return d+' '+m+' '+y;
+    -}
+    div
+      table#review_table
+          each review in review_list
+            tr
+              td#review_section #{review.review}
+              td#reviewer_name #{review.reviewer.local.fname + ' (' + Math.round(review.rating * 10)/10 + '/5)'}
+              td#review_date #{prettyDate(review.review_date)}
+          else
+            li No review
+
+    if (error)
+        p(class="error") #{error}
+
+    if (message)
+        p(class="message") #{message}
+
+    script(type='text/javascript', src='/scripts/rating_logic.js')
+    script(type='text/javascript', src='/scripts/rating.js')
+

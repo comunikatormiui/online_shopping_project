@@ -90,6 +90,71 @@ tr:nth-child(odd) {
   background: #FFF
 }
 
+#review_table {
+  border: 1px solid;
+  border-color: #CCCCCC;
+  width: 100%;
+  border-left: hidden;
+  border-right: hidden;
+  margin-bottom: 30px;
+}
+
+#review_table tr {
+    background-color: white;
+    border-bottom: 1px solid;
+    border-color: #CCCCCC;
+}
+
+#review_table tr td {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#review_section {
+    padding-left: 5px;
+    width: 70%;
+}
+
+#reviewer_name {
+    width: 15%;
+    text-align: center;
+}
+
+#review_date {
+    text-align: center;
+}
+
+
+
+.error {
+  color: red;
+}
+
+.message {
+  color: green;
+}
+
+.rate_widget {
+    border:     1px solid #CCC;
+    overflow:   visible;
+    padding:    10px;
+    position:   relative;
+    width:      180px;
+    height:     32px;
+}
+.ratings_stars {
+    background: url('star_empty.png') no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    2px;
+    width:      32px;
+}
+.ratings_vote {
+    background: url('star_full.png') no-repeat;
+}
+.ratings_over {
+    background: url('star_highlight.png') no-repeat;
+}
 /* Item List */
 
 .item-list {

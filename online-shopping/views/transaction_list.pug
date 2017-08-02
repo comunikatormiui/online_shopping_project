@@ -3,7 +3,15 @@ extends layout
 block content
 
   h3= title
-
+  -function prettyDate(dateString){
+      //if it's already a date object and not a string you don't need this line:
+      -var date = new Date(dateString);
+      -var d = date.getDate();
+      -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+      -var m = monthNames[date.getMonth()];
+      -var y = date.getFullYear();
+      -return d+' '+m+' '+y;
+  -}
   table
     tr
       th Date
@@ -12,7 +20,7 @@ block content
       th Price
     each transaction in transaction_list
       tr
-        td #{transaction.purchase_date}
+        td #{prettyDate(transaction.purchase_date)}
         td
           a(href='/items/' + transaction.item._id) #{transaction.item.name}
         td #{transaction.quantity}
