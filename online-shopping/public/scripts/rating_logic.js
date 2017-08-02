@@ -899,10 +899,9 @@
        * On clicking the mouse inside the container, calculate and set the rating
        */
       var resultantRating = calculateRating(e).toFixed(options.precision);
-      resultantRating = parseFloat(resultantRating/20);
-      $("#rate_field").val(resultantRating);
-
+      resultantRating = parseFloat(resultantRating);
       that.rating(resultantRating);
+      $("#rate_field").val(resultantRating/20);
     }
 
     function onInit(e, data) {

@@ -2,7 +2,6 @@ extends layout
 
 block content
   h2= title
-
   br
   p #[strong Price:] CDN$ #{item.price}
   p #[strong Category:] #{item.category.name}
@@ -29,12 +28,12 @@ block content
             .rateyo(data-rateyo-rating='0%', data-rateyo-spacing='10px', data-rateyo-rated-fill='#ffdb03')
         div.form-group
           label(for='review') #[strong Review:]
-          textarea#review.form-control(name='review')
+          textarea#review.form-control(name='review', required='true')
         div.form-group
             input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
         div.form-group
-            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value='0')
-        button.btn.btn-danger(type='submit') Write A reviews
+            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value='' )
+        button.btn.btn-danger(type='submit') Write A Review
 
     br
     label(for='previous_reviews') #[strong Previous Reviews:]
@@ -48,12 +47,12 @@ block content
         -return d+' '+m+' '+y;
     -}
     div
-      table
+      table#review_table
           each review in review_list
             tr
-              td #{review.review}
-              td #{review.reviewer.local.fname}
-              td #{prettyDate(review.review_date)}
+              td#review_section #{review.review}
+              td#reviewer_name #{review.reviewer.local.fname + ' (' + Math.round(review.rating * 10)/10 + '/5)'}
+              td#review_date #{prettyDate(review.review_date)}
           else
             li No review
 
