@@ -1,5 +1,6 @@
 var Category = require('../models/category');
 var Item = require('../models/item');
+var paginate = require('express-paginate');
 
 var async = require('async');
 
@@ -52,17 +53,50 @@ exports.catListForHome = function(req, res, next) {
 exports.category_detail = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
+  req.sanitizeQuery('sort').escape();
+  req.sanitizeQuery('sort').trim();
+
+  // Default is relevant
+  var sort = { view_count: 'desc' };
+  if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
+  else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+
+  var page = req.query.page ? req.query.page : 1;
+  var limit = 5;
+
+  var query = {
+    category : req.params.id
+  };
+
+  var options = {
+    page: page,
+    limit: limit,
+    sort: sort,
+    populate: 'seller'
+  };
 
   async.parallel({
     items: function(callback) {
-      Item.find({ category: req.params.id }, 'name seller').exec(callback);
+      Item.paginate(query, options, callback);
     },
     category: function(callback) {
       Category.findById(req.params.id).exec(callback);
     }
   }, function(err, results) {
     if (err) { next(err); }
-    res.render('category_detail', { title: results.category.name + ' Category', item_list: results.items, category: results.category })
+
+    res.render('category_detail', {
+      title: results.category.name,
+      item_list: results.items.docs,
+      cat_name: 'Category: ' + results.category.name,
+      pageCount: results.items.pages,
+      itemCount: results.items.total,
+      pages: paginate.getArrayPages(req)(3, results.items.pages, page),
+      page: page,
+      limit: results.items.limit,
+      sortBy: req.query.sort // could be null
+    });
+
   });
 }
 

@@ -16,7 +16,7 @@ block content
       form(method='GET' action='')
         input(type='hidden' name='keyword' value=keyword)
         select(type='select' name='sort' onchange='this.form.submit()')
-          option(value='relevant' selected=(sortBy=='alpha' ? 'selected' : false)) Relevant
+          option(value='relevant') Relevant
           option(value='popular' selected=(sortBy=='popular' ? 'selected' : false)) Popularity
           option(value='price-asc' selected=(sortBy=='price-asc' ? 'selected' : false)) Price: Low to High
           option(value='price-desc' selected=(sortBy=='price-desc' ? 'selected' : false)) Price: High to Low
@@ -31,7 +31,7 @@ block content
             span.name
               a(href=item.url) #{item.name}
             span.seller 
-              | by #{item.seller}
+              | by #{item.seller.local.fname} #{item.seller.local.lname}
             span.category
               | #{item.category.name}
             span.price

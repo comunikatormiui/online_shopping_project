@@ -86,21 +86,22 @@ exports.item_search = function(req, res, next) {
   var options = {
     page: page,
     limit: limit,
-    sort: sort
+    sort: sort,
+    populate: 'seller'
   };
 
   Item.paginate(query, options)
   .then(function(items) {
     res.render('item_search', {
       title: 'Search results: ' + keyword,
-      keyword: keyword,
+      keyword: keyword, // this keyword is from search field, passed to view to be used when user changes sort by option
       item_list: items.docs,
       pageCount: items.pages,
       itemCount: items.total,
       pages: paginate.getArrayPages(req)(3, items.pages, page),
-      page: page,
+      page: page, // page number
       limit: items.limit,
-      sortBy: req.query.sort
+      sortBy: req.query.sort // could be null
     });
   });
 }
@@ -304,7 +305,7 @@ exports.item_update_post = function(req, res, next) {
           req.flash('error', errors[i].msg);
         }
         res.locals.error_messages = req.flash('error');
-        
+
         res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
       });
 
