@@ -63,6 +63,26 @@ exports.wishlist = function(req, res, next) {
   });
 };
 
+exports.wishlist_add = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .exec(function(err, item) {
+    if (err) { return next(err); }
+
+    var conditions = { _id : req.user._id };
+    var update = { $addToSet : { 'local.wishlist' : item }};
+
+    User.update(conditions, update)
+    .exec(function(err, user) {
+        if(err) { return next(err); }
+        req.flash('success', item.name + ' added to your Wish List');
+        res.redirect('/wishlist');
+    });
+  });
+};
+
 
 exports.item_search = function(req, res, next) {
   req.sanitizeQuery('sort').escape();

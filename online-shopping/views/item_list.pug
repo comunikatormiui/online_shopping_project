@@ -38,7 +38,8 @@ block content
               | CDN$ #{item.price}
               br
               br
-              button.btn.btn-primary(type='submit') wishlist
+              if login 
+                a.btn.btn-primary(href='/wishlist/' + item._id + '/add') wishlist
             span.rating
               | ★★★★
             span
