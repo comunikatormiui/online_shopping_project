@@ -1,0 +1,33 @@
+    <!doctype html>
+    <html>
+       <head>
+         <link rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', integrity='sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ', crossorigin='anonymous'/>
+         <nav class="navbar navbar-light bg-faded navbar-toggleable-md">
+            <button type="button" data-toggle="collapse" data-target="#navbarCollapse" class="navbar-toggler navbar-toggler-right"><span class="navbar-toggler-icon"></span></button><a href="localhost:9000/" class="navbar-brand">Home</a>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a href="http://localhost:9000/items" class="nav-link">Directory</a></li>
+                <li class="nav-item"><a href="http://localhost:9000/categories" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="http://localhost:9001" class="nav-link">Chat</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Forums</a></li>
+              </ul>
+              <form method="GET" action="/items/search" class="form-inline">
+                <input type="text" placeholder="Search" name="keyword" value="" class="form-control mr-sm-2"/>
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+              </form>
+            </div>
+          </nav>
+        <title>Chat Application</title>
+        <link rel='stylesheet' href='style.css' type='text/css'/>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="chat.js"></script>
+       </head>
+      <body>
+        <ul id="messages"></ul>
+        <span id="notifyUser"></span>
+        <form id="form" action="" onsubmit="return submitfunction();" >
+          <input type="hidden" id="user" value="" /><input id="m" autocomplete="off" onkeyup="notifyTyping();" placeholder="Type your message here..." /><input type="submit" id="button" value="Send"/>
+        </form>
+      </body>
+    </html>

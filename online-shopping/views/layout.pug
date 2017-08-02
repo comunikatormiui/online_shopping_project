@@ -1,7 +1,8 @@
 doctype html
 html
-  include head
+  include _head
   body
-    include header
-    div.container
+    include _header
+    .container
+      include _flash
       block content

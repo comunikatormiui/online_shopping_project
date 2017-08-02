@@ -8,7 +8,11 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session  = require('express-session');
+var multer = require("multer");
 var User = require('./models/user'); //---------------------
+var paginate = require('express-paginate');
+var image = require('./routes/imagefile');
+
 
 require('./controllers/passport')(passport, User);
 
@@ -17,7 +21,6 @@ var users = require('./routes/users');
 var items = require('./routes/items');
 var categories = require('./routes/categories');
 var wishlist = require('./routes/wishlist');
-
 
 var app = express();
 
@@ -30,9 +33,10 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(paginate.middleware(10, 10));
+app.use(expressValidator());
 
 //authentication
 app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
@@ -42,6 +46,9 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use(function(req, res, next) {
 	res.locals.login = req.isAuthenticated();
+	res.locals.success_messages = req.flash('success');
+	res.locals.warning_messages = req.flash('warning');
+	res.locals.error_messages = req.flash('error');
 	next();
 });
 
@@ -51,6 +58,24 @@ app.use('/users', users);
 app.use('/items', items);
 app.use('/categories', categories);
 app.use('/wishlist', wishlist);
+app.use('/imagefile', image);
+
+
+
+app.get('/images', function(req, res) {
+  image.getImages(function(err, cb) {
+    if (err) {throw err;}
+    res.json(cb);
+  });
+});
+
+// URL : http://localhost:3000/images/(give you collectionID); To get the single image/File using id from the MongoDB
+app.get('/images/:id', function(req, res) {
+  image.getImageById(req.params.id, function(err, cb) {
+    if (err) {throw err;}
+    res.send(cb.path)
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

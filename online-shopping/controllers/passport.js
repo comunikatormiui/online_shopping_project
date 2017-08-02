@@ -1,7 +1,7 @@
 
 var LocalStrategy   = require('passport-local').Strategy;
 
-module.exports = function(passport, User) {   
+module.exports = function(passport, User) {
     passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
@@ -28,7 +28,7 @@ module.exports = function(passport, User) {
                 if (err)
                     return done(err);
                 if (user) {
-                    return done(null, false, req.flash('signupMessage', 'The email already exists.'));
+                    return done(null, false, req.flash('error', 'The email already exists.'));
                 }
                 else {
                     var newUser  = new User();
@@ -60,10 +60,10 @@ module.exports = function(passport, User) {
                     return done(err);
 
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('error', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
 
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('error', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
                 return done(null, user);
             });
