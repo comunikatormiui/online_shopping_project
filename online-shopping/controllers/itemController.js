@@ -63,6 +63,29 @@ exports.wishlist = function(req, res, next) {
 };
 
 
+exports.wishlist_delete = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  User.findByIdAndRemove(req.user.wishlist, function deleteItem(err))
+      if (err) { return next(err); }
+      res.redirect('/wishlist')
+  });
+}
+
+exports.wishlist_add = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+  Item.findById(req.params.id)
+  .populate('seller')
+  .exec(function (err, item) {
+    if (err) { return next(err); }
+    res.render('wishlist', { title: 'wishlist', item: item });
+  });
+}
+
+
+
 exports.item_search = function(req, res, next) {
   req.sanitizeQuery('sort').escape();
   req.sanitizeQuery('sort').trim();
@@ -304,7 +327,7 @@ exports.item_update_post = function(req, res, next) {
           req.flash('error', errors[i].msg);
         }
         res.locals.error_messages = req.flash('error');
-        
+
         res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
       });
 
