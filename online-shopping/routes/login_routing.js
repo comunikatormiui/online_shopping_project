@@ -6,5 +6,6 @@ exports.isLoggedIn = function(req, res, next) {
     if (req.isAuthenticated())
         return next();
     // if they aren't redirect them to the home page
+    req.flash('warning', 'You must log in to see this page.');
     res.redirect('/login');
 }
