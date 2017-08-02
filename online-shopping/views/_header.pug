@@ -1,4 +1,4 @@
-nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
+header.navbar.navbar-light.bg-faded.navbar-toggleable-md
   //- Button will appear for small screen size
   button.navbar-toggler.navbar-toggler-right(type='button' data-toggle='collapse' data-target='#navbarCollapse')
     span.navbar-toggler-icon
@@ -18,7 +18,7 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
       li.nav-item
         a.nav-link(href="http://localhost:9001") Chat
       li.nav-item
-        a.nav-link.mr-5(href='#') Forums      
+        a.nav-link.mr-5(href='#') Forums
     ul.navbar-nav
       li.nav-item
         form.form-inline(method='GET' action='/items/search')
@@ -27,7 +27,7 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md
             span.input-group-btn
               button.btn.btn-secondary(type='submit')
                 i.fa.fa-search(aria-hidden='true')
-    
+
       if login
         li.nav-item
         a.nav-link(href='/profile') Profile

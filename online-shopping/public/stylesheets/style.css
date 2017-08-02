@@ -1,8 +1,10 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-nav {
+header {
   margin-bottom: 1em;
 }
 
@@ -273,7 +275,3 @@ h3 {
   left: -6px;
 }
 */
-
-.card a {
-  display: block;
-}
