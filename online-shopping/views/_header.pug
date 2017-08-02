@@ -3,12 +3,13 @@ header.navbar.navbar-light.bg-faded.navbar-toggleable-md
   button.navbar-toggler.navbar-toggler-right(type='button' data-toggle='collapse' data-target='#navbarCollapse')
     span.navbar-toggler-icon
 
-  a.navbar-brand(href='/') Home
+  a.navbar-brand(href='/')
+    img(src='/uploads/logo.svg') 
   #navbarCollapse.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      li.nav-item
+      li.nav-item(class= title=='Items For Sale' ? 'active' : '')
         a.nav-link(href='/items') Directory
-      li.nav-item
+      li.nav-item(class= title=='Categories' ? 'active' : '')
         a.nav-link(href='/categories') Categories
       //- li.nav-item.dropdown
       //-   a.nav-link.dropdown-toggle(id='dropdownHOME',href='/categories', data-toggle='dropdown', aria-haspopup='false', aria-expanded='false') Categories

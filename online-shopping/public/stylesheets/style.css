@@ -4,9 +4,34 @@ body {
   padding: 0;
 }
 
+/* Header */
+
 header {
   margin-bottom: 1em;
 }
+
+header .navbar-brand {
+  padding-top: 0 !important;
+}
+
+header .nav-link {
+    color: #D11C33;
+    -webkit-transition: color 0.5s;
+    -moz-transition:    color 0.5s;
+    -ms-transition:     color 0.5s;
+    -o-transition:      color 0.5s;
+    transition:         color 0.5s;
+}
+
+header .nav-link:hover {
+  color: #D11C33 !important;
+}
+
+header .nav-item.active {
+  font-weight: bold;
+}
+
+
 
 input {
 	border: 2px solid blue;
