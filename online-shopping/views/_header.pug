@@ -18,8 +18,6 @@ header.navbar.navbar-light.bg-faded.navbar-toggleable-md
       //-       a.dropdown-item(href='/categories/'+cat._id) #{cat.name}
       li.nav-item
         a.nav-link(href="http://localhost:9001") Chat
-      li.nav-item
-        a.nav-link.mr-5(href='#') Forums
     ul.navbar-nav
       li.nav-item
         form.form-inline(method='GET' action='/items/search')
@@ -34,7 +32,7 @@ header.navbar.navbar-light.bg-faded.navbar-toggleable-md
           a.nav-link(href='/profile') Profile
 
 
-        li.nav-item
+        li.nav-item(class= title=='wishlist' ? 'active' : '')
           a.nav-link(href='/wishlist') My Wishlist
         li.nav-item(class= title=='List of Past Transactions' ? 'active' : '')
             a.nav-link(href='/transactions') Transactions

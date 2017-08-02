@@ -8,14 +8,24 @@ body {
 
 header {
   margin-bottom: 1em;
+  padding-bottom: 0 !important;
+}
+
+header a {
+  height: 40px;
+  padding: 0 !important;
+  margin-top: 8px;
+  margin-left: .5rem;
+  margin-right: .5rem;
 }
 
 header .navbar-brand {
-  padding-top: 0 !important;
+  margin-top: 0;
 }
 
+/* link color gradually changes when hover */
 header .nav-link {
-    color: #D11C33;
+    color: #9E1526;
     -webkit-transition: color 0.5s;
     -moz-transition:    color 0.5s;
     -ms-transition:     color 0.5s;
@@ -24,14 +34,39 @@ header .nav-link {
 }
 
 header .nav-link:hover {
-  color: #D11C33 !important;
+  color: #9E1526 !important;
 }
 
-header .nav-item.active {
-  font-weight: bold;
+/* underline active page */
+header .nav-item.active a {
+  border-bottom: 3px solid #9E1526;
 }
 
+/* move search field a bit to the left */
+header form {
+  margin-right: 1em;
+}
 
+/* 991px is when navbar shrinks to mobile version*/
+@media (max-width: 991px) {
+  /* no longer underline active page, make it bold instead */
+  header .nav-item.active a {
+    border-bottom: 0;
+    font-weight: bold;
+  }
+  header form {
+    margin-right: 0;
+  }
+  header .navbar-brand {
+    height: 36px;
+    margin-top: 4px;
+  }
+  header {
+    padding-bottom: 8px !important;
+  }
+}
+
+/* End header */
 
 input {
 	border: 2px solid blue;
