@@ -2,6 +2,7 @@ extends layout
 
 block content
   h2= title
+
   br
   p #[strong Price:] CDN$ #{item.price}
   p #[strong Category:] #{item.category.name}
@@ -22,16 +23,18 @@ block content
           input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
         button.btn.btn-danger(type='submit') Buy
     br
-    form(method='POST' action=item.url+'/review')
-      div.form-group
+    form(method='POST' action=item.url+'/review' id='review_form')
+        div.form-group
+            label(for='review') #[strong Rate]
+            .rateyo(data-rateyo-rating='0%', data-rateyo-spacing='10px', data-rateyo-rated-fill='#ffdb03')
+        div.form-group
           label(for='review') #[strong Review:]
           textarea#review.form-control(name='review')
-      div.form-group
-          label(for='review') #[strong Rate]
-          input#rating.form-control(type='text' name='rating' value=(undefined===review ? '' : review.rating) required='true')
-      div.form-group
-        input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
-      button.btn.btn-danger(type='submit') Write A reviews
+        div.form-group
+            input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        div.form-group
+            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value='0')
+        button.btn.btn-danger(type='submit') Write A reviews
 
     br
     label(for='previous_reviews') #[strong Previous Reviews:]
@@ -54,8 +57,12 @@ block content
           else
             li No review
 
-  if (error)
-    p(class="error") #{error}
+    if (error)
+        p(class="error") #{error}
 
-  if (message)
-    p(class="message") #{message}
+    if (message)
+        p(class="message") #{message}
+
+    script(type='text/javascript', src='/scripts/rating_logic.js')
+    script(type='text/javascript', src='/scripts/rating.js')
+

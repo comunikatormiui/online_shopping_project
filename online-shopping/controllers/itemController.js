@@ -305,9 +305,10 @@ exports.item_buy_post = function(req, res, next) {
           item: itemID,
           reviewer: user._id,
           review: req.body.review,
-          rating: req.body.rating,
+          rating: req.body.rate_field,
           review_date: currentDate
         });
+        console.log(req.body.rate_field);
         review = review.toObject();
         console.log(review);
         delete review["_id"];
