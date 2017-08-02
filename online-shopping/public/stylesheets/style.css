@@ -71,6 +71,7 @@ tr:nth-child(odd) {
   width: 100%;
   border-left: hidden;
   border-right: hidden;
+  margin-bottom: 30px;
 }
 
 #review_table tr {
