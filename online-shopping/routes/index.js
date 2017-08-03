@@ -13,6 +13,13 @@ router_export = function(router, passport, User){
 	  res.render('index', { title: 'Our Shopping Page' });
 	});*/
 	router.get('/', category_controller.catListForHome);
+	router.get("/auth/facebook", passport.authenticate("facebook",{ scope : "email"}));
+	router.get("/auth/facebook/callback",
+    passport.authenticate("facebook",{ failureRedirect: '/login'}),
+    function(req,res){res.render("/");}
+);
+	//app.get('/auth/facebook', passport.authenticate('facebook', { scope: [ 'email', 'user_about_me'], failureRedirect: '/login' }), res.render('login'));
+	//app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), res.redirect('/login'));
 
 
 //request login and render login message

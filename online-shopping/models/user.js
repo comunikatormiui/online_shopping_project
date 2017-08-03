@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var moment = require('moment');
+var authTypes = 'facebook';
 
 var Schema = mongoose.Schema;
 

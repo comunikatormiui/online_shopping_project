@@ -15,6 +15,8 @@ var image = require('./routes/imagefile');
 //var io = require("socket.io");
 //var socket = io.listen(1234, "0.0.0.0");
 var usrs = {};
+
+
 /*
 socket.on("connection", function (client) {
     client.on("join", function(name){

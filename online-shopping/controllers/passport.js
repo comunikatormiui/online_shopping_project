@@ -1,6 +1,7 @@
 
 var LocalStrategy   = require('passport-local').Strategy;
-
+var FacebookStrategy = require('passport-facebook').Strategy;
+var config = require('./config');
 module.exports = function(passport, User) {
     passport.serializeUser(function(user, done) {
         done(null, user.id);
@@ -70,4 +71,30 @@ module.exports = function(passport, User) {
 
         }
     ));
+
+    // use facebook strategy
+    passport.use(new FacebookStrategy({
+        clientID: config.facebook.clientID,
+        clientSecret: config.facebook.clientSecret,
+        //-clientID: FACEBOOK_APP_ID,
+        //-clientSecret: FACEBOOK_APP_SECRET,
+        callbackURL: config.facebook.callbackURL
+      },
+      function(accessToken, refreshToken, profile, done) {
+        User.findOne({ 'facebook.id': profile.id }, function (err, user) {
+          if (err) { return done(err) }
+          if (!user) {
+            user = new User({
+              fname: profile.displayName,
+              email: profile.emails[0].value,
+            })
+            user.save(function (err) {
+              if (err) console.log(err);
+              return done(err, user);
+            })
+          }
+          else { return done(err, user); }
+        })
+      }
+  ));
 };
