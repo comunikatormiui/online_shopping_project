@@ -59,61 +59,56 @@ block content
         .col-lg-4
           // Card
           .card
-            // Card image
             .view.overlay.hm-white-slight
               img.img-fluid(src='uploads/iphone.jpg', alt='')
               a(href='#')
                 .mask
 
-            // Card content
             .card-block
-              // Title
               h4.card-title iPhone 7
               p.card-text Brand new in box
-              a.btn.btn-primary(href='#') Buy Now
+              br
+              a.btn.btn-danger(href='#') Buy Now
 
 
         // Second columnn
         .col-lg-4
           // Card
           .card
-            // Card image
             .view.overlay.hm-white-slight
               img.img-fluid(src='uploads/Keurig.jpg', alt='')
               a(href='#')
                 .mask
 
-            // Card content
             .card-block
-              // Title
               h4.card-title Keurig
               p.card-text Keurig K15 Classic Brewer
-              a.btn.btn-primary(href='#') Buy Now
+              br
+              a.btn.btn-danger(href='#') Buy Now
 
 
 
         // Third columnn
         .col-lg-4
-          // Card
           .card
-            // Card image
             .view.overlay.hm-white-slight
               img.img-fluid(src='uploads/fan.jpg', alt='')
               a(href='#')
                 .mask
 
-            // Card content
             .card-block
-              // Title
               h4.card-title Mainstays Oscillating Fan
               p.card-text 12" Table Fan
-              a.btn.btn-primary(href='#') Buy Now
+              br
+              a.btn.btn-danger(href='#') Buy Now
+
+
 
 
     //- Map
     br
     br
-    h2 Item's Near You:
+    h2.h2-responsive Item's Near You:
     #map
     script.
       function initMap() {
@@ -129,5 +124,6 @@ block content
       }
     script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
 
-
+    br
+    br
     //-footer
