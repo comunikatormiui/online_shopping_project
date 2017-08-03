@@ -344,6 +344,64 @@ tr:nth-child(odd) {
   }
 }
 
+/* Item detail */
+
+.item-detail .name {
+  display: inline-block;
+  font-size: 200%;
+}
+
+.item-detail .buy {
+  margin-top: 0.3em;
+}
+
+.item-detail div.category {
+  display: block;
+  margin: 1em 0 0.3em 0;
+}
+
+.item-detail .category span {
+  border: 1px solid #ddd;
+  padding: 0.3em 0.5em;
+  color: #666;
+}
+
+.item-detail .price {
+  display: block;
+  margin-top: 3em;
+  margin-bottom: 2em;
+  font-weight: bold;
+}
+
+.item-detail .section {
+  border-top: 1px solid #ddd;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+}
+
+.item-detail .section.last {
+  border-bottom: 1px solid #ddd;
+}
+
+.item-detail .section .title {
+  border-top: 0;
+  color: #9E1526;
+  font-size: 130%;
+}
+
+.item-detail .section .description {
+  display: block;
+  margin-top: 0.5em;
+
+  margin-left: 1em;
+}
+
+.item-detail .map-wrapper {
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+}
+
+
 /* Heading */
 
 h3 {
