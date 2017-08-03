@@ -227,12 +227,31 @@ tr:nth-child(odd) {
 
 .item-list .price {
   float: right;
-  margin-top: 0;
 }
 
 .item-list .rating {
   display: block;
   margin-top: 1em;
+}
+
+.item-list .review-count {
+  color: #777;
+}
+
+.item-list .view {
+  display: block;
+}
+
+.item-list .wishlist-button {
+  float: right;
+}
+
+.item-list .fa-star, .item-list .fa-star-half-o, .item-list .fa-star-o {
+  color: #FFC300;
+}
+
+.item-list .rating .fa {
+  margin-right: 2px;
 }
 
 @media (max-width: 576px) {
@@ -241,6 +260,12 @@ tr:nth-child(odd) {
     float: none;
     margin-top: 1em;
     display: block;
+  }
+
+  .item-list .wishlist-button {
+    float: none;
+    display: block;
+    margin-top: 1em;
   }
 
   .item-list .detail {
