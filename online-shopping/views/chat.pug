@@ -1,8 +1,6 @@
 extends layout
 block content
-  ul#messages
-  span#notifyUser
-  form#form(action='', onsubmit='return submitfunction();')
-    input#user(type='hidden', value='')
-    input#m(autocomplete='off', onkeyup='notifyTyping();', placeholder='Type your message here...')
-    input#button(type='submit', value='Send')
+    #chat.span5.offset2
+      form#2.form-inline
+        input#msg.input(type='text', placeholder='Your message')
+        input#send.btn.btn-success(type='button', name='send', value='Send')
