@@ -6,6 +6,9 @@ var Review = require('../models/review');
 var util = require('util');
 var paginate = require('express-paginate');
 var multer = require('multer');
+var bodyParser = require('body-parser');
+
+
 
 
 var async = require('async');
@@ -82,6 +85,29 @@ exports.wishlist_add = function(req, res, next) {
     });
   });
 };
+
+exports.wishlist_delete = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .exec(function(err, item) {
+    if (err) { return next(err); }
+
+    var conditions = { _id : req.user._id };
+    var update = { $pull : { 'local.wishlist' : conditions}};
+
+    User.update(conditions, update)
+    .exec(function(err, user) {
+        if(err) { return next(err); }
+        req.flash(item.name + ' removed From Wishlist');
+        res.redirect('/wishlist');
+    });
+  });
+};
+
+
+
 
 
 exports.item_search = function(req, res, next) {

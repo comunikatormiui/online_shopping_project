@@ -1,5 +1,6 @@
 extends layout
 block content
+  //-header
   br
   div.container
     h1 SFU Trade Center
@@ -12,6 +13,8 @@ block content
 
     br
     br
+    //-body
+    //-daily deals carousel
     div.carouselframe
       div#myCarousel.carousel.slide(data-ride='carousel')
         div.carousel-outer
@@ -41,6 +44,26 @@ block content
         a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
             i.fa.fa-chevron-right(aria-hidden='true')
 
+    //-cards
+    //-Trending products
+    br
+    br
+    h4.trending
+     small | Trending |
+    .row
+      //-first column of products
+      .col-md-4
+      //-second column of products
+      .col-md-4
+      //-third column of products
+      .col-md-4
+      //-fourth column of products
+      .col-md-4
+
+
+    //- Map
+    br
+    br
     h2 Item's Near You:
     #map
     script.
@@ -56,3 +79,6 @@ block content
       });
       }
     script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
+
+
+    //-footer
