@@ -1,0 +1,18 @@
+//- Should be inside scope that has access to item variable
+
+//- Print full stars
+- var star_count = Math.floor(item.rating);
+- for (var i = 0; i < star_count; i++) {
+    i.fa.fa-star.fa-lg(aria-hidden='true')
+- }
+
+//- Print half star 
+if item.rating - star_count != 0
+  - star_count++
+  i.fa.fa-star-half-o.fa-lg(aria-hidden='true')
+    
+//- Print empty star
+- for (var i = 0; i < 5 - star_count; i++) {
+    i.fa.fa-star-o.fa-lg(aria-hidden='true')
+- }
+  
