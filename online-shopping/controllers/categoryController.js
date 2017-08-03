@@ -72,7 +72,7 @@ exports.category_detail = function(req, res, next) {
     page: page,
     limit: limit,
     sort: sort,
-    populate: 'seller'
+    populate: ['seller', 'category']
   };
 
   async.parallel({

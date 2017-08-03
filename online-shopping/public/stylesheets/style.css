@@ -206,6 +206,10 @@ tr:nth-child(odd) {
   border-top: 1px solid #e8e8e8;
 }
 
+.item-list li:last-child {
+  border-bottom: 1px solid #e8e8e8;
+}
+
 .item-list img {
   margin-right: 1em;
   max-width: 100%; /* img-responsive */

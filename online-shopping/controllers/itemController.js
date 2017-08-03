@@ -36,7 +36,7 @@ exports.item_list = function(req, res, next) {
     page: page,
     limit: limit,
     sort: sort,
-    populate: 'seller'
+    populate: ['seller', 'category']
   };
 
   // Get items and render the view
@@ -133,7 +133,7 @@ exports.item_search = function(req, res, next) {
     page: page,
     limit: limit,
     sort: sort,
-    populate: 'seller'
+    populate: ['seller', 'category']
   };
 
   Item.paginate(query, options)

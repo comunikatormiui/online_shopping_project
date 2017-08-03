@@ -24,33 +24,9 @@ block content
   ol.item-list
     each item in item_list
       li
-        div.row
-          div.pic.col-sm-3.text-center
-            img(src= item.image ? item.imageUrl : '/uploads/question-mark.svg')
-          div.detail.col-sm-9
-            span.name
-              a(href=item.url) #{item.name}
-            span.seller
-              | by #{item.seller.local.fname} #{item.seller.local.lname}
-            span.category
-              | #{item.category.name}
-            span.price
-              | CDN$ #{item.price}
-            span.rating
-              include _print_star
-              span.review-count  (#{item.review_count})
-            span.view
-              | #{item.view_count} views
-            span.wishlist-button
-              if login 
-                a.btn.btn-primary(href='/wishlist/' + item._id + '/add') wishlist
+        include _item_row
             
-
-
-
-
     else
       li No items
-
 
   include _pagination
