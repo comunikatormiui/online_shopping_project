@@ -10,7 +10,6 @@ var bodyParser = require('body-parser');
 
 
 
-
 var async = require('async');
 
 
@@ -485,6 +484,7 @@ exports.item_buy_post = function(req, res, next) {
           return;
         }
         var currentDate = new Date();
+
         var review = new Review({
           item: itemID,
           reviewer: user._id,
@@ -508,7 +508,32 @@ exports.item_buy_post = function(req, res, next) {
               res.redirect(item.url);
             }
             else {
-              res.redirect(item.url);
+              // Find all reviews of current item and calcuate average rating
+              Review.aggregate([
+                { '$match': { 'item': item._id }},
+                { '$group': { _id: '$item',
+                  average: { '$avg' : '$rating'},
+                  count: { '$sum' : 1 }}}
+              ])
+              .exec( function(err, reviewInfo){
+                if (err) {
+                  next(err);
+                } else {
+
+                  // round rating so it can only be 1, 1.5, 2, ... , 4.5, 5.0
+                  item.rating = Math.round(reviewInfo[0].average * 2) / 2;
+                  item.review_count =  reviewInfo[0].count;
+
+                  Item.findByIdAndUpdate(itemID, item, {})
+                  .exec(function(err, updatedItem) {
+                    if (err) {
+                      next(err);
+                    } else {
+                      res.redirect(updatedItem.url);
+                    }
+                  });
+                }
+              });
             }
         });
     });

@@ -36,14 +36,15 @@ block content
               | #{item.category.name}
             span.price
               | CDN$ #{item.price}
-              br
-              br
+            span.rating
+              include _print_star
+              span.review-count  (#{item.review_count})
+            span.view
+              | #{item.view_count} views
+            span.wishlist-button
               if login 
                 a.btn.btn-primary(href='/wishlist/' + item._id + '/add') wishlist
-            span.rating
-              | ★★★★
-            span
-              | #{item.view_count} views
+            
 
 
 
