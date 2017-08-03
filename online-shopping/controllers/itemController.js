@@ -95,12 +95,12 @@ exports.wishlist_delete = function(req, res, next) {
     if (err) { return next(err); }
 
     var conditions = { _id : req.user._id };
-    var update = { $pull : { 'local.wishlist' : conditions}};
+    var update = { $pull : { 'local.wishlist' : item._id }};
 
     User.update(conditions, update)
     .exec(function(err, user) {
         if(err) { return next(err); }
-        req.flash(item.name + ' removed From Wishlist');
+        req.flash('success', item.name + ' removed From Wishlist');
         res.redirect('/wishlist');
     });
   });
