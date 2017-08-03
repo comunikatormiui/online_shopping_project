@@ -15,6 +15,9 @@ block content
               a(href=item.url) #{item.name}
             span.price
               | CDN$ #{item.price}
+              br
+              br
+              a.btn.btn-primary(href='/wishlist/' + item._id + '/delete') Delete
             span.rating
               | ★★★★
             span
