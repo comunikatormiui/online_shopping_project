@@ -1,8 +1,24 @@
-extends layout
-block content
-  ul#messages
-  span#notifyUser
-  form#form(action='', onsubmit='return submitfunction();')
-    input#user(type='hidden', value='')
-    input#m(autocomplete='off', onkeyup='notifyTyping();', placeholder='Type your message here...')
-    input#button(type='submit', value='Send')
+doctype html
+html(lang='en')
+  head
+    script(src='https://cdn.socket.io/socket.io-1.2.0.js')
+    script(src='http://code.jquery.com/jquery-1.11.1.js')
+    link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', integrity='sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ', crossorigin='anonymous')
+    script(src='chat.js')
+  body
+    .row
+      .span2
+        ul#people.unstyled
+      .span4
+        ul#msgs.unstyled
+    br
+    .row
+      #login.span5.offset2
+        form.form-inline
+          input#name.input-small(type='text', placeholder='Your name')
+          input#join.btn.btn-primary(type='button', name='join', value='Join')
+    br
+    #chat.span5.offset2
+      form#2.form-inline
+        input#msg.input(type='text', placeholder='Your message')
+        input#send.btn.btn-success(type='button', name='send', value='Send')

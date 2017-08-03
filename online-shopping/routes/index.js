@@ -33,6 +33,12 @@ router_export = function(router, passport, User){
 		}
 	);
 
+    router.get('/chat',
+		function(req, res){
+			res.render('chat')
+		}
+	);
+
 //request wishlist, check if logged in and render user information
 	/*router.get('/wishlist', isLoggedIn, function(req, res) {
 		res.render('wishlist', {
