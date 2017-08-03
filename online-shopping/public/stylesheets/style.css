@@ -57,10 +57,12 @@ header form {
   header form {
     margin-right: 0;
   }
+  /* to make logo stay in the same position */
   header .navbar-brand {
     height: 36px;
     margin-top: 4px;
   }
+  /* add some space between button and bottom of header */
   header {
     padding-bottom: 8px !important;
   }

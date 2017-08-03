@@ -55,7 +55,7 @@ block content
         div.form-group
             input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
         div.form-group
-            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value='' )
+            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value=1)
         button.btn.btn-danger(type='submit') Write A Review
 
     br
@@ -87,4 +87,3 @@ block content
 
     script(type='text/javascript', src='/scripts/rating_logic.js')
     script(type='text/javascript', src='/scripts/rating.js')
-
