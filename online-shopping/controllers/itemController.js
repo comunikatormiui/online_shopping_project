@@ -2,9 +2,12 @@ var Item = require('../models/item');
 var Category = require('../models/category');
 var User = require('../models/user');
 var Transaction = require('../models/transaction');
+var Review = require('../models/review');
 var util = require('util');
 var paginate = require('express-paginate');
 var multer = require('multer');
+var bodyParser = require('body-parser');
+
 
 
 var async = require('async');
@@ -62,6 +65,49 @@ exports.wishlist = function(req, res, next) {
   });
 };
 
+exports.wishlist_add = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .exec(function(err, item) {
+    if (err) { return next(err); }
+
+    var conditions = { _id : req.user._id };
+    var update = { $addToSet : { 'local.wishlist' : item }};
+
+    User.update(conditions, update)
+    .exec(function(err, user) {
+        if(err) { return next(err); }
+        req.flash('success', item.name + ' added to your Wish List');
+        res.redirect('/wishlist');
+    });
+  });
+};
+
+exports.wishlist_delete = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .exec(function(err, item) {
+    if (err) { return next(err); }
+
+    var conditions = { _id : req.user._id };
+    var update = { $pull : { 'local.wishlist' : item._id }};
+
+    User.update(conditions, update)
+    .exec(function(err, user) {
+        if(err) { return next(err); }
+        req.flash('success', item.name + ' removed From Wishlist');
+        res.redirect('/wishlist');
+    });
+  });
+};
+
+
+
+
 
 exports.item_search = function(req, res, next) {
   req.sanitizeQuery('sort').escape();
@@ -86,21 +132,22 @@ exports.item_search = function(req, res, next) {
   var options = {
     page: page,
     limit: limit,
-    sort: sort
+    sort: sort,
+    populate: 'seller'
   };
 
   Item.paginate(query, options)
   .then(function(items) {
     res.render('item_search', {
       title: 'Search results: ' + keyword,
-      keyword: keyword,
+      keyword: keyword, // this keyword is from search field, passed to view to be used when user changes sort by option
       item_list: items.docs,
       pageCount: items.pages,
       itemCount: items.total,
       pages: paginate.getArrayPages(req)(3, items.pages, page),
-      page: page,
+      page: page, // page number
       limit: items.limit,
-      sortBy: req.query.sort
+      sortBy: req.query.sort // could be null
     });
   });
 }
@@ -120,12 +167,16 @@ exports.item_detail = function(req, res, next) {
     else{
       user = 'buyer';
     }
-
     // Increment view count and save
     item.view_count++;
-    item.save( function(err, updatedItem) {
-      if (err) { return next(err); }
-      res.render('item_detail', { title: updatedItem.name, item: updatedItem, user : user });
+    item.save(function(err, updatedItem) {
+        if (err) { return next(err); }
+        Review.find({item: req.params.id})
+        .populate('reviewer')
+        .exec(function (err, list_reviews){
+            if (err){return next(err);}
+            res.render('item_detail', { title: updatedItem.name, item: updatedItem, user : user, review_list: list_reviews});
+        });
     });
   });
 }
@@ -304,7 +355,7 @@ exports.item_update_post = function(req, res, next) {
           req.flash('error', errors[i].msg);
         }
         res.locals.error_messages = req.flash('error');
-        
+
         res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
       });
 
@@ -399,4 +450,92 @@ exports.item_buy_post = function(req, res, next) {
       }
     });
   });
-};
+}
+
+  exports.item_review_post = function(req, res, next) {
+    req.checkBody('item', 'Item name must be specified').notEmpty();
+    req.checkBody('rating', 'rating must be specified').notEmpty().isInt();
+
+
+    req.filter('item').escape();
+    req.filter('item').trim();
+    req.filter('review').escape();
+    req.filter('review').trim();
+    req.filter('rating').escape();
+    req.filter('rating').trim();
+
+    User.findOne({'local.email': req.user.local.email}, function(err, user){
+      if(err){
+        throw err;
+      }
+      if(!user){
+        console.log('Invalid email received: ' + req.user.local.email);
+        next(err);
+      }
+      var itemID = req.params.id;
+      Item.findById(itemID)
+      .populate('seller')
+      .exec(function (err, item) {
+        if (err) { return next(err); }
+        if (req.user != null && item.seller.local.email == req.user.local.email){
+          //res.render('item_detail', { title: item.name, item: item, user : 'seller',
+          //                            error : 'Seller cannot rate his/her own item.'});
+          res.redirect(item.url);
+          return;
+        }
+        var currentDate = new Date();
+
+        var review = new Review({
+          item: itemID,
+          reviewer: user._id,
+          review: req.body.review,
+          rating: req.body.rate_field,
+          review_date: currentDate
+        });
+        console.log(req.body.rate_field);
+        review = review.toObject();
+        console.log(review);
+        delete review["_id"];
+        console.log(review);
+        console.log(review._id);
+
+        Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
+          {upsert:true}, function(err, review){
+            if(err){
+              //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
+              //                            error : 'Failed to add your review. Please try again.'});
+              console.log(err);
+              res.redirect(item.url);
+            }
+            else {
+              // Find all reviews of current item and calcuate average rating
+              Review.aggregate([
+                { '$match': { 'item': item._id }},
+                { '$group': { _id: '$item',
+                  average: { '$avg' : '$rating'},
+                  count: { '$sum' : 1 }}}
+              ])
+              .exec( function(err, reviewInfo){
+                if (err) {
+                  next(err);
+                } else {
+
+                  // round rating so it can only be 1, 1.5, 2, ... , 4.5, 5.0
+                  item.rating = Math.round(reviewInfo[0].average * 2) / 2;
+                  item.review_count =  reviewInfo[0].count;
+
+                  Item.findByIdAndUpdate(itemID, item, {})
+                  .exec(function(err, updatedItem) {
+                    if (err) {
+                      next(err);
+                    } else {
+                      res.redirect(updatedItem.url);
+                    }
+                  });
+                }
+              });
+            }
+        });
+    });
+  });
+}

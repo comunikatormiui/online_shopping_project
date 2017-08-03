@@ -4,15 +4,17 @@ var mongoosePaginate = require('mongoose-paginate');
 var Schema = mongoose.Schema;
 
 var ItemSchema = Schema({
-  name: { type: String, required: true },
-  category: { type: Schema.ObjectId, ref: 'Category', required: true },
-  description: { type: String },
-  seller: { type: Schema.ObjectId, ref: 'User', required: true },
-  price: { type: Number, required: true },
-  lat: { type: Number, required: true },
-  lng: { type: Number, required: true},
-  image: { type: String},
-  view_count: { type: Number, default: 0 }
+  name        : { type: String, required: true },
+  category    : { type: Schema.ObjectId, ref: 'Category', required: true },
+  description : { type: String },
+  seller      : { type: Schema.ObjectId, ref: 'User', required: true },
+  price       : { type: Number, required: true },
+  lat         : { type: Number, required: true },
+  lng         : { type: Number, required: true},
+  image       : { type: String},
+  view_count  : { type: Number, default: 0 },
+  rating      : { type: Number, default: 0 },
+  review_count: { type: Number, default: 0 }
 });
 
 ItemSchema

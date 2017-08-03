@@ -1,12 +1,74 @@
-body {
+/*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
+*/
+/* Header */
 
 header {
   margin-bottom: 1em;
+  padding-bottom: 0 !important;
 }
+
+header a {
+  height: 40px;
+  padding: 0 !important;
+  margin-top: 8px;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+header .navbar-brand {
+  margin-top: 0;
+}
+
+/* link color gradually changes when hover */
+header .nav-link {
+    color: #9E1526;
+    -webkit-transition: color 0.5s;
+    -moz-transition:    color 0.5s;
+    -ms-transition:     color 0.5s;
+    -o-transition:      color 0.5s;
+    transition:         color 0.5s;
+}
+
+header .nav-link:hover {
+  color: #9E1526 !important;
+}
+
+/* underline active page */
+header .nav-item.active a {
+  border-bottom: 3px solid #9E1526;
+}
+
+/* move search field a bit to the left */
+header form {
+  margin-right: 1em;
+}
+
+/* 991px is when navbar shrinks to mobile version*/
+@media (max-width: 991px) {
+  /* no longer underline active page, make it bold instead */
+  header .nav-item.active a {
+    border-bottom: 0;
+    font-weight: bold;
+  }
+  header form {
+    margin-right: 0;
+  }
+  /* to make logo stay in the same position */
+  header .navbar-brand {
+    height: 36px;
+    margin-top: 4px;
+  }
+  /* add some space between button and bottom of header */
+  header {
+    padding-bottom: 8px !important;
+  }
+}
+
+/* End header */
 
 input {
 	border: 2px solid blue;
@@ -65,6 +127,71 @@ tr:nth-child(odd) {
   background: #FFF
 }
 
+#review_table {
+  border: 1px solid;
+  border-color: #CCCCCC;
+  width: 100%;
+  border-left: hidden;
+  border-right: hidden;
+  margin-bottom: 30px;
+}
+
+#review_table tr {
+    background-color: white;
+    border-bottom: 1px solid;
+    border-color: #CCCCCC;
+}
+
+#review_table tr td {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#review_section {
+    padding-left: 5px;
+    width: 70%;
+}
+
+#reviewer_name {
+    width: 15%;
+    text-align: center;
+}
+
+#review_date {
+    text-align: center;
+}
+
+
+
+.error {
+  color: red;
+}
+
+.message {
+  color: green;
+}
+
+.rate_widget {
+    border:     1px solid #CCC;
+    overflow:   visible;
+    padding:    10px;
+    position:   relative;
+    width:      180px;
+    height:     32px;
+}
+.ratings_stars {
+    background: url('star_empty.png') no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    2px;
+    width:      32px;
+}
+.ratings_vote {
+    background: url('star_full.png') no-repeat;
+}
+.ratings_over {
+    background: url('star_highlight.png') no-repeat;
+}
 /* Item List */
 
 .item-list {
@@ -100,12 +227,31 @@ tr:nth-child(odd) {
 
 .item-list .price {
   float: right;
-  margin-top: 0;
 }
 
 .item-list .rating {
   display: block;
   margin-top: 1em;
+}
+
+.item-list .review-count {
+  color: #777;
+}
+
+.item-list .view {
+  display: block;
+}
+
+.item-list .wishlist-button {
+  float: right;
+}
+
+.item-list .fa-star, .item-list .fa-star-half-o, .item-list .fa-star-o {
+  color: #FFC300;
+}
+
+.item-list .rating .fa {
+  margin-right: 2px;
 }
 
 @media (max-width: 576px) {
@@ -114,6 +260,12 @@ tr:nth-child(odd) {
     float: none;
     margin-top: 1em;
     display: block;
+  }
+
+  .item-list .wishlist-button {
+    float: none;
+    display: block;
+    margin-top: 1em;
   }
 
   .item-list .detail {

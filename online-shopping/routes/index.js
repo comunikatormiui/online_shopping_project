@@ -17,19 +17,25 @@ router_export = function(router, passport, User){
 
 //request login and render login message
 	router.get('/login', function(req, res){
-		res.render('login');
+		res.render('login', { title: 'Log In' });
 	});
 
 //request signup and render signup
 	router.get('/signup',
 		function(req, res){
-			res.render('signup');
+			res.render('signup', { title: 'Sign Up' });
 		}
 	);
 
 	router.get('/about',
 		function(req, res){
 			res.render('about')
+		}
+	);
+
+    router.get('/chat',
+		function(req, res){
+			res.render('chat')
 		}
 	);
 
@@ -45,7 +51,8 @@ router_export = function(router, passport, User){
 	router.get('/profile', login_routing.isLoggedIn,
 		function(req, res){
 			res.render('profile', {
-				user : req.user
+				user : req.user,
+				title : 'Profile'
 			});
 		}
 	);
@@ -57,7 +64,7 @@ router_export = function(router, passport, User){
 	    	{
 	        	'local.fname': req.body.fname,
 	        	'local.lname': req.body.lname ,
-	        	'local.dateOfBirth': req.body.dateOfBirth,
+	        	'local.date_of_birth': req.body.date_of_birth,
 	        	'local.address': req.body.address,
 						'local.gender': req.body.gender,
 	        	'local.cell_phone': req.body.cell_phone,

@@ -77,10 +77,3 @@ end
 execute 'restart_nginx' do
 	command 'sudo /etc/init.d/nginx restart'
 end
-
-
-# testing chat app in vagrant
-execute 'launch_chat' do
-    cwd 'home/ubuntu/project/online-shopping/chat-app'
-    command 'node ./index.js &'
-end
