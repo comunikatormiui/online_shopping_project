@@ -14,12 +14,19 @@ router_export = function(router, passport, User){
 	});*/
 	router.get('/', category_controller.catListForHome);
 	router.get("/auth/facebook", passport.authenticate("facebook",{ scope : "email"}));
-	router.get("/auth/facebook/callback",
-    passport.authenticate("facebook",{ failureRedirect: '/login'}),
-    function(req,res){res.render("/");}
-);
+	router.get("/auth/facebook/callback",passport.authenticate("facebook",{ failureRedirect: '/login'}),function(req,res){res.render("/");});
 	//app.get('/auth/facebook', passport.authenticate('facebook', { scope: [ 'email', 'user_about_me'], failureRedirect: '/login' }), res.render('login'));
 	//app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), res.redirect('/login'));
+	router.get("/auth/github", passport.authenticate("github",{ scope : "email"}));
+	router.get("/auth/github/callback",passport.authenticate("github",{ failureRedirect: '/login'}),function(req,res){res.render("/");});
+	router.get("/auth/twitter", passport.authenticate("twitter",{ scope : "email"}));
+	router.get("/auth/twitter/callback",passport.authenticate("twitter",{ failureRedirect: '/login'}),function(req,res){res.render("/");});
+	router.get("/auth/google", passport.authenticate("google",{ scope : ['https://www.googleapis.com/auth/plus.login']}));
+	router.get("/auth/google/callback",passport.authenticate("google",{ failureRedirect: '/login'}),function(req,res){res.render("/");});
+	//router.get("/auth/google", passport.authenticate("google",{ scope : ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email']}));
+	//router.get("/auth/google/callback",passport.authenticate("google",{ failureRedirect: '/login'}),function(req,res){res.render("/");});
+	 //app.get('/auth/google', passport.authenticate('google', { failureRedirect: '/signin', scope: 'https://www.google.com/m8/feeds' }), users.signin)
+   //app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/signin', scope: 'https://www.google.com/m8/feeds' }), users.authCallback)
 
 
 //request login and render login message
