@@ -8,6 +8,7 @@ var async = require('async');
 var Item = require('./models/item');
 var User = require('./models/user');
 var Category = require('./models/category');
+var Review = require('./models/review');
 
 var categories = [];
 var items = [];
@@ -125,6 +126,12 @@ function createUsers(cb) {
     },
     function(callback) {
       userCreate('user2@sfu.ca', 'password', 'Emma', 'Doe', callback);
+    },
+    function(callback) {
+      userCreate('user3@sfu.ca', 'password', 'Harry', 'Doe', callback);
+    },
+    function(callback) {
+      userCreate('user4@sfu.ca', 'password', 'Orisa', 'Doe', callback);
     }
   ],
   cb);
@@ -165,6 +172,7 @@ function createItems(cb) {
 Item.collection.drop();
 Category.collection.drop();
 User.collection.drop();
+Review.collection.drop();
 
 async.series([
   createCategories,

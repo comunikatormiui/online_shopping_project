@@ -1,8 +1,8 @@
 extends layout
 block content
+  //-header
   br
   div.container
-    h1 SFU Trade Center
     p.titlep Welcome to our shopping site
     div.shopByDepartment.dropdown
       a.btn.btn-secondary.dropdown-toggle(id='dropdownMenuLink', href='#', data-toggle='dropdown', aria-haspopup='false', aria-expanded='false') Shop by Department
@@ -12,6 +12,8 @@ block content
 
     br
     br
+    //-body
+    //-daily deals carousel
     div.carouselframe
       div#myCarousel.carousel.slide(data-ride='carousel')
         div.carousel-outer
@@ -28,7 +30,7 @@ block content
             div.carousel-caption.d-none.d-md-block
               h2 To The Bone now only for $10!
           div.carousel-item
-            img.d-block.img-fluid(src='uploads/GoPro.jpg', alt='Second slide')
+            img.pic(src='uploads/GoPro.jpg', alt='Second slide')
             div.carousel-caption.d-none.d-md-block
               h2 Good price for Go Pro
           div.carousel-item.active
@@ -41,18 +43,78 @@ block content
         a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
             i.fa.fa-chevron-right(aria-hidden='true')
 
-    h2 Item's Near You:
+    //-cards
+    //-Trending products
+    br
+    br
+    h4.trending
+     small | Trending |
+
+      br
+      br
+      .row
+
+
+        .col-lg-4
+          .card
+            .view.overlay.hm-white-slight
+              img.img-fluid(src='uploads/iphone.jpg', alt='')
+              a(href='#')
+                .mask
+
+            .card-block
+              h4.card-title iPhone 7
+              p.card-text Brand new in box
+              br
+              a.btn.btn-danger(href='#') Buy Now
+
+
+
+        .col-lg-4
+          .card
+            .view.overlay.hm-white-slight
+              img.img-fluid(src='uploads/Keurig.jpg', alt='')
+              a(href='#')
+                .mask
+
+            .card-block
+              h4.card-title Keurig
+              p.card-text Keurig K15 Classic Brewer
+              br
+              a.btn.btn-danger(href='#') Buy Now
+
+
+
+        .col-lg-4
+          .card
+            .view.overlay.hm-white-slight
+              img.img-fluid(src='uploads/fan.jpg', alt='')
+              a(href='#')
+                .mask
+
+            .card-block
+              h4.card-title Mainstays Oscillating Fan
+              p.card-text 12" Table Fan
+              br
+              a.btn.btn-danger(href='#') Buy Now
+
+
+
+
+    //- Map
+    br
+    br
+    h2.h2-responsive Items Near You:
+    br
     #map
-    script.
-      function initMap() {
-      var uluru = {lat: 49.278109, lng: -122.919};
-      var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: uluru
-      });
-      var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-      });
-      }
+    script(type='text/javascript', src='/scripts/maps.js')  
     script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
+    
+    br
+    //-footer
+
+    .copyright(style='text-align: center')
+      | © 2017 Group 14
+
+
+    br

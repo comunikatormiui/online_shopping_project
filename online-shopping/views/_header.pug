@@ -4,7 +4,7 @@ header.navbar.navbar-light.bg-faded.navbar-toggleable-md
     span.navbar-toggler-icon
 
   a.navbar-brand(href='/')
-    img(src='/uploads/logo.svg') 
+    img(src='/images/logo.svg')
   #navbarCollapse.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
       li.nav-item(class= title=='Items For Sale' ? 'active' : '')
@@ -17,7 +17,7 @@ header.navbar.navbar-light.bg-faded.navbar-toggleable-md
       //-     each cat in catListForHome
       //-       a.dropdown-item(href='/categories/'+cat._id) #{cat.name}
       li.nav-item
-        a.nav-link(href="http://localhost:9001") Chat
+        a.nav-link(href="/chat/") Chat
     ul.navbar-nav
       li.nav-item
         form.form-inline(method='GET' action='/items/search')

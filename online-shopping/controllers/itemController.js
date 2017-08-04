@@ -6,6 +6,8 @@ var Review = require('../models/review');
 var util = require('util');
 var paginate = require('express-paginate');
 var multer = require('multer');
+var bodyParser = require('body-parser');
+
 
 
 var async = require('async');
@@ -34,7 +36,7 @@ exports.item_list = function(req, res, next) {
     page: page,
     limit: limit,
     sort: sort,
-    populate: 'seller'
+    populate: ['seller', 'category']
   };
 
   // Get items and render the view
@@ -83,6 +85,29 @@ exports.wishlist_add = function(req, res, next) {
   });
 };
 
+exports.wishlist_delete = function(req, res, next) {
+  req.filter('id').escape();
+  req.filter('id').trim();
+
+  Item.findById(req.params.id)
+  .exec(function(err, item) {
+    if (err) { return next(err); }
+
+    var conditions = { _id : req.user._id };
+    var update = { $pull : { 'local.wishlist' : item._id }};
+
+    User.update(conditions, update)
+    .exec(function(err, user) {
+        if(err) { return next(err); }
+        req.flash('success', item.name + ' removed From Wishlist');
+        res.redirect('/wishlist');
+    });
+  });
+};
+
+
+
+
 
 exports.item_search = function(req, res, next) {
   req.sanitizeQuery('sort').escape();
@@ -108,7 +133,7 @@ exports.item_search = function(req, res, next) {
     page: page,
     limit: limit,
     sort: sort,
-    populate: 'seller'
+    populate: ['seller', 'category']
   };
 
   Item.paginate(query, options)
@@ -459,6 +484,7 @@ exports.item_buy_post = function(req, res, next) {
           return;
         }
         var currentDate = new Date();
+
         var review = new Review({
           item: itemID,
           reviewer: user._id,
@@ -482,7 +508,32 @@ exports.item_buy_post = function(req, res, next) {
               res.redirect(item.url);
             }
             else {
-              res.redirect(item.url);
+              // Find all reviews of current item and calcuate average rating
+              Review.aggregate([
+                { '$match': { 'item': item._id }},
+                { '$group': { _id: '$item',
+                  average: { '$avg' : '$rating'},
+                  count: { '$sum' : 1 }}}
+              ])
+              .exec( function(err, reviewInfo){
+                if (err) {
+                  next(err);
+                } else {
+
+                  // round rating so it can only be 1, 1.5, 2, ... , 4.5, 5.0
+                  item.rating = Math.round(reviewInfo[0].average * 2) / 2;
+                  item.review_count =  reviewInfo[0].count;
+
+                  Item.findByIdAndUpdate(itemID, item, {})
+                  .exec(function(err, updatedItem) {
+                    if (err) {
+                      next(err);
+                    } else {
+                      res.redirect(updatedItem.url);
+                    }
+                  });
+                }
+              });
             }
         });
     });

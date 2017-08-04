@@ -1,20 +1,38 @@
 extends layout
 
 block content
-  h2= title
-  br
-  p #[strong Price:] CDN$ #{item.price}
-  p #[strong Category:] #{item.category.name}
-  p #[strong Sold by:] #{item.seller.local.fname} #{item.seller.local.lname}
-  if item.description
-    p #[strong Description:] #{item.description}
-  if item.image
-    img(src=item.imageUrl)
+  
+  
+  .item-detail
+    .row
+      .pic.col-md-4.text-center
+        if item.image
+          img.img-product(src=item.imageUrl)
+      .detail.col-md-8
+        span.name #{title}
+        if (user=='buyer')
+          a.btn.btn-danger.float-right.buy(href=item.url + '/buy') Buy
+        
+        .category 
+          span #{item.category.name}
+        
+        span.price CDN$ #{item.price}
+        
+        .section
+          span.title Product Info
+          span.description #{item.description}
+        
+        .section
+          span.title Seller
+          span.description #{item.seller.local.fname} #{item.seller.local.lname}
+        
+        .section.last
+          span.title Item Location
+          .description.map-wrapper
+            #map
+  
       
-  div.modal-body
-    div.col-md-6
-      p Item Location
-      #map
+      
       script.
         function initMap() {
         var uluru = {lat:#{item.lat}, lng:#{item.lng}};
@@ -27,10 +45,7 @@ block content
         map: map
         });
         }
-      script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
-
-  br
-  br
+      script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap') 
 
   if (user == 'seller')
     a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
@@ -40,10 +55,6 @@ block content
           input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
         button.btn.btn-danger(type='submit') Delete
   else
-    form(method='GET' action=item.url+'/buy')
-        div.form-group
-          input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
-        button.btn.btn-danger(type='submit') Buy
     br
     form(method='POST' action=item.url+'/review' id='review_form')
         div.form-group
@@ -55,7 +66,7 @@ block content
         div.form-group
             input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
         div.form-group
-            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value='' )
+            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value=1)
         button.btn.btn-danger(type='submit') Write A Review
 
     br
@@ -87,4 +98,3 @@ block content
 
     script(type='text/javascript', src='/scripts/rating_logic.js')
     script(type='text/javascript', src='/scripts/rating.js')
-
