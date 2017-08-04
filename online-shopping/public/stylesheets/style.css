@@ -71,6 +71,10 @@ header form {
   header {
     padding-bottom: 8px !important;
   }
+  header .nav-link:hover {
+    /*color: #9E1526 !important;*/
+    border-bottom: 0;
+  }
 }
 
 /* End header */
