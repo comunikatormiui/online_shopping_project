@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var moment = require('moment');
+var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var Schema = mongoose.Schema;
 
@@ -13,7 +14,7 @@ var userSchema = mongoose.Schema({
         date_of_birth   : {type: Date},
         address			    : {type: String},
         cell_phone 		  : {type: String},
-        gender          : {type: String, enum: ['Male', 'Female']},
+        gender          : {type: String, enum: ['male', 'female']},
         wishlist        : [{type: Schema.ObjectId, ref: 'Item'}]
     }
 });

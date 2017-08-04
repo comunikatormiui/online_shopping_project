@@ -76,27 +76,34 @@ module.exports = function(passport, User) {
     passport.use(new FacebookStrategy({
         clientID: config.facebook.clientID,
         clientSecret: config.facebook.clientSecret,
-        //-clientID: FACEBOOK_APP_ID,
-        //-clientSecret: FACEBOOK_APP_SECRET,
-        callbackURL: config.facebook.callbackURL
+        callbackURL: config.facebook.callbackURL,
+        profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name', 'middle_name', 'gender', 'link'],
+        //profileFields: ['email, displayName']
       },
-      function(accessToken, refreshToken, profile, done) {
-        User.findOne({ 'facebook.id': profile.id }, function (err, user) {
+      function(accessToken, refreshToken, profile, done) { //done = cb
+        console.log(accessToken, refreshToken, profile);
+        User.findOne({ 'facebook.id': profile.id }, function (err, user) { //whatever you find in fb, it will return in profile
           if (err) { return done(err) }
-          if (!user) {
-            user = new User({
-              fname: profile.displayName,
-              email: profile.emails[0].value,
-            })
-            user.save(function (err) {
+          if (!user) { //if not find in our db
+            var newUser = new User({
+              local: {
+                email: profile.emails[0].value,
+                password: User.generateHash(profile.id),
+                fname: profile.name.givenName,
+                lname: profile.name.familyName,
+                gender: profile.gender,
+              }
+            });
+            // var newUser = new User(); newUser.local.fname = profile.first_name, newUser.local.lname = profile.last_name, newUser.local.email = profile.emails[0].value, newUser.local.password = profile.id,
+            newUser.save(function (err){
               if (err) console.log(err);
-              return done(err, user);
-            })
+              return done(err, newUser);}) //bracket for user.save
           }
-          else { return done(err, user); }
-        })
-      }
-  ));
+          else return done(err, newUser); //return everyhing found
+          //console.log(err,user);
+        }) //bracket for findOne
+      } //bracket for function(accessToken....)
+    ));
 
     // use twitter strategy
   passport.use(new TwitterStrategy({
