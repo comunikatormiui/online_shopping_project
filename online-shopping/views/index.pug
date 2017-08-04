@@ -30,7 +30,7 @@ block content
             div.carousel-caption.d-none.d-md-block
               h2 To The Bone now only for $10!
           div.carousel-item
-            img.d-block.img-fluid(src='uploads/GoPro.jpg', alt='Second slide')
+            img.pic(src='uploads/GoPro.jpg', alt='Second slide')
             div.carousel-caption.d-none.d-md-block
               h2 Good price for Go Pro
           div.carousel-item.active
@@ -107,21 +107,9 @@ block content
     h2.h2-responsive Items Near You:
     br
     #map
-    script.
-      function initMap() {
-      var uluru = {lat: 49.278109, lng: -122.919};
-      var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: uluru
-      });
-      var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-      });
-      }
+    script(type='text/javascript', src='/scripts/maps.js')  
     script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
-
-    br
+    
     br
     //-footer
 

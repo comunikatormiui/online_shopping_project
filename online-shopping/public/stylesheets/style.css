@@ -101,15 +101,15 @@ input {
   padding: 20px;
   width: 100%;
   height: 400px;
-  background-color: tan;
+
 }
 
-#homeMap {
+/*#homeMap {
   padding: 20px;
   width: 100%;
   height: 400px;
   background-color: tan;
-}
+}*
 
 .error {
 	color: red;
