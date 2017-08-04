@@ -16,8 +16,10 @@ header a {
   height: 40px;
   padding: 0 !important;
   margin-top: 8px;
-  margin-left: .5rem;
-  margin-right: .5rem;
+  padding-left: .5rem !important;
+  padding-right: .5rem !important;
+  /*margin-left: .5rem;
+  margin-right: .5rem;*/
 }
 
 header .navbar-brand {
@@ -25,23 +27,25 @@ header .navbar-brand {
 }
 
 /* link color gradually changes when hover */
-header .nav-link {
+/*header .nav-link {
     color: #9E1526;
     -webkit-transition: color 0.5s;
     -moz-transition:    color 0.5s;
     -ms-transition:     color 0.5s;
     -o-transition:      color 0.5s;
     transition:         color 0.5s;
-}
+}*/
 
 header .nav-link:hover {
-  color: #9E1526 !important;
+  /*color: #9E1526 !important;*/
+  border-bottom: 3px solid #ccc;
 }
 
 /* underline active page */
 header .nav-item.active a {
   border-bottom: 3px solid #9E1526;
 }
+
 
 /* move search field a bit to the left */
 header form {
@@ -343,6 +347,64 @@ tr:nth-child(odd) {
     border-right: 0;
   }
 }
+
+/* Item detail */
+
+.item-detail .name {
+  display: inline-block;
+  font-size: 200%;
+}
+
+.item-detail .buy {
+  margin-top: 0.3em;
+}
+
+.item-detail div.category {
+  display: block;
+  margin: 1em 0 0.3em 0;
+}
+
+.item-detail .category span {
+  border: 1px solid #ddd;
+  padding: 0.3em 0.5em;
+  color: #666;
+}
+
+.item-detail .price {
+  display: block;
+  margin-top: 3em;
+  margin-bottom: 2em;
+  font-weight: bold;
+}
+
+.item-detail .section {
+  border-top: 1px solid #ddd;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+}
+
+.item-detail .section.last {
+  border-bottom: 1px solid #ddd;
+}
+
+.item-detail .section .title {
+  border-top: 0;
+  color: #9E1526;
+  font-size: 130%;
+}
+
+.item-detail .section .description {
+  display: block;
+  margin-top: 0.5em;
+
+  margin-left: 1em;
+}
+
+.item-detail .map-wrapper {
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+}
+
 
 /* Heading */
 
