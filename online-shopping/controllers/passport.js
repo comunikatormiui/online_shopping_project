@@ -4,7 +4,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var config = require('./config');
 
 module.exports = function(passport, User) {
@@ -78,10 +78,9 @@ module.exports = function(passport, User) {
         clientSecret: config.facebook.clientSecret,
         callbackURL: config.facebook.callbackURL,
         profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name', 'middle_name', 'gender', 'link'],
-        //profileFields: ['email, displayName']
       },
       function(accessToken, refreshToken, profile, done) { //done = cb
-        console.log(accessToken, refreshToken, profile);
+        console.log(profile);//console.log(accessToken, refreshToken, profile);
         User.findOne({ 'facebook.id': profile.id }, function (err, user) { //whatever you find in fb, it will return in profile
           if (err) { return done(err) }
           if (!user) { //if not find in our db
@@ -105,73 +104,32 @@ module.exports = function(passport, User) {
       } //bracket for function(accessToken....)
     ));
 
-    // use twitter strategy
-  passport.use(new TwitterStrategy({
-        consumerKey: config.twitter.clientID
-      , consumerSecret: config.twitter.clientSecret
-      , callbackURL: config.twitter.callbackURL
-    },
-    function(token, tokenSecret, profile, done) {
-      User.findOne({ 'twitter.id': profile.id }, function (err, user) {
-        if (err) { return done(err) }
-        if (!user) {
-          user = new User({
-            fname: profile.displayName,
-            email: profile.emails[0].value,
-          })
-          user.save(function (err) {
-            if (err) console.log(err)
-            return done(err, user)
-          })
-        }
-        else { return done(err, user) }
-      })
-    }
-  ));
-
-  // use github strategy
-  passport.use(new GitHubStrategy({
-      clientID: config.github.clientID,
-      clientSecret: config.github.clientSecret,
-      callbackURL: config.github.callbackURL
-    },
-    function(accessToken, refreshToken, profile, done) {
-      User.findOne({ 'github.id': profile.id }, function (err, user) {
-        if (!user) {
-          user = new User({
-            fname: profile.displayName,
-            email: profile.emails[0].value,
-          })
-          user.save(function (err) {
-            if (err) console.log(err)
-            return done(err, user)
-          })
-        }
-        else { return done(err, user) }
-      })
-    }
-  ));
-
-  // use google strategy
-  passport.use(new GoogleStrategy({
-      consumerKey: config.google.clientID,
-      consumerSecret: config.google.clientSecret,
-      callbackURL: config.google.callbackURL
-    },
-    function(accessToken, refreshToken, profile, done) {
-      User.findOne({ 'google.id': profile.id }, function (err, user) {
-        if (!user) {
-          user = new User({
-            fname: profile.displayName,
-            email: profile.emails[0].value,
-          })
-          user.save(function (err) {
-            if (err) console.log(err)
-            return done(err, user)
-          })
-        }
-        else { return done(err, user) }
-      })
-    }
-  ));
+    // use github strategy
+    passport.use(new GitHubStrategy({
+        clientID: config.github.clientID,
+        clientSecret: config.github.clientSecret,
+        callbackURL: config.github.callbackURL,
+        //passReqToCallback: true
+      },
+      function(accessToken, refreshToken, profile, done) {
+        //console.log(profile);
+        User.findOne({ 'github.id': profile.id }, function (err, user) {
+          if (err) { return done(err) }
+          if (!user) {
+            var newUser = new User({
+              local: {
+                email:profile.emails[0].value,
+                password: User.generateHash(profile.id),
+                fname: profile.displayName,
+                lname: profile.displayName,
+              }
+            });//console.log("------------------------------");console.log(newUser.local.email, newUser.local.password, newUser.local.fname, newUser.local.lname);
+            newUser.save(function (err) {
+              if (err) console.log(err);
+              return done(err, newUser);})
+          }
+          else return done(err, newUser);
+        })
+      }
+    ));  
 };

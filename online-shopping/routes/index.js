@@ -17,30 +17,28 @@ router_export = function(router, passport, User){
 	// router.get("/auth/facebook/callback",passport.authenticate("facebook",{ failureRedirect: '/login'}, function(err,user,info){console.log(err,user,info);}),function(req,res){res.redirect("/");});
 	router.get("/auth/facebook/callback", function(req, res, next) {
 		passport.authenticate("facebook", function(err, user, info) {
-			if (err) { return next(err); }
-				// if authentication failed, redirect to login
-				if (!user) { return res.redirect('/login'); }
-				// if success, log user in
-				req.logIn(user, function(err) {
-					if (err) { return next(err); }
-					res.redirect('/');
-				});
+			if (err) return next(err);
+			if (!user) return res.redirect('/login'); // if authentication failed, redirect to login
+			req.logIn(user, function(err) { // if success, log user in
+				if (err) return next(err);
+				res.redirect('/');
+			});
 		}) (req, res, next);
 	})
-
 	//app.get('/auth/facebook', passport.authenticate('facebook', { scope: [ 'email', 'user_about_me'], failureRedirect: '/login' }), res.render('login'));
 	//app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), res.redirect('/login'));
-	router.get("/auth/github", passport.authenticate("github",{ scope : "email"}));
-	router.get("/auth/github/callback",passport.authenticate("github",{ failureRedirect: '/login'}),function(req,res){res.redirect("/");});
-	router.get("/auth/twitter", passport.authenticate("twitter",{ scope : "email"}));
-	router.get("/auth/twitter/callback",passport.authenticate("twitter",{ failureRedirect: '/login'}),function(req,res){res.redirect("/");});
-	router.get("/auth/google", passport.authenticate("google",{ scope : ['https://www.googleapis.com/auth/plus.login']}));
-	router.get("/auth/google/callback",passport.authenticate("google",{ failureRedirect: '/login'}),function(req,res){res.redirect("/");});
-	//router.get("/auth/google", passport.authenticate("google",{ scope : ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email']}));
-	//router.get("/auth/google/callback",passport.authenticate("google",{ failureRedirect: '/login'}),function(req,res){res.render("/");});
-	 //app.get('/auth/google', passport.authenticate('google', { failureRedirect: '/signin', scope: 'https://www.google.com/m8/feeds' }), users.signin)
-   //app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/signin', scope: 'https://www.google.com/m8/feeds' }), users.authCallback)
 
+	router.get("/auth/github", passport.authenticate("github", { scope : 'email'}));
+	router.get("/auth/github/callback", function(req, res, next) {
+		passport.authenticate("github", function(err, user, info) {
+			if (err) return next(err);
+			if (!user) return res.redirect('/login'); // if authentication failed, redirect to login
+			req.logIn(user, function(err) { // if success, log user in
+				if (err) return next(err);
+				res.redirect('/');
+			});
+		}) (req, res, next);
+	})
 
 //request login and render login message
 	router.get('/login', function(req, res){
