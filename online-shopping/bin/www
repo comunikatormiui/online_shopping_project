@@ -8,6 +8,8 @@ var app = require('../app');
 var debug = require('debug')('online-shopping:server');
 var http = require('http');
 
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -20,6 +22,33 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io');
+var socket = io.listen(server);
+console.log('listening on created server');
+
+var usrs = {}; // List of users connected to chat
+
+socket.on('connection', function (client) {
+    client.on('join', function(name){
+      console.log('someone joined');
+        usrs[client.id] = name;
+        client.emit('update', 'You have connected to the server.');
+        socket.sockets.emit('update', name + ' has joined the server.')
+        socket.sockets.emit('update-usrs', usrs);
+    });
+
+    client.on('send', function(msg){
+				console.log('someone sent a message');
+        socket.sockets.emit('chat', usrs[client.id], msg);
+    });
+
+    client.on('disconnect', function(){
+        socket.sockets.emit('update', usrs[client.id] + ' has left the server.');
+				console.log('someone left');
+        delete usrs[client.id];
+        socket.sockets.emit('update-usrs', usrs);
+    });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
