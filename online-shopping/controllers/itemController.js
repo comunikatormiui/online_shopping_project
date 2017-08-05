@@ -65,6 +65,10 @@ exports.wishlist = function(req, res, next) {
   });
 };
 
+
+
+
+
 exports.wishlist_add = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
@@ -238,12 +242,14 @@ exports.item_create_post = function(req, res, next) {
       price: req.body.price,
       category: req.body.category,
       description: req.body.description,
-      seller: req.body.seller,
       lat: req.body.lat,
       lng: req.body.lng,
       image : imageName,
       seller: user._id
     });
+
+    // add price to price history
+    item.price_history.push({ price: req.body.price, date: new Date() });
 
     req.getValidationResult().then(function(result) {
       var errors = result.array();
@@ -303,7 +309,6 @@ exports.item_update_post = function(req, res, next) {
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
   req.checkBody('category', 'Category must be specified').notEmpty();
-  req.checkBody('seller', 'Seller must be specified').notEmpty();
   req.checkBody('lat', 'Latitude must be specified').notEmpty();
   req.checkBody('lat', 'Latitude: only floating-point number is allowed').isFloat();
   req.checkBody('lng', 'Longitude must be specified').notEmpty();
@@ -317,55 +322,59 @@ exports.item_update_post = function(req, res, next) {
   req.filter('category').trim();
   req.filter('description').escape();
   req.filter('description').trim();
-  req.filter('seller').escape();
-  req.filter('seller').trim();
   req.filter('lat').escape();
   req.filter('lat').trim();
   req.filter('lng').escape();
   req.filter('lng').trim();
 
-  if (req.files[0])
-    var imageName = req.files[0].originalname;
-  else
-    var imageName = 'question-mark.svg';
 
-  var item = new Item({
-    name: req.body.name,
-    price: req.body.price,
-    category: req.body.category,
-    description: req.body.description,
-    seller: req.body.seller,
-    lat: req.body.lat,
-    lng: req.body.lng,
-    image: imageName,
-    _id: req.params.id
-  });
+  Item.findById(req.params.id).populate('seller').exec(function(err, item) {
+    if (err) { return next(err); }
 
-  req.getValidationResult().then(function(result) {
-    var errors = result.array();
-    if (errors.length > 0) {
-
-      Category.find({}, 'name')
-      .exec(function(err, categories) {
-        if (err) {
-          return next(err);
-        }
-        // add errors to flash
-        for (var i = 0; i < errors.length; i++) {
-          req.flash('error', errors[i].msg);
-        }
-        res.locals.error_messages = req.flash('error');
-
-        res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
-      });
-
+    // If user is not item owner, redirect them to /items
+    if (item.seller.local.email != req.user.local.email) {
+      req.flash('error', 'You can only edit your own items');
+      res.redirect('/items');
     } else {
 
-      Item.findByIdAndUpdate(req.params.id, item, {}, function(err, theitem) {
-        if (err) { return next(err); }
-        res.redirect(theitem.url);
-      });
+      // Form validation
+      req.getValidationResult().then(function(result) {
+        var errors = result.array();
+        // If there's any error, render the form with errors
+        if (errors.length > 0) {
 
+          Category.find({}, 'name')
+          .exec(function(err, categories) {
+            if (err) {
+              return next(err);
+            }
+            // add errors to flash
+            for (var i = 0; i < errors.length; i++) {
+              req.flash('error', errors[i].msg);
+            }
+            res.locals.error_messages = req.flash('error');
+
+            res.render('item_form', { title: 'Update New Item', item: item, category_list: categories, selected_category: item.category, errors: errors });
+          });
+
+        } else {
+          item.name = req.body.name;
+          item.price = req.body.price;
+          item.category = req.body.category;
+          item.description = req.body.description;
+          item.lat = req.body.lat;
+          item.lng = req.body.lng;
+          item.price_history.push({ price: req.body.price, date: new Date() });
+
+          if (req.files[0])
+            var imageName = req.files[0].originalname;
+
+          item.save(function(err) {
+            if (err) { return next(err); }
+            res.redirect(item.url);
+          });
+        }
+      });
     }
   });
 }
@@ -392,6 +401,19 @@ exports.item_buy_get = function(req, res, next) {
   });
 }
 
+// exports.item_maps = function(req, res, next){
+//   req.filter('id').escape();
+//   req.filter('id').trim();
+//
+//   Item.findById(req.params.id)
+//   .populate('seller')
+//   .exec(function (err, item) {
+//     if (err) { return next(err); }
+//     res.render('index', { item: item });
+//     console.log(user);
+//   });
+//
+// }
 
 exports.item_buy_post = function(req, res, next) {
   req.checkBody('quantity', 'quantity must be specified').notEmpty();

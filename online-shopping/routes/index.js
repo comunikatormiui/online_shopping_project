@@ -13,7 +13,32 @@ router_export = function(router, passport, User){
 	  res.render('index', { title: 'Our Shopping Page' });
 	});*/
 	router.get('/', category_controller.catListForHome);
+	router.get("/auth/facebook", passport.authenticate("facebook",{ scope : ['public_profile', 'email']}));
+	// router.get("/auth/facebook/callback",passport.authenticate("facebook",{ failureRedirect: '/login'}, function(err,user,info){console.log(err,user,info);}),function(req,res){res.redirect("/");});
+	router.get("/auth/facebook/callback", function(req, res, next) {
+		passport.authenticate("facebook", function(err, user, info) {
+			if (err) return next(err);
+			if (!user) return res.redirect('/login'); // if authentication failed, redirect to login
+			req.logIn(user, function(err) { // if success, log user in
+				if (err) return next(err);
+				res.redirect('/');
+			});
+		}) (req, res, next);
+	})
+	//app.get('/auth/facebook', passport.authenticate('facebook', { scope: [ 'email', 'user_about_me'], failureRedirect: '/login' }), res.render('login'));
+	//app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), res.redirect('/login'));
 
+	router.get("/auth/github", passport.authenticate("github", { scope : 'email'}));
+	router.get("/auth/github/callback", function(req, res, next) {
+		passport.authenticate("github", function(err, user, info) {
+			if (err) return next(err);
+			if (!user) return res.redirect('/login'); // if authentication failed, redirect to login
+			req.logIn(user, function(err) { // if success, log user in
+				if (err) return next(err);
+				res.redirect('/');
+			});
+		}) (req, res, next);
+	})
 
 //request login and render login message
 	router.get('/login', function(req, res){
@@ -133,9 +158,7 @@ router_export = function(router, passport, User){
 	});
 
 
-	router.get('/history', function(req, res, next) {
-	  res.render('history');
-	});
+
 
 };
 

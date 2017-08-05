@@ -12,6 +12,32 @@ var multer = require('multer');
 var User = require('./models/user'); //---------------------
 var paginate = require('express-paginate');
 var image = require('./routes/imagefile');
+//var io = require("socket.io");
+//var socket = io.listen(1234, "0.0.0.0");
+var usrs = {};
+
+
+/*
+socket.on("connection", function (client) {
+    client.on("join", function(name){
+        usrs[client.id] = name;
+        client.emit("update", "You have connected to the server.");
+        socket.sockets.emit("update", name + " has joined the server.")
+        socket.sockets.emit("update-usrs", usrs);
+    });
+
+    client.on("send", function(msg){
+        socket.sockets.emit("chat", usrs[client.id], msg);
+    });
+
+    client.on("disconnect", function(){
+        socket.sockets.emit("update", usrs[client.id] + " has left the server.");
+        delete usrs[client.id];
+        socket.sockets.emit("update-usrs", usrs);
+    });
+});
+*/
+
 
 require('./controllers/passport')(passport, User);
 
