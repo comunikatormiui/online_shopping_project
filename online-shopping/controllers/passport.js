@@ -47,11 +47,8 @@ module.exports = function(passport, User) {
                         return done(null, newUser);
                     });
                 }
-
             });
-
         });
-
     }));
 
     passport.use('local-login', new LocalStrategy({
@@ -84,13 +81,17 @@ module.exports = function(passport, User) {
         User.findOne({ 'facebook.id': profile.id }, function (err, user) { //whatever you find in fb, it will return in profile
           if (err) { return done(err) }
           if (!user) { //if not find in our db
+            if (profile.gender == 'female')
+              var gendertemp='Female';
+            if (profile.gender == 'male')
+              var gendertemp='Male';
             var newUser = new User({
               local: {
                 email: profile.emails[0].value,
                 password: User.generateHash(profile.id),
                 fname: profile.name.givenName,
                 lname: profile.name.familyName,
-                gender: profile.gender,
+                gender: gendertemp,
               }
             });
             // var newUser = new User(); newUser.local.fname = profile.first_name, newUser.local.lname = profile.last_name, newUser.local.email = profile.emails[0].value, newUser.local.password = profile.id,

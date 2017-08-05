@@ -158,9 +158,7 @@ router_export = function(router, passport, User){
 	});
 
 
-	router.get('/history', function(req, res, next) {
-	  res.render('history');
-	});
+
 
 };
 

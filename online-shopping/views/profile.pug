@@ -19,8 +19,8 @@ block content
         label(for='gender') Gender:
         select#gender.form-control(type='select', placeholder='Select your Gender', name='gender')
           option(value='')
-          option(value='Male' selected=(user.local.gender=='male' ? 'selected' : false)) Male
-          option(value='Female' selected=(user.local.gender=='female' ? 'selected' : false)) Female
+          option(value='Male' selected=(user.local.gender=='Male' ? 'selected' : false)) Male
+          option(value='Female' selected=(user.local.gender=='Female' ? 'selected' : false)) Female
 
       div.form-group.input
         label(for='date_of_birth') Date of birth:
