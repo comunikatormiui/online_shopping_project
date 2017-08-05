@@ -24,10 +24,14 @@
     "multer": "*",
     "passport": "^0.1.18",
     "passport-local": "^0.1.6",
+    "passport-facebook": "^2.1.1",
+    "passport-twitter": "^1.0.4",
+    "passport-google-oauth": "^1.0.0",
+    "passport-github": "^1.1.0",
     "path": "*",
     "pug": "~2.0.0-beta11",
     "serve-favicon": "~2.4.2",
-    "socket.io": "^2.0.3"
+    "activator": "3.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

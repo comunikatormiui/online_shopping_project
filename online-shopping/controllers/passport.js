@@ -1,5 +1,11 @@
+//Referencd: http://passportjs.org/docs
 
 var LocalStrategy   = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var config = require('./config');
 
 module.exports = function(passport, User) {
     passport.serializeUser(function(user, done) {
@@ -12,7 +18,6 @@ module.exports = function(passport, User) {
             done(err, user);
         });
     });
-
 
     passport.use('local-signup', new LocalStrategy({
         usernameField : 'email',
@@ -58,16 +63,73 @@ module.exports = function(passport, User) {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 if (err)
                     return done(err);
-
                 if (!user)
                     return done(null, false, req.flash('error', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-
                 if (!user.validPassword(password))
                     return done(null, false, req.flash('error', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-
                 return done(null, user);
             });
-
         }
+    ));
+
+    // use facebook strategy
+    passport.use(new FacebookStrategy({
+        clientID: config.facebook.clientID,
+        clientSecret: config.facebook.clientSecret,
+        callbackURL: config.facebook.callbackURL,
+        profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name', 'middle_name', 'gender', 'link'],
+      },
+      function(accessToken, refreshToken, profile, done) { //done = cb
+        console.log(profile);//console.log(accessToken, refreshToken, profile);
+        User.findOne({ 'facebook.id': profile.id }, function (err, user) { //whatever you find in fb, it will return in profile
+          if (err) { return done(err) }
+          if (!user) { //if not find in our db
+            var newUser = new User({
+              local: {
+                email: profile.emails[0].value,
+                password: User.generateHash(profile.id),
+                fname: profile.name.givenName,
+                lname: profile.name.familyName,
+                gender: profile.gender,
+              }
+            });
+            // var newUser = new User(); newUser.local.fname = profile.first_name, newUser.local.lname = profile.last_name, newUser.local.email = profile.emails[0].value, newUser.local.password = profile.id,
+            newUser.save(function (err){
+              if (err) console.log(err);
+              return done(err, newUser);}) //bracket for user.save
+          }
+          else return done(err, newUser); //return everyhing found
+          //console.log(err,user);
+        }) //bracket for findOne
+      } //bracket for function(accessToken....)
+    ));
+
+    // use github strategy
+    passport.use(new GitHubStrategy({
+        clientID: config.github.clientID,
+        clientSecret: config.github.clientSecret,
+        callbackURL: config.github.callbackURL,
+        //passReqToCallback: true
+      },
+      function(accessToken, refreshToken, profile, done) {
+        //console.log(profile);
+        User.findOne({ 'github.id': profile.id }, function (err, user) {
+          if (err) { return done(err) }
+          if (!user) {
+            var newUser = new User({
+              local: {
+                email:profile.emails[0].value,
+                password: User.generateHash(profile.id),
+                fname: profile.displayName,
+                lname: profile.displayName,
+              }
+            });//console.log("------------------------------");console.log(newUser.local.email, newUser.local.password, newUser.local.fname, newUser.local.lname);
+            newUser.save(function (err) {
+              if (err) console.log(err);
+              return done(err, newUser);})
+          }
+          else return done(err, newUser);
+        })
+      }
     ));
 };
