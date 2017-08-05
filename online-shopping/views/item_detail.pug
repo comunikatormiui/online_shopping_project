@@ -56,18 +56,21 @@ block content
         button.btn.btn-danger(type='submit') Delete
   else
     br
-    form(method='POST' action=item.url+'/review' id='review_form')
-        div.form-group
-            label(for='review') #[strong Rate]
-            .rateyo(data-rateyo-rating='0%', data-rateyo-spacing='10px', data-rateyo-rated-fill='#ffdb03')
-        div.form-group
-          label(for='review') #[strong Review:]
-          textarea#review.form-control(name='review', required='true')
-        div.form-group
-            input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
-        div.form-group
-            input#rate_field.form-control(type='hidden',name='rate_field', required='true', value=1)
-        button.btn.btn-danger(type='submit') Write A Review
+    if login
+      form(method='POST' action=item.url+'/review' id='review_form')
+          div.form-group
+              label(for='review') #[strong Rate]
+              .rateyo(data-rateyo-rating='0%', data-rateyo-spacing='10px', data-rateyo-rated-fill='#ffdb03')
+          div.form-group
+            label(for='review') #[strong Review:]
+            textarea#review.form-control(name='review', required='true')
+          div.form-group
+              input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+          div.form-group
+              input#rate_field.form-control(type='hidden',name='rate_field', required='true', value=1)
+          button.btn.btn-danger(type='submit') Write A Review
+    else 
+      a(href=item.url + '/review') Log in to leave a review
 
     br
     label(for='previous_reviews') #[strong Previous Reviews:]
