@@ -1,13 +1,20 @@
 extends layout
 
 block content
-  
-  
   .item-detail
     .row
       .pic.col-md-4.text-center
-        if item.image
-          img.img-product(src=item.imageUrl)
+        br 
+        br
+        hr
+        div.zoom
+          div.small
+            if item.image
+              img.img-product(src=item.imageUrl)
+          div.large
+            if item.image
+              img.img-product(src=item.imageUrl)
+        hr
       .detail.col-md-8
         span.name #{title}
         if (user=='buyer')
@@ -108,4 +115,10 @@ block content
     map: map
     });
     }
-  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap') 
+  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+  script(src='/scripts/jquery.anythingzoomer.js')
+  script.
+    $(function(){
+      $(".zoom").anythingZoomer();
+    });

@@ -8,13 +8,15 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session  = require('express-session');
-var multer = require("multer");
+var multer = require('multer');
 var User = require('./models/user'); //---------------------
 var paginate = require('express-paginate');
 var image = require('./routes/imagefile');
 //var io = require("socket.io");
 //var socket = io.listen(1234, "0.0.0.0");
 var usrs = {};
+
+
 /*
 socket.on("connection", function (client) {
     client.on("join", function(name){

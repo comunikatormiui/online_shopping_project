@@ -146,9 +146,10 @@ function createUsers(cb) {
   cb);
 }
 
+
 // 0 - Books, 1 - Music, 2 - Movies, 3 - Electronics, 4 - Software, 5 - Video games, 6 - Home
 // 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive
-// name, category, description, seller, price, image, cb
+// name, category, description, seller, price, lat, lng image, cb
 
 var samplePrices = [30, 40, 100, 60];
 
