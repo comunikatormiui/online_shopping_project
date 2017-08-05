@@ -1,4 +1,4 @@
-function getLocation() {
+/*function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else {
@@ -20,7 +20,17 @@ function showPosition(position) {
     map: map
   });
 
+
+
+  var marker1 = new google.maps.Marker({
+    var uluru = {lat:item.lat, lng:item.lng};
+    position: uluru,
+    map: map
+  });
+
+
 }
+
 
 function initMap() {
   getLocation();

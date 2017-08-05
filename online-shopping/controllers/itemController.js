@@ -65,6 +65,10 @@ exports.wishlist = function(req, res, next) {
   });
 };
 
+
+
+
+
 exports.wishlist_add = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
@@ -392,6 +396,19 @@ exports.item_buy_get = function(req, res, next) {
   });
 }
 
+// exports.item_maps = function(req, res, next){
+//   req.filter('id').escape();
+//   req.filter('id').trim();
+//
+//   Item.findById(req.params.id)
+//   .populate('seller')
+//   .exec(function (err, item) {
+//     if (err) { return next(err); }
+//     res.render('index', { item: item });
+//     console.log(user);
+//   });
+//
+// }
 
 exports.item_buy_post = function(req, res, next) {
   req.checkBody('quantity', 'quantity must be specified').notEmpty();
