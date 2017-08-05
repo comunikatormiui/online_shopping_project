@@ -32,10 +32,6 @@
     "socket.io":"~2.0.3",
     "jquery": "~3.2.1"
   },
-  "main": [
-    "dist/jquery.anythingzoomer.css",
-    "dist/jquery.anythingzoomer.js"
-  ],
   "devDependencies": {
     "nodemon": "^1.11.0"
   }
