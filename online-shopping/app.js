@@ -8,34 +8,10 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session  = require('express-session');
-var multer = require("multer");
+var multer = require('multer');
 var User = require('./models/user'); //---------------------
 var paginate = require('express-paginate');
 var image = require('./routes/imagefile');
-//var io = require("socket.io");
-//var socket = io.listen(1234, "0.0.0.0");
-var usrs = {};
-/*
-socket.on("connection", function (client) {
-    client.on("join", function(name){
-        usrs[client.id] = name;
-        client.emit("update", "You have connected to the server.");
-        socket.sockets.emit("update", name + " has joined the server.")
-        socket.sockets.emit("update-usrs", usrs);
-    });
-
-    client.on("send", function(msg){
-        socket.sockets.emit("chat", usrs[client.id], msg);
-    });
-
-    client.on("disconnect", function(){
-        socket.sockets.emit("update", usrs[client.id] + " has left the server.");
-        delete usrs[client.id];
-        socket.sockets.emit("update-usrs", usrs);
-    });
-});
-*/
-
 
 require('./controllers/passport')(passport, User);
 
@@ -47,9 +23,39 @@ var wishlist = require('./routes/wishlist');
 
 var app = express();
 
+var server = app.listen();
+var io = require('socket.io').listen(server);
+
+console.log('listening to port 8080');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+
+var usrs = {}; // List of users connected to chat
+
+io.on('connection', function (socket) {
+		console.log("socket read someting");
+    client.on('join', function(name){
+        usrs[client.id] = name;
+				console.log('someone joined');
+        client.emit('update', 'You have connected to the server.');
+        socket.sockets.emit('update', name + ' has joined the server.')
+        socket.sockets.emit('update-usrs', usrs);
+    });
+
+    client.on('send', function(msg){
+				console.log('someone sent a message');
+        socket.sockets.emit('chat', usrs[client.id], msg);
+    });
+
+    client.on('disconnect', function(){
+        socket.sockets.emit('update', usrs[client.id] + ' has left the server.');
+				console.log('someone left');
+        delete usrs[client.id];
+        socket.sockets.emit('update-usrs', usrs);
+    });
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

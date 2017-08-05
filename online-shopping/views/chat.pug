@@ -1,6 +1,22 @@
 extends layout
+
 block content
-    #chat.span5.offset2
-      form#2.form-inline
-        input#msg.input(type='text', placeholder='Your message')
-        input#send.btn.btn-success(type='button', name='send', value='Send')
+  script(src='https://cdn.socket.io/socket.io-1.2.0.js')
+  script(src='http://code.jquery.com/jquery-1.11.1.js')
+  script(src='/scripts/chat.js')
+  .row
+    .span2
+      ul#people.unstyled
+    .span4
+      ul#msgs.unstyled
+  br
+  .row
+    #login.span5
+      form.form-inline
+        input#name.input-small(type='text', placeholder='Your name')
+        input#join.btn.btn-primary(type='button', name='join', value='Join')
+  br
+  #chat.span5
+    form#2.form-inline
+      input#msg.input(type='text', placeholder='Your message')
+      input#send.btn.btn-success(type='button', name='send', value='Send')
