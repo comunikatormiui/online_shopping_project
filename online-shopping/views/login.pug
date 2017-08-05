@@ -15,3 +15,11 @@ block content
 		br
 		br
 		a.btn.btn-primary(href='/signup' role='button') Sign Up
+		br
+		br
+		form.signup.signup-form.span4(action="/users/session", method="post")
+			img(src="/images/facebook.png")
+			a.btn-social.btn-dblue.btn-primary(href="/auth/facebook") Login with Facebook
+			br
+			img(src="/images/github.png")
+			a.btn-social.btn-dblue.btn-secondary(href="/auth/github") Login with GitHub

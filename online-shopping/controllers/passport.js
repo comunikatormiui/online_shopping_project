@@ -131,5 +131,5 @@ module.exports = function(passport, User) {
           else return done(err, newUser);
         })
       }
-    ));  
+    ));
 };
