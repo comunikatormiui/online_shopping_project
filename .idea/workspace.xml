@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09cd4418-f641-4cdb-a273-0fe3249ae4c7" name="Default" comment="">
+    <list default="true" id="09cd4418-f641-4cdb-a273-0fe3249ae4c7" name="Default" comment="Fix rating option to">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/public/stylesheets/style.css" afterPath="$PROJECT_DIR$/online-shopping/public/stylesheets/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/models/review.js" afterPath="$PROJECT_DIR$/online-shopping/models/review.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/public/scripts/rating_logic.js" afterPath="$PROJECT_DIR$/online-shopping/public/scripts/rating_logic.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/item_detail.pug" afterPath="$PROJECT_DIR$/online-shopping/views/item_detail.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/login.pug" afterPath="$PROJECT_DIR$/online-shopping/views/login.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/signup.pug" afterPath="$PROJECT_DIR$/online-shopping/views/signup.pug" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,8 +24,8 @@
       <file leaf-file-name="signup.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/views/signup.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state relative-caret-position="318">
+              <caret line="27" column="14" lean-forward="true" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -30,8 +34,40 @@
       <file leaf-file-name="item_detail.pug" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/online-shopping/views/item_detail.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="642">
-              <caret line="93" column="33" lean-forward="true" selection-start-line="93" selection-start-column="33" selection-end-line="93" selection-end-column="33" />
+            <state relative-caret-position="192">
+              <caret line="69" column="61" lean-forward="true" selection-start-line="69" selection-start-column="61" selection-end-line="69" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rating.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/public/scripts/rating.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rating_logic.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/public/scripts/rating_logic.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="948" column="6" lean-forward="false" selection-start-line="948" selection-start-column="6" selection-end-line="948" selection-end-column="6" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="items.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/routes/items.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -50,19 +86,11 @@
       <file leaf-file-name="profile.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/views/profile.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item_buy.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/views/item_buy.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-              <folding />
+            <state relative-caret-position="375">
+              <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+              <folding>
+                <marker date="1501963440000" expanded="true" signature="21:1799" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,8 +98,8 @@
       <file leaf-file-name="login.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/views/login.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -80,9 +108,28 @@
       <file leaf-file-name="itemController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="2700">
+              <caret line="180" column="39" lean-forward="false" selection-start-line="180" selection-start-column="39" selection-end-line="180" selection-end-column="39" />
+              <folding>
+                <marker date="1501963160000" expanded="true" signature="12355:14375" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="13358:14371" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="13371:13395" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="13409:13503" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="13576:13867" ph="{&quot;buyer&quot;: user._id...}" />
+                <marker date="1501963160000" expanded="true" signature="13922:14365" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="13988:14113" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="14119:14359" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="14160:14349" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="14181:14240" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="14255:14339" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="14871:14899" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="14915:15015" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="15258:15498" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="15270:15436" ph="//..." />
+                <marker date="1501963160000" expanded="true" signature="15570:15744" ph="{&quot;item&quot;: itemID...}" />
+                <marker date="1501963160000" expanded="true" signature="16094:16371" ph="{...}" />
+                <marker date="1501963160000" expanded="true" signature="16110:16287" ph="//..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -90,18 +137,8 @@
       <file leaf-file-name="review.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/models/review.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/models/item.js">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -115,25 +152,33 @@
       <find>review</find>
       <find>.form</find>
       <find>profile_name</find>
+      <find>item_detail</find>
+      <find>mouse</find>
+      <find>options</find>
+      <find>setMaxValue</find>
+      <find>hidden</find>
+      <find>onmouse</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="F4-security" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/online-shopping/views/login.pug" />
-        <option value="$PROJECT_DIR$/online-shopping/views/signup.pug" />
         <option value="$PROJECT_DIR$/online-shopping/views/profile.pug" />
-        <option value="$PROJECT_DIR$/online-shopping/models/review.js" />
         <option value="$PROJECT_DIR$/online-shopping/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/online-shopping/controllers/itemController.js" />
+        <option value="$PROJECT_DIR$/online-shopping/models/review.js" />
+        <option value="$PROJECT_DIR$/online-shopping/views/login.pug" />
+        <option value="$PROJECT_DIR$/online-shopping/views/signup.pug" />
+        <option value="$PROJECT_DIR$/online-shopping/public/scripts/rating_logic.js" />
+        <option value="$PROJECT_DIR$/online-shopping/views/item_detail.pug" />
       </list>
     </option>
   </component>
@@ -153,10 +198,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/online-shopping/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
-    <option name="width" value="1526" />
-    <option name="height" value="984" />
+    <option name="width" value="1416" />
+    <option name="height" value="867" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -210,7 +255,7 @@
               <item name="online_shopping_project" type="462c0819:PsiDirectoryNode" />
               <item name="online-shopping" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
+              <item name="scripts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="online_shopping_project" type="b2602c69:ProjectViewProjectNode" />
@@ -258,7 +303,7 @@
       <updated>1501652087339</updated>
       <workItem from="1501652089737" duration="1929000" />
       <workItem from="1501704917311" duration="7644000" />
-      <workItem from="1501825134357" duration="819000" />
+      <workItem from="1501825134357" duration="11796000" />
     </task>
     <task id="LOCAL-00001" summary="Add style to login/signup/profile pages">
       <created>1501824359280</created>
@@ -267,11 +312,25 @@
       <option name="project" value="LOCAL" />
       <updated>1501824359280</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add style to forms">
+      <created>1501828957300</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1501828957300</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Merge branch 'develop' into local develop.">
+      <created>1501964475227</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1501964475227</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10392000" />
+    <option name="totallyTimeSpent" value="21369000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -283,21 +342,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1526" height="984" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="705" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1820598" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18030183" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26096737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24409449" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46065575" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24983388" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295838" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -326,6 +385,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -358,7 +427,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add style to login/signup/profile pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add style to login/signup/profile pages" />
+    <MESSAGE value="Add style to forms" />
+    <MESSAGE value="Merge branch 'develop' into local develop." />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'develop' into local develop." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -401,7 +472,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="38" lean-forward="false" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="38" />
-          <folding />
+          <folding>
+            <marker date="1501963160000" expanded="true" signature="12355:14375" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13358:14371" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13371:13395" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13409:13503" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13576:13867" ph="{&quot;buyer&quot;: user._id...}" />
+            <marker date="1501963160000" expanded="true" signature="13922:14365" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13988:14113" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14119:14359" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14160:14349" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14181:14240" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14255:14339" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14871:14899" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14915:15015" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="15258:15498" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="15270:15436" ph="//..." />
+            <marker date="1501963160000" expanded="true" signature="15570:15744" ph="{&quot;item&quot;: itemID...}" />
+            <marker date="1501963160000" expanded="true" signature="16094:16371" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="16110:16287" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -425,7 +515,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
-          <folding />
+          <folding>
+            <marker date="1501963440000" expanded="true" signature="21:1799" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -477,14 +569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/models/review.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/public/stylesheets/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8145">
@@ -493,42 +577,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/profile.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="375">
+          <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <marker date="1501963440000" expanded="true" signature="21:1799" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/routes/items.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/profile.pug">
+    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        <state relative-caret-position="2700">
+          <caret line="180" column="39" lean-forward="false" selection-start-line="180" selection-start-column="39" selection-end-line="180" selection-end-column="39" />
+          <folding>
+            <marker date="1501963160000" expanded="true" signature="12355:14375" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13358:14371" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13371:13395" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13409:13503" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13576:13867" ph="{&quot;buyer&quot;: user._id...}" />
+            <marker date="1501963160000" expanded="true" signature="13922:14365" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="13988:14113" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14119:14359" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14160:14349" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14181:14240" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14255:14339" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14871:14899" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="14915:15015" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="15258:15498" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="15270:15436" ph="//..." />
+            <marker date="1501963160000" expanded="true" signature="15570:15744" ph="{&quot;item&quot;: itemID...}" />
+            <marker date="1501963160000" expanded="true" signature="16094:16371" ph="{...}" />
+            <marker date="1501963160000" expanded="true" signature="16110:16287" ph="//..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/models/review.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/login.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="345">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/signup.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="318">
+          <caret line="27" column="14" lean-forward="true" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/public/scripts/rating.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/public/scripts/rating_logic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="948" column="6" lean-forward="false" selection-start-line="948" selection-start-column="6" selection-end-line="948" selection-end-column="6" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/item_detail.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
-          <caret line="93" column="33" lean-forward="true" selection-start-line="93" selection-start-column="33" selection-end-line="93" selection-end-column="33" />
+        <state relative-caret-position="192">
+          <caret line="69" column="61" lean-forward="true" selection-start-line="69" selection-start-column="61" selection-end-line="69" selection-end-column="61" />
           <folding />
         </state>
       </provider>

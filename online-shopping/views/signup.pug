@@ -25,13 +25,13 @@ block content
 				input#pw.form-control(type = 'password' name = 'password')
 
 			button.btn.btn-primary(type='submit') Sign up
-            br
-            br
-            form.signup.signup-form.span4(action="/users/session", method="post")
-                img(src="/images/facebook.png")
-                a.btn-social.btn-dblue.btn-primary(href="/auth/facebook") Sign Up with Facebook
-                br
-                img(src="/images/github.png")
-                a.btn-social.btn-dblue.btn-secondary(href="/auth/github") Sign Up with GitHub
+			br
+			br
+			form.signup.signup-form.span4(action="/users/session", method="post")
+				img(src="/images/facebook.png")
+				a.btn-social.btn-dblue.btn-primary(href="/auth/facebook") Sign Up with Facebook
+				br
+				img(src="/images/github.png")
+				a.btn-social.btn-dblue.btn-secondary(href="/auth/github") Sign Up with GitHub
 
-        .error #{message}
+		.error #{message}
