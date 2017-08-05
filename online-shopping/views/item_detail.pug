@@ -72,32 +72,31 @@ block content
     else 
       a(href=item.url + '/review') Log in to leave a review
 
-    br
-    label(for='previous_reviews') #[strong Previous Reviews:]
-    -function prettyDate(dateString){
-        //if it's already a date object and not a string you don't need this line:
-        -var date = new Date(dateString);
-        -var d = date.getDate();
-        -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-        -var m = monthNames[date.getMonth()];
-        -var y = date.getFullYear();
-        -return d+' '+m+' '+y;
-    -}
-    div
-      table#review_table
-          each review in review_list
-            tr
-              td#review_section #{review.review}
-              td#reviewer_name #{review.reviewer.local.fname + ' (' + Math.round(review.rating * 10)/10 + '/5)'}
-              td#review_date #{prettyDate(review.review_date)}
-          else
-            li No review
+  br
+  label(for='previous_reviews') #[strong Previous Reviews:]
+  -function prettyDate(dateString){
+      //if it's already a date object and not a string you don't need this line:
+      -var date = new Date(dateString);
+      -var d = date.getDate();
+      -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+      -var m = monthNames[date.getMonth()];
+      -var y = date.getFullYear();
+      -return d+' '+m+' '+y;
+  -}
+  div
+    table#review_table
+        each review in review_list
+          tr
+            td#review_section #{review.review}
+            td#reviewer_name #{review.reviewer.local.fname + ' (' + Math.round(review.rating * 10)/10 + '/5)'}
+            td#review_date #{prettyDate(review.review_date)}
+        else
+          li No review
 
-    if (error)
-        p(class="error") #{error}
+  if (error)
+      p(class="error") #{error}
+  if (message)
+      p(class="message") #{message}
 
-    if (message)
-        p(class="message") #{message}
-
-    script(type='text/javascript', src='/scripts/rating_logic.js')
-    script(type='text/javascript', src='/scripts/rating.js')
+  script(type='text/javascript', src='/scripts/rating_logic.js')
+  script(type='text/javascript', src='/scripts/rating.js')
