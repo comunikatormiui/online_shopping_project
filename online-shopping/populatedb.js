@@ -46,7 +46,7 @@ function userCreate(email, password, firstname, lastname, cb) {
   });
 }
 
-function itemCreate(name, category, description, seller, price, lat, lng, image, cb) {
+function itemCreate(name, category, description, seller, price, lat, lng, image, prices, cb) {
    //res.send(req.files);
   var item = new Item({
     name: name,
@@ -58,6 +58,15 @@ function itemCreate(name, category, description, seller, price, lat, lng, image,
     lng: lng,
     image: image
   });
+
+  for (var i = 0; i < prices.length; i++) {
+    var date = new Date();
+    date.setHours(date.getHours() - prices.length + i);
+    item.price_history.push({ price: prices[i], date: date });
+  }
+
+  item.price_history.push({ price: price, date: new Date() });
+
   item.save(function (err) {
     if (err) {
       cb(err, null);
@@ -141,29 +150,31 @@ function createUsers(cb) {
 // 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive
 // name, category, description, seller, price, image, cb
 
+var samplePrices = [30, 40, 100, 60];
+
 function createItems(cb) {
   async.parallel([
     function(callback) {
-      itemCreate('The War (4th Album) [KOREAN / Private ver.]', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', users[0],48.70, 49.21287, -122.55659, 'TheWar.jpg', callback);
+      itemCreate('The War (4th Album) [KOREAN / Private ver.]', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', users[0],48.70, 49.21287, -122.55659, 'TheWar.jpg', samplePrices, callback);
     },
     function(callback) {
       itemCreate('Sapiens: A Brief History of Humankind', categories[0],
-        '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', users[0], 14.85, 49.286787, -122.932259, 'sapiens.png', callback);
+        '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', users[0], 14.85, 49.286787, -122.932259, 'sapiens.png', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('To The Bone', categories[1], 'Pre-order now.', users[0], 15.25, 49.25287, -122.54259, 'toTheBone.jpg', callback);
+      itemCreate('To The Bone', categories[1], 'Pre-order now.', users[0], 15.25, 49.25287, -122.54259, 'toTheBone.jpg', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', users[0], 529.99, 49.21287, -122.55659, 'GoPro.jpg',callback);
+      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', users[0], 529.99, 49.21287, -122.55659, 'GoPro.jpg', samplePrices,callback);
     },
     function(callback) {
-      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', users[0], 20, 49.21287, -122.55659, 'OfficeChairArmrest.jpg',callback);
+      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', users[0], 20, 49.21287, -122.55659, 'OfficeChairArmrest.jpg', samplePrices,callback);
     },
     function(callback) {
-      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', users[0], 34.99, 49.21287, -122.55659, 'KasperskyInternetSecurity2017.jpg',callback);
+      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', users[0], 34.99, 49.21287, -122.55659, 'KasperskyInternetSecurity2017.jpg', samplePrices,callback);
     },
     function(callback) {
-      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', users[0], 9.99, 49.21287, -122.55659, 'AmericanDad-Volume4.jpg', callback);
+      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', users[0], 9.99, 49.21287, -122.55659, 'AmericanDad-Volume4.jpg', samplePrices, callback);
     },
   ],
   cb);
