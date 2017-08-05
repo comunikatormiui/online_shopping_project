@@ -10,11 +10,11 @@ block content
           p#user_id Email:  #{user.local.email}
 
         div.form-group.input
-          //label(for='first_name') First Name:
+          label(for='first_name') First Name:
           input#first_name.form-control(type='text', placeholder='First name' name='fname' required='true' value=(undefined===user ? 'undef' : user.local.fname) )
 
         div.form-group.input
-          //label(for='family_name') Last Name:
+          label(for='family_name') Last Name:
           input#family_name.form-control(type='text', placeholder='Family name (surname)' name='lname' required='true' value=(undefined===user ? 'undef' : user.local.lname) )
 
         div.form-group.input
@@ -29,11 +29,11 @@ block content
           input#date_of_birth.form-control(type='date', placeholder='' name='date_of_birth', value=(undefined===user ? '' : user.dateFormat))
 
         div.form-group.input
-          //label(for='address') Address:
+          label(for='address') Address:
           input#address.form-control(type='text', placeholder='Country, Province, City', name='address', value=(undefined===user ? '' : user.local.address))
 
         div.form-group.input
-          //label(for='cell_phone') Cell phone:
+          label(for='cell_phone') Cell phone:
           input#cell_phone.form-control(type='text', name='cell_phone', placeholder='cell phone', value=(undefined===user ? '' : user.local.cell_phone))
 
 

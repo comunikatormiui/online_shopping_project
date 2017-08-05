@@ -30,10 +30,13 @@ block content
 
       br
       h3="Bill"
-      p #[strong Total cost:] CDN$ #{item.price}
+      p #[strong Total cost:]
+      input#total_amount(type='text', value='CDN$ ' + item.price, readonly='')
+
 
       div.form-group
         input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        input#item_price.form-control(type='hidden',name='item_price', required='true', value=item.price )
 
       br
       button.btn.btn-primary(type='submit') Place the order
@@ -43,3 +46,6 @@ block content
       ul
         for error in errors
           li!= error.msg
+
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+  script(type = 'text/javascript', src = '/scripts/total_cost.js')
