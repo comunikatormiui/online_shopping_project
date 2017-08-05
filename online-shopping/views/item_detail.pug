@@ -26,27 +26,19 @@ block content
           span.title Seller
           span.description #{item.seller.local.fname} #{item.seller.local.lname}
         
+        .section
+          span.title Price History
+          span.description
+            if item.price_history.length > 1
+              canvas#myChart
+            else 
+              | Not enough information
+        
         .section.last
           span.title Item Location
           .description.map-wrapper
             #map
   
-      
-      
-      script.
-        function initMap() {
-        var uluru = {lat:#{item.lat}, lng:#{item.lng}};
-        var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: uluru
-        });
-        var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
-        });
-        }
-      script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap') 
-
   if (user == 'seller')
     a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
 
@@ -98,5 +90,22 @@ block content
   if (message)
       p(class="message") #{message}
 
+
+  script.
+    var prices = !{JSON.stringify(item.prices)};
+  script(type='text/javascript', src='/scripts/chart.js')
   script(type='text/javascript', src='/scripts/rating_logic.js')
   script(type='text/javascript', src='/scripts/rating.js')
+  script.
+    function initMap() {
+    var uluru = {lat:#{item.lat}, lng:#{item.lng}};
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: uluru
+    });
+    var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+    });
+    }
+  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap') 
