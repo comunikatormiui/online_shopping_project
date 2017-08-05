@@ -58,9 +58,11 @@ router_export = function(router, passport, User){
 		}
 	);
 
-    router.get('/chat',
+	router.get('/chat', login_routing.isLoggedIn,
 		function(req, res){
-			res.render('chat')
+			res.render('chat', {
+				user : req.user,
+			});
 		}
 	);
 
