@@ -135,7 +135,7 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
   background: #FFF
 }
-
+*/
 #review_table {
   border: 1px solid;
   border-color: #CCCCCC;
@@ -188,6 +188,7 @@ tr:nth-child(odd) {
     width:      180px;
     height:     32px;
 }
+/*
 .ratings_stars {
     background: url('star_empty.png') no-repeat;
     float:      left;
@@ -494,10 +495,10 @@ h3 {
     position: relative;
     z-index: 1;
     background: #FFFFFF;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto 100px;
     padding: 45px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
