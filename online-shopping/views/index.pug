@@ -107,8 +107,12 @@ block content
     h2.h2-responsive Items Near You:
     br
     #map
-    script(type='text/javascript', src='/scripts/maps.js')  
-    script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
+  
+    
+    //-   items = !{JSON.stringify(items)};
+    
+    //-script(type='text/javascript', src='/scripts/maps.js')  
+
     
     br
     //-footer
@@ -118,3 +122,45 @@ block content
 
 
     br
+
+
+    script.
+      function getLocation() {
+      if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+      alert("Geolocation is not supported by this browser.");
+      }
+      }
+      
+      function showPosition(position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      
+      var uluru = {lat: lat, lng: lng};
+      var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: uluru
+      });
+      var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+      });
+      
+      for(var i = 0; i < #{items.length}; i++) {
+      var lat = !{JSON.stringify(items)}[i].lat;
+      var lng = !{JSON.stringify(items)}[i].lng;
+      var marker = new google.maps.Marker({
+      position: { lat: lat, lng: lng },
+      map: map
+      });
+      }
+      
+      }
+      
+      
+    
+      function initMap() {
+        getLocation();
+      }
+    script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
