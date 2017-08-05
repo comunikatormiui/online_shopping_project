@@ -114,13 +114,25 @@ router_export = function(router, passport, User){
 		})
 	);
 
-//autheticate login, redirect to root else redirect to login
-    router.post('/login', passport.authenticate('local-login', {
-    	successRedirect : '/',
-        //successRedirect : '/profile',
-        failureRedirect : '/login',
-        failureFlash : true
-    }));
+		// authenticate login
+		router.post('/login', function(req, res, next) {
+			passport.authenticate('local-login', function(err, user, info) {
+				if (err) { return next(err); }
+				// if authentication failed, redirect to login
+				if (!user) { return res.redirect('/login'); }
+				// if success, log user in
+				req.logIn(user, function(err) {
+					if (err) { return next(err); }
+					// if forwarding url is avaiable, redirect to that, otherwise, redirect to homepage
+					if (req.session.forwarding_url) {
+						res.redirect(req.session.forwarding_url);
+						req.session.forwarding_url = undefined;
+					} else {
+						res.redirect('/');
+					}
+				});
+			}) (req, res, next);
+		})
 
 	router.get('/transactions', login_routing.isLoggedIn,
 		function(req, res) {
