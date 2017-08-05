@@ -1,5 +1,7 @@
+console.log('we found chat.js');
 $(document).ready(function(){
-        var socket = io.connect("0.0.0.0:1234");
+        console.log('doc loaded');
+        var socket = io.connect('http://localhost:9000');
         $("#chat").hide();
         $("#name").focus();
         $("form").submit(function(event){
@@ -45,19 +47,22 @@ $(document).ready(function(){
         });
 
         socket.on("chat", function(who, msg){
+            console.log('ok display they message1');
             if(ready) {
                 $("#msgs").append("" + who + " says: " + msg + "");
             }
         });
 
         socket.on("disconnect", function(){
-            $("#msgs").append("The server is not available");
+            console.log('we left');
+            $("#msgs").append("Disconnected From Chat Server");
             $("#msg").attr("disabled", "disabled");
             $("#send").attr("disabled", "disabled");
         });
 
 
         $("#send").click(function(){
+            console.log('sent message from chat');
             var msg = $("#msg").val();
             socket.emit("send", msg);
             $("#msg").val("");
@@ -65,6 +70,7 @@ $(document).ready(function(){
 
         $("#msg").keypress(function(e){
             if(e.which == 13) {
+                console.log('someone hit enter');
                 var msg = $("#msg").val();
                 socket.emit("send", msg);
                 $("#msg").val("");
