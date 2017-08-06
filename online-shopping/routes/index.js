@@ -40,6 +40,8 @@ router_export = function(router, passport, User){
 		}) (req, res, next);
 	})
 
+
+
 //request login and render login message
 	router.get('/login', function(req, res){
 		res.render('login', { title: 'Log In' });

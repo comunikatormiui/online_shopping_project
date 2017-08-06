@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 var async = require('async');
 
 
+//request contact and render contact form
 exports.item_list = function(req, res, next) {
   req.sanitizeQuery('sort').escape();
   req.sanitizeQuery('sort').trim();
@@ -23,6 +24,7 @@ exports.item_list = function(req, res, next) {
   if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
   else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
   else if (req.query.sort=='popular') { sort = { view_count: 'desc' } }
+
 
 
   // Check if a page number is given

@@ -12,6 +12,7 @@ var multer = require('multer');
 var User = require('./models/user'); //---------------------
 var paginate = require('express-paginate');
 var image = require('./routes/imagefile');
+var nodemailer = require('nodemailer');
 //var io = require("socket.io");
 //var socket = io.listen(1234, "0.0.0.0");
 var usrs = {};
@@ -46,6 +47,7 @@ var users = require('./routes/users');
 var items = require('./routes/items');
 var categories = require('./routes/categories');
 var wishlist = require('./routes/wishlist');
+var contact = require('./routes/contact');
 
 var app = express();
 
@@ -84,6 +86,7 @@ app.use('/items', items);
 app.use('/categories', categories);
 app.use('/wishlist', wishlist);
 app.use('/imagefile', image);
+app.use('/contact', contact);
 
 
 
