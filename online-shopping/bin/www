@@ -29,8 +29,9 @@ console.log('listening on created server');
 var usrs = {}; // List of users connected to chat
 
 socket.on('connection', function (client) {
+    console.log('aah');
     client.on('join', function(name){
-      console.log('someone joined');
+        console.log('someone joined');
         usrs[client.id] = name;
         client.emit('update', 'You have connected to the server.');
         socket.sockets.emit('update', name + ' has joined the server.')

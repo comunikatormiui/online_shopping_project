@@ -101,8 +101,6 @@ block content
   script.
     var prices = !{JSON.stringify(item.prices)};
   script(type='text/javascript', src='/scripts/chart.js')
-  script(type='text/javascript', src='/scripts/rating_logic.js')
-  script(type='text/javascript', src='/scripts/rating.js')
   script.
     function initMap() {
     var uluru = {lat:#{item.lat}, lng:#{item.lng}};
@@ -122,3 +120,5 @@ block content
     $(function(){
       $(".zoom").anythingZoomer();
     });
+  script(type = 'text/javascript', src = '/scripts/rating_logic.js')
+  script(type = 'text/javascript', src = '/scripts/rating.js')
