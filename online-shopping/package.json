@@ -17,6 +17,7 @@
     "express-paginate": "^0.3.0",
     "express-session": "^1.0.4",
     "express-validator": "^3.2.1",
+    "jquery": "~3.2.1",
     "method-override": "~1.0.0",
     "moment": "^2.18.1",
     "mongoose": "^4.11.2",
@@ -32,8 +33,7 @@
     "path": "*",
     "pug": "~2.0.0-beta11",
     "serve-favicon": "~2.4.2",
-    "socket.io":"~2.0.3",
-    "jquery": "~3.2.1"
+    "socket.io": "^1.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

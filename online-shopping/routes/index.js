@@ -40,6 +40,8 @@ router_export = function(router, passport, User){
 		}) (req, res, next);
 	})
 
+
+
 //request login and render login message
 	router.get('/login', function(req, res){
 		res.render('login', { title: 'Log In' });
@@ -58,9 +60,11 @@ router_export = function(router, passport, User){
 		}
 	);
 
-    router.get('/chat',
+	router.get('/chat', login_routing.isLoggedIn,
 		function(req, res){
-			res.render('chat')
+			res.render('chat', {
+				user : req.user,
+			});
 		}
 	);
 

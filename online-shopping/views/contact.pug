@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  form(method = 'POST' action = '/contact/send')
+    div.form-group
+      label Name
+      input.form-control(type='text',name='name', placeholder='Name')
+    div.form-group
+      label Email
+      input.form-control(type='text',name='email', placeholder='Email')
+    div.form-group
+      label Message
+      textarea.form-control(name='message',placeholder='message')
+    br
+    button.btn.btn-primary(type='submit') Send
+    br
+    br
+  .error #{message}

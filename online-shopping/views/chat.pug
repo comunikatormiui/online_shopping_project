@@ -3,20 +3,83 @@ extends layout
 block content
   script(src='https://cdn.socket.io/socket.io-1.2.0.js')
   script(src='http://code.jquery.com/jquery-1.11.1.js')
-  script(src='/scripts/chat.js')
   .row
     .span2
-      ul#people.unstyled
+      ul#people
     .span4
-      ul#msgs.unstyled
+      ul#msgs
   br
   .row
-    #login.span5
-      form.form-inline
-        input#name.input-small(type='text', placeholder='Your name')
-        input#join.btn.btn-primary(type='button', name='join', value='Join')
-  br
   #chat.span5
     form#2.form-inline
       input#msg.input(type='text', placeholder='Your message')
       input#send.btn.btn-success(type='button', name='send', value='Send')
+
+  script.
+    $(document).ready(function(){
+            console.log('doc loaded');
+            var socket = io.connect('http://localhost:9000');
+            console.log('about to get name');
+            var name = !{JSON.stringify(user.local.fname)} + "." + !{JSON.stringify(user.local.lname)};
+            console.log(name);
+              if (name != "") {
+                  socket.emit("join", name);
+                  $("#login").detach();
+                  $("#chat").show();
+                  $("#msg").focus();
+                  ready = true;
+              }
+
+            $("form").submit(function(event){
+                event.preventDefault();
+            });
+
+            socket.on("update", function(msg) {
+                if(ready)
+                    $("#msgs").append("<li>" + msg + "</li>");
+            })
+
+            socket.on("update-people", function(people){
+                if(ready) {
+                    $("#people").empty();
+                    $.each(people, function(clientid, name) {
+                        $('#people').append("<li>" + name + "</li>");
+                    });
+                }
+            });
+
+            socket.on("chat", function(who, msg){
+                if(ready) {
+                    console.log('appending a message');
+                    $("#msgs").append("<li>" + who + ": " + msg + "</li>");
+                }
+            });
+
+            socket.on("disconnect", function(){
+                $("#msgs").append("Disconnected From Chat Server");
+                $("#msg").attr("disabled", "disabled");
+                $("#send").attr("disabled", "disabled");
+            });
+
+
+            $("#send").click(function(){
+                var msg = $("#msg").val();
+                if (msg != "")
+                {
+                  socket.emit("send", msg);
+                  $("#msg").val("");
+                }
+            });
+
+            $("#msg").keypress(function(e){
+                if(e.which == 13) {
+                    var msg = $("#msg").val();
+                    if (msg != "")
+                    {
+                      socket.emit("send", msg);
+                      $("#msg").val("");
+                    }
+                }
+            });
+
+        });

@@ -468,6 +468,24 @@
       return $node;
     }
 
+    function setMinValue (newValue) {
+
+        /*
+         * set the Minimum Value of rating to be allowed, called whenever
+         * one changes the `minValue` option
+         */
+
+        options.minValue = newValue;
+
+        if (options.rating < newValue) {
+            setRating(newValue);
+        }
+
+        showRating();
+
+        return $node;
+    }
+
     function setPrecision (newValue) {
 
       /*
@@ -648,6 +666,7 @@
       var rating = newValue;
 
       var maxValue = options.maxValue;
+      var minValue = options.minValue;
 
       if (typeof rating === "string") {
 
@@ -656,8 +675,10 @@
 
           rating = rating.substr(0, rating.length - 1);
           maxValue = 100;
+          minValue = 20;
 
           setMaxValue(maxValue);
+          setMinValue(minValue);
         }
 
         rating = parseFloat(rating);
@@ -811,6 +832,12 @@
 
           method = setMaxValue;
           break;
+
+        case "minValue":
+
+          method = setMinValue;
+          break;
+
         case "precision":
 
           method = setPrecision;
@@ -869,8 +896,19 @@
       var rating = calculateRating(e).toFixed(options.precision);
 
       var maxValue = options.maxValue;
+      var minValue = options.minValue;
 
       rating = checkPrecision(parseFloat(rating), minValue, maxValue);
+
+
+      if(rating <= minValue){
+          rating = minValue;
+      }
+      else if(rating >= maxValue){
+          rating = maxValue;
+      }
+
+      rating = Math.ceil(rating/20) * 20;
 
       showRating(rating);
 
@@ -900,6 +938,16 @@
        */
       var resultantRating = calculateRating(e).toFixed(options.precision);
       resultantRating = parseFloat(resultantRating);
+
+      if(resultantRating <= options.minValue){
+          resultantRating = options.minValue;
+      }
+      else if(resultantRating >= options.maxValue){
+          resultantRating = options.maxValue;
+      }
+
+      resultantRating = Math.ceil(resultantRating/20) * 20;
+
       that.rating(resultantRating);
       $("#rate_field").val(resultantRating/20);
     }
