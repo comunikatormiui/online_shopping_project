@@ -10,47 +10,28 @@ block content
       ul#msgs
   br
   .row
-    #login.span5
-      form.form-inline
-        input#name.input-small(type='text', placeholder='Your Name')
-        input#join.btn.btn-primary(type='button', name='join', value='Join')
-  br
   #chat.span5
     form#2.form-inline
       input#msg.input(type='text', placeholder='Your message')
       input#send.btn.btn-success(type='button', name='send', value='Send')
+
   script.
     $(document).ready(function(){
             console.log('doc loaded');
             var socket = io.connect('http://localhost:9000');
-            $("#chat").hide();
-            $("#name").focus();
+            console.log('about to get name');
+            var name = !{JSON.stringify(user.local.fname)} + "." + !{JSON.stringify(user.local.lname)};
+            console.log(name);
+              if (name != "") {
+                  socket.emit("join", name);
+                  $("#login").detach();
+                  $("#chat").show();
+                  $("#msg").focus();
+                  ready = true;
+              }
+
             $("form").submit(function(event){
                 event.preventDefault();
-            });
-
-            $("#join").click(function(){
-                var name = $("#name").val();
-                if (name != "") {
-                    socket.emit("join", name);
-                    $("#login").detach();
-                    $("#chat").show();
-                    $("#msg").focus();
-                    ready = true;
-                }
-            });
-
-            $("#name").keypress(function(e){
-                if(e.which == 13) {
-                    var name = $("#name").val();
-                    if (name != "") {
-                        socket.emit("join", name);
-                        ready = true;
-                        $("#login").detach();
-                        $("#chat").show();
-                        $("#msg").focus();
-                    }
-                }
             });
 
             socket.on("update", function(msg) {
