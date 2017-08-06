@@ -1,10 +1,8 @@
 extends layout
 
 block content
-
   form(method = 'POST' action = '/contact/send')
-
-		div.form-group
+    div.form-group
       label Name
       input.form-control(type='text',name='name', placeholder='Name')
     div.form-group
@@ -13,10 +11,8 @@ block content
     div.form-group
       label Name
       textarea.form-control(name='message',placeholder='message')
-
-		br
-		button.btn.btn-primary(type='submit') Send
-		br
-		br 
-						
-	.error #{message}
+    br
+    button.btn.btn-primary(type='submit') Send
+    br
+    br
+  .error #{message}

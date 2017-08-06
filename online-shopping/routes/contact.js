@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
 
-router.get('/contact',
-  function(req, res, next){
-    res.render('contact');
-  }
+
+
+router.get('/',
+ function(req, res, next){
+   res.render('contact');
+ }
 );
 
 router.post('/send', function (req, res, next){
@@ -28,10 +30,10 @@ router.post('/send', function (req, res, next){
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
-
+    res.redirect('/');
   } else {
     console.log('Email sent: ' + info.response);
-
+    res.redirect('/');
   }
 });
 });
