@@ -26,10 +26,10 @@ block content
     h3="Payment method"
     div.form-group
       label(for='credit_card_number') Credit Number:
-      input#credit_card_number.form-control(type='text' name='credit_card_number'  required='true' value='')
+      input#credit_card_number.form-control(type='text' name='credit_card_number' placeholder='XXXX-XXXX-XXXX-XXXX' required='true' value='')
     div.form-group
       label(for='cvv') CVV:
-      input#cvv.form-control(type='text' name='cvv'  required='true')
+      input#cvv.form-control(type='text' name='cvv' placeholder='XXX' required='true')
     div.form-group.input
       label(for='expiry_date') Expiry Date:
       input#expiry_date.form-control(type='date', placeholder='' required='true' name='expiry_date', value='')
@@ -57,7 +57,7 @@ block content
   //  var data-daily-price = item.prices;
   
   script.
-    var prices = !{JSON.stringify(item.prices)};
-  script(type='text/javascript' src='/scripts/jqueryEffects.js')
+    var prices = !{JSON.stringify(item.price)};
+  script(type='text/javascript', src='/scripts/jqueryEffects.js')
 
   script(src='https://code.jquery.com/jquery-3.2.1.min.js')

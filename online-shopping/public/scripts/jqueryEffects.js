@@ -1,10 +1,9 @@
 $(document).ready(function(){
-  console.log("lalalalal-----------------");
-  console.log(prices);
+  //console.log(prices);
   $('#quantity').on('keyup', function() {
   	    var quantity = +$(this).val();
-        //var dailyPrice = +$(this).data('daily-price');
-        var dailyPrice = +$(this).prices;
+        var dailyPrice = +prices;
+        console.log(dailyPrice, quantity);
   	    $('#total').text(quantity * dailyPrice);
     	});
 });
