@@ -13,6 +13,7 @@ var ItemSchema = Schema({
   lat          : { type: Number, required: true },
   lng          : { type: Number, required: true},
   image        : { type: String},
+  image_total  : [{ image: { type: String } }],
   view_count   : { type: Number, default: 0 },
   rating       : { type: Number, default: 0 },
   review_count : { type: Number, default: 0 },
@@ -42,6 +43,17 @@ ItemSchema
     result.dates.push(date);
   }
   return result;
+});
+
+//store multiple images
+ItemSchema
+.virtual('max3ImageUpload')
+.get(function() {
+  var result = { images: [] }
+  for (var i = 0; i < this.image_total.length; i++){
+    var image = this.image_total[i].image;
+    result.images.push(image);
+  }
 });
 
 ItemSchema.plugin(mongoosePaginate);
