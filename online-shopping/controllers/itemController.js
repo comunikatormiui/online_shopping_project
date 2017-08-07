@@ -1,3 +1,4 @@
+var mongoSanitize = require('express-mongo-sanitize');
 var Item = require('../models/item');
 var Category = require('../models/category');
 var User = require('../models/user');
@@ -93,7 +94,8 @@ exports.item_list = function(req, res, next) {
 */
 exports.wishlist = function(req, res, next) {
   // Get wishlist from current user
-  User.findById(req.user._id)
+  var user_id = mongoSanitize.sanitize(req.user._id);
+  User.findById(user_id)
   .populate('local.wishlist')
   .exec(function(err, user) {
     if (err) { return next(err); }
@@ -105,11 +107,13 @@ exports.wishlist_add = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  Item.findById(req.params.id)
+  var item_id = mongoSanitize.sanitize(req.params.id);
+
+  Item.findById(item_id)
   .exec(function(err, item) {
     if (err) { return next(err); }
 
-    var conditions = { _id : req.user._id };
+    var conditions = { _id : item_id };
     var update = { $addToSet : { 'local.wishlist' : item }};
 
     User.update(conditions, update)
@@ -125,11 +129,13 @@ exports.wishlist_delete = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  Item.findById(req.params.id)
+  var item_id = mongoSanitize.sanitize(req.params.id);
+
+  Item.findById(item_id)
   .exec(function(err, item) {
     if (err) { return next(err); }
-
-    var conditions = { _id : req.user._id };
+    var user_id = mongoSanitize.sanitize(req.user._id);
+    var conditions = { _id : user_id };
     var update = { $pull : { 'local.wishlist' : item._id }};
 
     User.update(conditions, update)
@@ -185,9 +191,9 @@ exports.item_search = function(req, res, next) {
 }
 
 exports.item_detail = function(req, res, next) {
+  mongoSanitize.sanitize(req.params);
   req.filter('id').escape();
   req.filter('id').trim();
-
   Item.findById(req.params.id)
   .populate('seller').populate('category')
   .exec(function (err, item) {
@@ -219,6 +225,7 @@ exports.item_create_get = function(req, res) {
 
 exports.item_create_post = function(req, res, next) {
   console.log(req.body);
+  mongoSanitize.sanitize(req.body);
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
@@ -244,6 +251,8 @@ exports.item_create_post = function(req, res, next) {
 
   //res.send(req.files);
   //var path = req.files[0].path;
+  mongoSanitize.sanitize(req.files[0]);
+  mongoSanitize.sanitize(req.body);
   if (req.files[0])
     var imageName = req.files[0].originalname;
   else
@@ -311,7 +320,10 @@ exports.item_update_get = function(req, res, next) {
 
   async.parallel({
     item: function(callback) {
-      Item.findById(req.params.id).exec(callback);
+      var item_id = mongoSanitize.sanitize(req.params.id);
+      Item.findById(item_id)
+          .populate('seller')
+          .exec(callback);
     },
     category: function(callback) {
       Category.find({}, 'name').sort({ name: 'ascending'}).exec(callback);
@@ -320,7 +332,13 @@ exports.item_update_get = function(req, res, next) {
     if (err) {
       next(err);
     }
-    res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
+    if(results.item.seller.local.email == req.user.local.email) {
+        res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
+    }
+    else {
+        req.flash('error', 'You can only edit your own items');
+        res.redirect('/items');
+    }
   });
 }
 
@@ -328,6 +346,7 @@ exports.item_update_post = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
+  req.body = mongoSanitize.sanitize(req.body);
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
@@ -350,8 +369,11 @@ exports.item_update_post = function(req, res, next) {
   req.filter('lng').escape();
   req.filter('lng').trim();
 
-
-  Item.findById(req.params.id).populate('seller').exec(function(err, item) {
+  mongoSanitize.sanitize(req.params);
+  var item_id = req.params.id;
+  Item.findById(item_id)
+  .populate('seller')
+  .exec(function(err, item) {
     if (err) { return next(err); }
 
     // If user is not item owner, redirect them to /items
@@ -390,7 +412,7 @@ exports.item_update_post = function(req, res, next) {
           item.price_history.push({ price: req.body.price, date: new Date() });
 
           if (req.files[0])
-            var imageName = req.files[0].originalname;
+            var imageName = mongoSanitize.sanitize(req.files[0].originalname);
 
           item.save(function(err) {
             if (err) { return next(err); }
@@ -403,15 +425,30 @@ exports.item_update_post = function(req, res, next) {
 }
 
 exports.item_delete = function(req, res, next) {
+  mongoSanitize.sanitize(req.body);
   req.filter('id').escape();
   req.filter('id').trim();
-  Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
-    if (err) { return next(err); }
-    res.redirect('/items');
-  })
+  // validating item creator
+  Item.findById(req.body.itemid)
+  .populate('seller')
+  .exec(function(err, item) {
+      if (err) {
+          return next(err);
+      }
+      if (item.seller.local.email != req.user.local.email) {
+          req.flash('error', 'You can only delete your own items');
+          res.redirect('/items');
+      } else {
+          Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
+              if (err) { return next(err); }
+              res.redirect('/items');
+          })
+      }
+  });
 }
 
 exports.item_buy_get = function(req, res, next) {
+  mongoSanitize.sanitize(req.params);
   req.filter('id').escape();
   req.filter('id').trim();
 
@@ -419,8 +456,13 @@ exports.item_buy_get = function(req, res, next) {
   .populate('seller')
   .exec(function (err, item) {
     if (err) { return next(err); }
-    res.render('item_buy', { title: 'Check out', item: item });
-    console.log(user);
+    if(item.seller.local.email == req.user.local.email){
+        req.flash('error', 'You cannot buy your own items');
+        res.redirect('/items');
+    } else{
+        res.render('item_buy', { title: 'Check out', item: item });
+    }
+
   });
 }
 
@@ -439,65 +481,95 @@ exports.item_buy_get = function(req, res, next) {
 // }
 
 exports.item_buy_post = function(req, res, next) {
-  req.checkBody('quantity', 'quantity must be specified').notEmpty();
-  req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
-  req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
-  req.checkBody('credit_card_number', 'Credit card number: only integer number is allowed').isInt();
-  req.checkBody('cvv', 'CVV must be specified').notEmpty();
-  req.checkBody('cvv', 'CVV : only integer number is allowed').isInt();
-  req.checkBody('expiry_date', 'expiry date: only date format is allowed').notEmpty().isDate();
+    mongoSanitize.sanitize(req.body);
+    req.checkBody('quantity', 'quantity must be specified').notEmpty();
+    req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
+    req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
+    req.checkBody('credit_card_number', 'Credit card number: only integer number is allowed').isInt();
+    req.checkBody('cvv', 'CVV must be specified').notEmpty();
+    req.checkBody('cvv', 'CVV : only integer number is allowed').isInt();
+    req.checkBody('expiry_date', 'expiry date: only date format is allowed').notEmpty().isDate();
 
-  req.filter('quantity').escape();
-  req.filter('quantity').trim();
-  req.filter('ship_address').escape();
-  req.filter('ship_address').trim();
-  req.filter('credit_card_number').escape();
-  req.filter('credit_card_number').trim();
-  req.filter('cvv').escape();
-  req.filter('cvv').trim();
-  req.filter('expiry_date').escape();
-  req.filter('expiry_date').trim();
+    req.filter('quantity').escape();
+    req.filter('quantity').trim();
+    req.filter('ship_address').escape();
+    req.filter('ship_address').trim();
+    req.filter('credit_card_number').escape();
+    req.filter('credit_card_number').trim();
+    req.filter('cvv').escape();
+    req.filter('cvv').trim();
+    req.filter('expiry_date').escape();
+    req.filter('expiry_date').trim();
 
-  User.findOne({'local.email': req.user.local.email}, function(err, user){
-    if(err){
-      throw err;
-    }
-    if(!user){
-      console.log('Invalid email received: ' + req.user.local.email);
-      next(err);
-    }
-    var currentDate = new Date();
-    var transaction = new Transaction({
-      buyer: user._id,
-      item: req.body.itemid,
-      quantity: req.body.quantity,
-      ship_address: req.body.ship_address,
-      credit_card_number: req.body.credit_card_number,
-      cvv: req.body.cvv,
-      expiry_date: req.body.expiry_date,
-      purchase_date: currentDate
-    });
-    req.getValidationResult().then(function(result) {
-      var errors = result.array();
-      if (errors.length > 0) {
-        res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
-        return;
-      } else {
-        transaction.save(function(err) {
-          if (err) {
-            throw err;
-            next(err);
-          }
-          else{
-            res.render('transaction_result', { title: 'Successful' });
-          }
+    Item.findById(req.body.itemid)
+    .populate('seller')
+    .exec(function (err, item) {
+        if (err) {
+            return next(err);
+        }
+        User.findOne({'local.email': req.user.local.email}, function(err, user) {
+            if (err) {
+                throw err;
+            }
+            if (!user) {
+                console.log('Invalid email received: ' + req.user.local.email);
+                next(err);
+            }
+            if (req.body.credit_card_number.length != 16) {
+                req.flash('error', 'Credit card number must be 16 digit number.');
+                res.locals.error_messages = req.flash('error');
+                res.render('item_buy', { title: 'Check out', item: item, quantity: req.body.quantity, ship_address: req.body.ship_address,credit_card_number: req.body.credit_card_number,  cvv: req.body.cvv, expiry_date: req.body.expiry_date});
+                return;
+            }
+            if (req.body.cvv.length != 3) {
+                req.flash('error', 'CVV number must be 3 digit number.');
+                res.locals.error_messages = req.flash('error');
+                res.render('item_buy', { title: 'Check out', item: item, quantity: req.body.quantity, ship_address: req.body.ship_address,credit_card_number: req.body.credit_card_number,  cvv: req.body.cvv, expiry_date: req.body.expiry_date});
+                return;
+            }
+            else{
+                var currentDate = new Date();
+                var transaction = new Transaction({
+                    buyer: user._id,
+                    item: req.body.itemid,
+                    quantity: req.body.quantity,
+                    ship_address: req.body.ship_address,
+                    credit_card_number: req.body.credit_card_number,
+                    cvv: req.body.cvv,
+                    expiry_date: req.body.expiry_date,
+                    purchase_date: currentDate
+                });
+                if (item.seller.local.email == req.user.local.email) {
+                    req.flash('error', 'You cannot buy your own items');
+                    res.redirect('/items');
+                }
+                else {
+                    req.getValidationResult().then(function (result) {
+                        var errors = result.array();
+                        if (errors.length > 0) {
+                            res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+                            return;
+                        } else {
+                            transaction.save(function (err) {
+                                if (err) {
+                                    throw err;
+                                    next(err);
+                                }
+                                else {
+                                    res.render('transaction_result', {title: 'Successful'});
+                                }
+                            });
+                        }
+                    });
+                }
+            }
         });
-      }
     });
-  });
 }
 
   exports.item_review_post = function(req, res, next) {
+    mongoSanitize.sanitize(req.body);
+    mongoSanitize.sanitize(req.user.local.email);
     req.checkBody('item', 'Item name must be specified').notEmpty();
     req.checkBody('rating', 'rating must be specified').notEmpty().isInt();
 
@@ -523,8 +595,6 @@ exports.item_buy_post = function(req, res, next) {
       .exec(function (err, item) {
         if (err) { return next(err); }
         if (req.user != null && item.seller.local.email == req.user.local.email){
-          //res.render('item_detail', { title: item.name, item: item, user : 'seller',
-          //                            error : 'Seller cannot rate his/her own item.'});
           res.redirect(item.url);
           return;
         }
@@ -539,21 +609,16 @@ exports.item_buy_post = function(req, res, next) {
         });
         console.log(req.body.rate_field);
         review = review.toObject();
-        console.log(review);
         delete review["_id"];
-        console.log(review);
-        console.log(review._id);
 
         Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
           {upsert:true}, function(err, review){
             if(err){
-              //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
-              //                            error : 'Failed to add your review. Please try again.'});
               console.log(err);
               res.redirect(item.url);
             }
             else {
-              // Find all reviews of current item and calcuate average rating
+              // Find all reviews of current item and calculate average rating
               Review.aggregate([
                 { '$match': { 'item': item._id }},
                 { '$group': { _id: '$item',
@@ -564,7 +629,6 @@ exports.item_buy_post = function(req, res, next) {
                 if (err) {
                   next(err);
                 } else {
-
                   // round rating so it can only be 1, 1.5, 2, ... , 4.5, 5.0
                   item.rating = Math.round(reviewInfo[0].average * 2) / 2;
                   item.review_count =  reviewInfo[0].count;
