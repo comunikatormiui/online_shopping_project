@@ -6,6 +6,13 @@
 */
 /* Header */
 
+#msgs { list-style-type: none; border: none; padding: 10px;  width: 100%; }
+#msg { list-style-type: none; margin: 0; padding: 0;  border: none; padding: 10px;  width: 100%; position: relative; bottom: 0;}
+#send {width: 100%; float: bottom; }
+#msgs li { padding: 5px; border: none; padding: 10px;  width: 100%; }
+#msgs li:nth-child(odd) { background: #eee; }
+
+
 header {
   margin-bottom: 1em;
   padding-bottom: 0 !important;
@@ -514,7 +521,7 @@ h3 {
     font-size: 14px;
 }
 
-.form button {
+.form button, .form a.githubbtn, .form a.fbbtn{
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -531,6 +538,44 @@ h3 {
 
 .form button:hover,.form button:active,.form button:focus {
     background: #1fa194;
+}
+
+/* github signup button*/
+.form a.githubbtn{
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #2fcb53;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form a.githubbtn:hover{
+    background: #269f42;
+}
+
+/* github signup button*/
+.form a.fbbtn{
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #365899;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form a.fbbtn:hover{
+    background: #4267b2;
 }
 
 body {
