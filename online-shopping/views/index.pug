@@ -153,15 +153,7 @@ block content
         '</div>'+
         '</div>';
         
-      //-marker info for items
-      var itemstring = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">Item</h1>'+
-        '<div id="bodyContent">'+
-        '<p><b>Click To Buy</b></p>'+
-        '</div>'+
-        '</div>';
+
 
       var infowindow = new google.maps.InfoWindow({
       content: contentString
@@ -180,27 +172,20 @@ block content
       for(var i = 0; i < #{items.length}; i++) {
       var lat = !{JSON.stringify(items)}[i].lat;
       var lng = !{JSON.stringify(items)}[i].lng;
+      
+      var itemstring = !{JSON.stringify(items)}[i].name;
       var marker = new google.maps.Marker({
       position: { lat: lat, lng: lng },
       map: map
+      content: itemstring
       });
       
-      //-marker info for items
-      var itemstring = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">Item</h1>'+
-        '<div id="bodyContent">'+
-        '<p><b>Click To Buy</b></p>'+
-        '</div>'+
-        '</div>';
       
-      var infowindoww = new google.maps.InfoWindow({
-      content: itemstring
-        });
+      var infowindoww = new google.maps.InfoWindow({});
       
       marker.addListener('click', function() {
-           infowindoww.open(map, marker);
+           infowindow.setContent(this.itemstring);
+           infowindoww.open(map, this);
          });
       }
       }      
