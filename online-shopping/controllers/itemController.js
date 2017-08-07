@@ -252,15 +252,29 @@ exports.item_create_post = function(req, res, next) {
   //res.send(req.files);
   //var path = req.files[0].path;
   mongoSanitize.sanitize(req.files[0]);
+  mongoSanitize.sanitize(req.files[1]);
+  mongoSanitize.sanitize(req.files[2]);
   mongoSanitize.sanitize(req.body);
-  if (req.files[0])
-    var imageName = req.files[0].originalname;
-  else
-    var imageName = 'question-mark.svg';
+  var imageNumber = 0;
+  if (req.files[0]){
+    var imageName0 = req.files[0].originalname;
+    imageNumber++;
+  }
+  if (req.files[1]){
+    var imageName1 = req.files[1].originalname;
+    imageNumber++;
+  }
+  if (req.files[2]){
+    var imageName2 = req.files[2].originalname;
+    imageNumber++;
+  }
+  else{
+    var imageName0 = 'question-mark.svg';
+  }
+
   /*var imagepath = {}; //imagepath contains two objects, path and the imageName
   imagepath['path'] = path;
   imagepath['originalname'] = imageName;*/
-
   User.findOne({'local.email': req.user.local.email}, function(err, user){
     if(err){
       throw err;
@@ -276,17 +290,25 @@ exports.item_create_post = function(req, res, next) {
       description: req.body.description,
       lat: req.body.lat,
       lng: req.body.lng,
-      image : imageName,
+      image : imageName0,
+      /*for(i=0; i< image_total_upload.length; i++){
+        image_total.push(image_total_upload[i]);
+      }*/
+      //image_total : image_total_upload,
       seller: user._id
     });
-
     // add price to price history
     item.price_history.push({ price: req.body.price, date: new Date() });
+    //for(var i=0; i< image_total_upload.length; i++){
+    //  item.image_total.push(image_total_upload[i]);}
+    for(var i=0; i<imageNumber; i++){
+      item.image_total.push({ image: req.files[i].originalname });
+      console.log(item.image_total);
+    }
 
     req.getValidationResult().then(function(result) {
       var errors = result.array();
       if (errors.length > 0) {
-
         Category.find({}, 'name')
         .exec(function(err, categories) {
           if (err) { return next(err); }
@@ -295,12 +317,9 @@ exports.item_create_post = function(req, res, next) {
             req.flash('error', errors[i].msg);
           }
           res.locals.error_messages = req.flash('error');
-
           res.render('item_form', { title: 'Create New Item', item: item, category_list: categories, selected_category: item.category, errors: errors })
         });
-
       } else {
-
         item.save(function(err) {
           if (err) {
             throw err;
@@ -308,7 +327,6 @@ exports.item_create_post = function(req, res, next) {
           }
           res.redirect(item.url);
         });
-
       }
     });
   });
@@ -411,8 +429,23 @@ exports.item_update_post = function(req, res, next) {
           item.lng = req.body.lng;
           item.price_history.push({ price: req.body.price, date: new Date() });
 
-          if (req.files[0])
-            var imageName = mongoSanitize.sanitize(req.files[0].originalname);
+          var imageNumber=0;
+          if (req.files[0]){
+            var imageName0 = mongoSanitize.sanitize(req.files[0].originalname);
+            imageNumber++;}
+          if (req.files[1]){
+            var imageName1 = mongoSanitize.sanitize(req.files[1].originalname);
+            imageNumber++;}
+          if (req.files[2]){
+            var imageName2 = mongoSanitize.sanitize(req.files[2].originalname);
+            imageNumber++;}
+          else{
+            var imageName0 = 'question-mark.svg';
+          }
+          for(var i=0; i<imageNumber; i++){
+            item.image_total.push({ image: req.files[i].originalname });
+            console.log(item.image_total);
+          }
 
           item.save(function(err) {
             if (err) { return next(err); }

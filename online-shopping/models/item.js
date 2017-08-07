@@ -54,6 +54,7 @@ ItemSchema
     var image = this.image_total[i].image;
     result.images.push(image);
   }
+  return result;
 });
 
 ItemSchema.plugin(mongoosePaginate);
