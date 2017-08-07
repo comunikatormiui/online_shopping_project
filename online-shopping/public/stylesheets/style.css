@@ -132,8 +132,7 @@ table {
 }
 
 td, th {
-  padding-top: 7px;
-  padding-bottom: 7px;
+  padding: 7px;
 }
 
 tr:nth-child(even) {
