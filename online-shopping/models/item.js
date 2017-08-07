@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var mongoosePaginate = require('mongoose-paginate');
 var moment = require('moment');
+URLSlugs = require('mongoose-url-slugs');
 
 var Schema = mongoose.Schema;
 
@@ -22,7 +23,7 @@ var ItemSchema = Schema({
 ItemSchema
 .virtual('url')
 .get(function() {
-  return '/items/' + this._id;
+  return '/items/' + this.slug;
 });
 
 ItemSchema
@@ -45,5 +46,7 @@ ItemSchema
 });
 
 ItemSchema.plugin(mongoosePaginate);
+
+ItemSchema.plugin(URLSlugs('name'));
 
 module.exports = mongoose.model('Item', ItemSchema);

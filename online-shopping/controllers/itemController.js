@@ -107,13 +107,13 @@ exports.wishlist_add = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  var item_id = mongoSanitize.sanitize(req.params.id);
+  var item_slug = mongoSanitize.sanitize(req.params.id);
 
-  Item.findById(item_id)
+  Item.findOne({'slug' : item_slug})
   .exec(function(err, item) {
     if (err) { return next(err); }
 
-    var conditions = { _id : item_id };
+    var conditions = { _id : item._id };
     var update = { $addToSet : { 'local.wishlist' : item }};
 
     User.update(conditions, update)
@@ -194,17 +194,21 @@ exports.item_detail = function(req, res, next) {
   mongoSanitize.sanitize(req.params);
   req.filter('id').escape();
   req.filter('id').trim();
-  Item.findById(req.params.id)
+  Item.findOne({'slug' : req.params.id})
   .populate('seller').populate('category')
   .exec(function (err, item) {
     if (err) { return next(err); }
     if (req.user != null && item.seller.local.email == req.user.local.email){user = 'seller';}
     else{user = 'buyer';}
+    if(!item){
+        res.redirect('/items');
+        return;
+    }
     // Increment view count and save
     item.view_count++;
     item.save(function(err, updatedItem) {
         if (err) { return next(err); }
-        Review.find({item: req.params.id})
+        Review.find({item: item._id})
         .populate('reviewer')
         .exec(function (err, list_reviews){
             if (err){return next(err);}

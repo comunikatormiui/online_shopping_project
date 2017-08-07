@@ -17,4 +17,4 @@
       | #{item.view_count} views
     span.wishlist-button
       if login 
-        a.btn.btn-primary(href='/wishlist/' + item._id + '/add') wishlist
+        a.btn.btn-primary(href='/wishlist/' + item.slug + '/add') wishlist
