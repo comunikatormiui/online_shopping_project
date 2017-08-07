@@ -9,8 +9,6 @@ var paginate = require('express-paginate');
 var multer = require('multer');
 var bodyParser = require('body-parser');
 
-
-
 var async = require('async');
 
 
@@ -26,8 +24,6 @@ exports.item_list = function(req, res, next) {
   else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
   else if (req.query.sort=='popular') { sort = { view_count: 'desc' } }
 
-
-
   // Check if a page number is given
   // If not, default is 1
   var page = req.query.page ? req.query.page : 1;
@@ -41,12 +37,50 @@ exports.item_list = function(req, res, next) {
     sort: sort,
     populate: ['seller', 'category']
   };
-
-  // Get items and render the view
-  Item.paginate({}, options)
-  .then(function(items) {
+  async.parallel({
+    categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
+    cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);},
+    items: function(callback){Item.paginate({},options,callback);},
+  },function(err, results){
+    if (err) next(err);
+    var categories = JSON.parse(JSON.stringify(results.categories)); // convert mongoose into json
+    for (var i = 0; i < categories.length; i++) {
+      var found = false;
+      for (var j = 0; j < results.cat_count.length && !found ; j++) {
+        if (categories[i]._id == results.cat_count[j]._id) {
+          categories[i].count = results.cat_count[j].count;
+          found = true;
+        }
+      }
+      if (!found) categories[i].count = 0;
+    }
     res.render('item_list', {
       title: 'Items For Sale',
+      item_list: results.items.docs,
+      pageCount: results.items.pages,
+      itemCount: results.items.total,
+      pages: paginate.getArrayPages(req)(3, results.items.pages, page),
+      page: page,
+      limit: results.items.limit,
+      sortBy: req.query.sort,
+      catListForItemPage: categories
+    });
+  });
+};
+
+/*exports.item_list = function(req, res, next) {
+  req.sanitizeQuery('sort').escape();
+  req.sanitizeQuery('sort').trim();
+  var sort = { name: 'asc' };
+  if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
+  else if (req.query.sort=='price-desc') { sort = { price: 'desc' } }
+  else if (req.query.sort=='popular') { sort = { view_count: 'desc' } }
+  var page = req.query.page ? req.query.page : 1;
+  var limit = 5; // Limit of items per page
+  var options = {page: page,limit: limit,sort: sort,populate: ['seller', 'category']};
+  Item.paginate({}, options)
+  .then(function(items) {
+    res.render('item_list', {title: 'Items For Sale',
       item_list: items.docs,
       pageCount: items.pages,
       itemCount: items.total,
@@ -57,7 +91,7 @@ exports.item_list = function(req, res, next) {
     });
   });
 };
-
+*/
 exports.wishlist = function(req, res, next) {
   // Get wishlist from current user
   var user_id = mongoSanitize.sanitize(req.user._id);
@@ -68,10 +102,6 @@ exports.wishlist = function(req, res, next) {
       res.render('wishlist', { title: 'wishlist', wishlist: user.local.wishlist });
   });
 };
-
-
-
-
 
 exports.wishlist_add = function(req, res, next) {
   req.filter('id').escape();
@@ -116,10 +146,6 @@ exports.wishlist_delete = function(req, res, next) {
     });
   });
 };
-
-
-
-
 
 exports.item_search = function(req, res, next) {
   req.sanitizeQuery('sort').escape();
@@ -172,13 +198,8 @@ exports.item_detail = function(req, res, next) {
   .populate('seller').populate('category')
   .exec(function (err, item) {
     if (err) { return next(err); }
-
-    if (req.user != null && item.seller.local.email == req.user.local.email){
-      user = 'seller';
-    }
-    else{
-      user = 'buyer';
-    }
+    if (req.user != null && item.seller.local.email == req.user.local.email){user = 'seller';}
+    else{user = 'buyer';}
     // Increment view count and save
     item.view_count++;
     item.save(function(err, updatedItem) {

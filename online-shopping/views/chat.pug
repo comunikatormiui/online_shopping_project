@@ -4,9 +4,9 @@ block content
   script(src='https://cdn.socket.io/socket.io-1.2.0.js')
   script(src='http://code.jquery.com/jquery-1.11.1.js')
   .row
-    .span2
+    .span
       ul#people
-    .span4
+    .span
       ul#msgs
   br
   .row
@@ -22,13 +22,13 @@ block content
             console.log('about to get name');
             var name = !{JSON.stringify(user.local.fname)} + "." + !{JSON.stringify(user.local.lname)};
             console.log(name);
-              if (name != "") {
-                  socket.emit("join", name);
-                  $("#login").detach();
-                  $("#chat").show();
-                  $("#msg").focus();
-                  ready = true;
-              }
+            if (name != "") {
+                socket.emit("join", name);
+                $("#login").detach();
+                $("#chat").show();
+                $("#msg").focus();
+                ready = true;
+            }
 
             $("form").submit(function(event){
                 event.preventDefault();
@@ -36,7 +36,7 @@ block content
 
             socket.on("update", function(msg) {
                 if(ready)
-                    $("#msgs").append("<li>" + msg + "</li>");
+                    $("#msgs").append("<li> System: " + msg + "</li>");
             })
 
             socket.on("update-people", function(people){

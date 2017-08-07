@@ -19,6 +19,8 @@ block content
         span.name #{title}
         if (user=='buyer')
           a.btn.btn-danger.float-right.buy(href=item.url + '/buy') Buy
+          br
+          a.btn.btn-secondary(href='/contact' role='button') Email Seller
         
         .category 
           span #{item.category.name}

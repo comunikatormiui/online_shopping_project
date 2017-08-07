@@ -142,10 +142,40 @@ block content
       zoom: 12,
       center: uluru
       });
-      var marker = new google.maps.Marker({
+
+      
+      var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">You Are Here</h1>'+
+        '<div id="bodyContent">'+
+        '<p><b>Your Currect Location based on Geolocation</b></p>'+
+        '</div>'+
+        '</div>';
+        
+      //-marker info for items
+      var itemstring = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">Item</h1>'+
+        '<div id="bodyContent">'+
+        '<p><b>Click To Buy</b></p>'+
+        '</div>'+
+        '</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+      content: contentString
+        });
+
+
+      var markeru = new google.maps.Marker({
       position: uluru,
       map: map
       });
+      
+      markeru.addListener('click', function() {
+           infowindow.open(map, markeru);
+         });
       
       for(var i = 0; i < #{items.length}; i++) {
       var lat = !{JSON.stringify(items)}[i].lat;
@@ -154,12 +184,17 @@ block content
       position: { lat: lat, lng: lng },
       map: map
       });
+      
+      var infowindoww = new google.maps.InfoWindow({
+      content: itemstring
+        });
+      
+      marker.addListener('click', function() {
+           infowindoww.open(map, marker);
+         });
       }
-      
-      }
-      
-      
-    
+      }      
+      console.log('doc loaded');
       function initMap() {
         getLocation();
       }

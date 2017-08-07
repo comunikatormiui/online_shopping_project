@@ -30,22 +30,27 @@ block content
 
       br
       h3="Bill"
-      p #[strong Total cost:]
-      input#total_amount(type='text', value='CDN$ ' + item.price, readonly='')
-
+      p #[strong Total cost:] CDN$
+      span(id='total') #{item.price}
 
       div.form-group
         input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
-        input#item_price.form-control(type='hidden',name='item_price', required='true', value=item.price )
 
       br
       button.btn.btn-primary(type='submit') Place the order
 
 
-    if errors
-      ul
-        for error in errors
-          li!= error.msg
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
 
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+  //script.
+  //  var data-daily-price = item.prices;
+
+  script.
+    var prices = !{JSON.stringify(item.price)};
+  script(type='text/javascript', src='/scripts/jqueryEffects.js')
+
+  script(src='https://code.jquery.com/jquery-3.2.1.min.js')
   script(type = 'text/javascript', src = '/scripts/total_cost.js')

@@ -177,6 +177,15 @@ function createItems(cb) {
     function(callback) {
       itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', users[0], 9.99, 49.21287, -122.55659, 'AmericanDad-Volume4.jpg', samplePrices, callback);
     },
+    function(callback) {
+      itemCreate('iPhone 7', categories[3], 'Brand New - In Box - Rare Pink Color', users[0], 600.00, 49.21245, -122.55641, 'iphone.jpg', samplePrices, callback);
+    },
+    function(callback) {
+      itemCreate('Keurig', categories[3], 'Keurig K15 Classic Brewer', users[0], 100.00, 49.21245, -122.76898, 'Keurig.jpg', samplePrices, callback);
+    },
+    function(callback) {
+      itemCreate('Mainstays Oscillating Fan', categories[2], 'To keep cool on a hot day!', users[0], 20.99, 49.28967, -122.55671, 'fan.jpg', samplePrices, callback);
+    },
   ],
   cb);
 }
