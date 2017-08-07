@@ -1,9 +1,8 @@
 var login_routing = require('./login_routing');
-var Item = require('../models/item');
-var Category = require('../models/category');
 var User = require('../models/user');
 var Transaction = require('../models/transaction');
 var category_controller = require('../controllers/categoryController');
+var mongoSanitize = require('express-mongo-sanitize');
 
 router_export = function(router, passport, User){
 
@@ -88,6 +87,27 @@ router_export = function(router, passport, User){
 
 	//request profile, check if logged in and update user forms, redirect to /profile
 	router.post('/profile', login_routing.isLoggedIn, function(req, res) {
+
+		mongoSanitize.sanitize(req.body);
+        req.checkBody('fname', 'User first name must be specified').notEmpty();
+        req.checkBody('lname', 'User last name must be specified').notEmpty();
+
+
+        req.filter('email').escape();
+        req.filter('email').trim();
+        req.filter('address').escape();
+        req.filter('address').trim();
+        req.filter('fname').escape();
+        req.filter('fname').trim();
+        req.filter('lname').escape();
+        req.filter('lname').trim();
+        req.filter('gender').escape();
+        req.filter('gender').trim();
+        req.filter('cell_phone').escape();
+        req.filter('cell_phone').trim();
+        req.filter('date_of_birth').escape();
+        req.filter('date_of_birth').trim();
+
 	    User.update(
 	    	{'local.email': req.user.local.email},
 	    	{
@@ -95,7 +115,7 @@ router_export = function(router, passport, User){
 	        	'local.lname': req.body.lname ,
 	        	'local.date_of_birth': req.body.date_of_birth,
 	        	'local.address': req.body.address,
-						'local.gender': req.body.gender,
+				'local.gender': req.body.gender,
 	        	'local.cell_phone': req.body.cell_phone,
 	    	},
 	    	function(err, numberAffected, rawResponse) {
@@ -146,10 +166,8 @@ router_export = function(router, passport, User){
 					.populate('item')
 					.exec(function(err, transactions) {
 					if (err) {
-						console.log('err');
 						return next(err);
 					}
-					console.log(transactions);
 					res.render('transaction_list', { title: 'List of Past Transactions', transaction_list: transactions});
 				});
 			});
