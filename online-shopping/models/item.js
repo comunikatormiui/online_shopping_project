@@ -33,6 +33,27 @@ ItemSchema
 });
 
 ItemSchema
+.virtual('imageSingleUrl0')
+.get(function() {
+  if (this.image_total[0]){
+    return '/uploads/' + this.image_total[0].image;}
+});
+
+ItemSchema
+.virtual('imageSingleUrl1')
+.get(function() {
+    if (this.image_total[1].image)
+      return '/uploads/' + this.image_total[1].image;
+});
+
+ItemSchema
+.virtual('imageSingleUrl2')
+.get(function() {
+    if (this.image_total[2].image)
+      return '/uploads/' + this.image_total[2].image;
+});
+
+ItemSchema
 .virtual('prices')
 .get(function() {
   var result = { prices: [], dates: [] }
