@@ -185,6 +185,16 @@ block content
       map: map
       });
       
+      //-marker info for items
+      var itemstring = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">Item</h1>'+
+        '<div id="bodyContent">'+
+        '<p><b>Click To Buy</b></p>'+
+        '</div>'+
+        '</div>';
+      
       var infowindoww = new google.maps.InfoWindow({
       content: itemstring
         });
@@ -194,7 +204,7 @@ block content
          });
       }
       }      
-    
+      console.log('doc loaded');
       function initMap() {
         getLocation();
       }
