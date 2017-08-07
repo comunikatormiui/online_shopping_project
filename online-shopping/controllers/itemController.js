@@ -300,7 +300,9 @@ exports.item_update_get = function(req, res, next) {
   async.parallel({
     item: function(callback) {
       var item_id = mongoSanitize.sanitize(req.params.id);
-      Item.findById(item_id).exec(callback);
+      Item.findById(item_id)
+          .populate('seller')
+          .exec(callback);
     },
     category: function(callback) {
       Category.find({}, 'name').sort({ name: 'ascending'}).exec(callback);
@@ -309,7 +311,13 @@ exports.item_update_get = function(req, res, next) {
     if (err) {
       next(err);
     }
-    res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
+    if(results.item.seller.local.email == req.user.local.email) {
+        res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
+    }
+    else {
+        req.flash('error', 'You can only edit your own items');
+        res.redirect('/items');
+    }
   });
 }
 
@@ -342,7 +350,9 @@ exports.item_update_post = function(req, res, next) {
 
   mongoSanitize.sanitize(req.params);
   var item_id = req.params.id;
-  Item.findById(item_id).populate('seller').exec(function(err, item) {
+  Item.findById(item_id)
+  .populate('seller')
+  .exec(function(err, item) {
     if (err) { return next(err); }
 
     // If user is not item owner, redirect them to /items
@@ -397,10 +407,23 @@ exports.item_delete = function(req, res, next) {
   mongoSanitize.sanitize(req.body);
   req.filter('id').escape();
   req.filter('id').trim();
-  Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
-    if (err) { return next(err); }
-    res.redirect('/items');
-  })
+  // validating item creator
+  Item.findById(req.body.itemid)
+  .populate('seller')
+  .exec(function(err, item) {
+      if (err) {
+          return next(err);
+      }
+      if (item.seller.local.email != req.user.local.email) {
+          req.flash('error', 'You can only delete your own items');
+          res.redirect('/items');
+      } else {
+          Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
+              if (err) { return next(err); }
+              res.redirect('/items');
+          })
+      }
+  });
 }
 
 exports.item_buy_get = function(req, res, next) {
@@ -412,8 +435,13 @@ exports.item_buy_get = function(req, res, next) {
   .populate('seller')
   .exec(function (err, item) {
     if (err) { return next(err); }
-    res.render('item_buy', { title: 'Check out', item: item });
-    console.log(user);
+    if(item.seller.local.email == req.user.local.email){
+        req.flash('error', 'You cannot buy your own items');
+        res.redirect('/items');
+    } else{
+        res.render('item_buy', { title: 'Check out', item: item });
+    }
+
   });
 }
 
@@ -471,21 +499,32 @@ exports.item_buy_post = function(req, res, next) {
       expiry_date: req.body.expiry_date,
       purchase_date: currentDate
     });
-    req.getValidationResult().then(function(result) {
-      var errors = result.array();
-      if (errors.length > 0) {
-        res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
-        return;
-      } else {
-        transaction.save(function(err) {
-          if (err) {
-            throw err;
-            next(err);
-          }
-          else{
-            res.render('transaction_result', { title: 'Successful' });
-          }
-        });
+    Item.findById(req.body.itemid)
+    .populate('seller')
+    .exec(function (err, item) {
+      if (err) {return next(err);}
+      if(item.seller.local.email == req.user.local.email) {
+          req.flash('error', 'You cannot buy your own items');
+          res.redirect('/items');
+      }
+      else{
+          req.getValidationResult().then(function(result) {
+              var errors = result.array();
+              if (errors.length > 0) {
+                  res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+                  return;
+              } else {
+                  transaction.save(function(err) {
+                      if (err) {
+                          throw err;
+                          next(err);
+                      }
+                      else{
+                          res.render('transaction_result', { title: 'Successful' });
+                      }
+                  });
+              }
+          });
       }
     });
   });
@@ -533,10 +572,7 @@ exports.item_buy_post = function(req, res, next) {
         });
         console.log(req.body.rate_field);
         review = review.toObject();
-        console.log(review);
         delete review["_id"];
-        console.log(review);
-        console.log(review._id);
 
         Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
           {upsert:true}, function(err, review){
@@ -545,7 +581,7 @@ exports.item_buy_post = function(req, res, next) {
               res.redirect(item.url);
             }
             else {
-              // Find all reviews of current item and calcuate average rating
+              // Find all reviews of current item and calculate average rating
               Review.aggregate([
                 { '$match': { 'item': item._id }},
                 { '$group': { _id: '$item',

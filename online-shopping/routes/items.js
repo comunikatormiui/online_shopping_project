@@ -24,10 +24,9 @@ var upload = multer({
 router.get('/create', login_routing.isLoggedIn,item_controller.item_create_get);
 router.post('/create', login_routing.isLoggedIn, upload.any(), item_controller.item_create_post);
 router.get('/search', item_controller.item_search);
-router.get('/:id/update', item_controller.item_update_get);
-router.post('/:id/update',upload.any(), item_controller.item_update_post);
-router.post('/:id/delete', item_controller.item_delete);
-router.get('/:id/review', login_routing.isLoggedIn, item_controller.item_detail); // tell user to login and redirect back to item detail page
+router.get('/:id/update', login_routing.isLoggedIn, item_controller.item_update_get);
+router.post('/:id/update', upload.any(), item_controller.item_update_post);
+router.post('/:id/delete', login_routing.isLoggedIn, item_controller.item_delete);
 router.get('/:id', item_controller.item_detail);
 router.get('/', item_controller.item_list);
 router.get('/:id/buy', login_routing.isLoggedIn, item_controller.item_buy_get);
