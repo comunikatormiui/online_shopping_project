@@ -112,8 +112,12 @@ exports.wishlist_add = function(req, res, next) {
   Item.findOne({'slug' : item_slug})
   .exec(function(err, item) {
     if (err) { return next(err); }
-
-    var conditions = { _id : item._id };
+    if(!item) {
+        req.flash('error', 'Item does not exist.');
+        res.redirect('/items');
+        return;
+    }
+    var conditions = { _id : req.user._id };
     var update = { $addToSet : { 'local.wishlist' : item }};
 
     User.update(conditions, update)
