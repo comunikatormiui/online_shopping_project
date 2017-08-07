@@ -460,74 +460,90 @@ exports.item_buy_get = function(req, res, next) {
 // }
 
 exports.item_buy_post = function(req, res, next) {
-  mongoSanitize.sanitize(req.body);
-  req.checkBody('quantity', 'quantity must be specified').notEmpty();
-  req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
-  req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
-  req.checkBody('credit_card_number', 'Credit card number: only integer number is allowed').isInt();
-  req.checkBody('cvv', 'CVV must be specified').notEmpty();
-  req.checkBody('cvv', 'CVV : only integer number is allowed').isInt();
-  req.checkBody('expiry_date', 'expiry date: only date format is allowed').notEmpty().isDate();
+    mongoSanitize.sanitize(req.body);
+    req.checkBody('quantity', 'quantity must be specified').notEmpty();
+    req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
+    req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
+    req.checkBody('credit_card_number', 'Credit card number: only integer number is allowed').isInt();
+    req.checkBody('cvv', 'CVV must be specified').notEmpty();
+    req.checkBody('cvv', 'CVV : only integer number is allowed').isInt();
+    req.checkBody('expiry_date', 'expiry date: only date format is allowed').notEmpty().isDate();
 
-  req.filter('quantity').escape();
-  req.filter('quantity').trim();
-  req.filter('ship_address').escape();
-  req.filter('ship_address').trim();
-  req.filter('credit_card_number').escape();
-  req.filter('credit_card_number').trim();
-  req.filter('cvv').escape();
-  req.filter('cvv').trim();
-  req.filter('expiry_date').escape();
-  req.filter('expiry_date').trim();
+    req.filter('quantity').escape();
+    req.filter('quantity').trim();
+    req.filter('ship_address').escape();
+    req.filter('ship_address').trim();
+    req.filter('credit_card_number').escape();
+    req.filter('credit_card_number').trim();
+    req.filter('cvv').escape();
+    req.filter('cvv').trim();
+    req.filter('expiry_date').escape();
+    req.filter('expiry_date').trim();
 
-  User.findOne({'local.email': req.user.local.email}, function(err, user){
-    if(err){
-      throw err;
-    }
-    if(!user){
-      console.log('Invalid email received: ' + req.user.local.email);
-      next(err);
-    }
-    var currentDate = new Date();
-    var transaction = new Transaction({
-      buyer: user._id,
-      item: req.body.itemid,
-      quantity: req.body.quantity,
-      ship_address: req.body.ship_address,
-      credit_card_number: req.body.credit_card_number,
-      cvv: req.body.cvv,
-      expiry_date: req.body.expiry_date,
-      purchase_date: currentDate
-    });
     Item.findById(req.body.itemid)
     .populate('seller')
     .exec(function (err, item) {
-      if (err) {return next(err);}
-      if(item.seller.local.email == req.user.local.email) {
-          req.flash('error', 'You cannot buy your own items');
-          res.redirect('/items');
-      }
-      else{
-          req.getValidationResult().then(function(result) {
-              var errors = result.array();
-              if (errors.length > 0) {
-                  res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
-                  return;
-              } else {
-                  transaction.save(function(err) {
-                      if (err) {
-                          throw err;
-                          next(err);
-                      }
-                      else{
-                          res.render('transaction_result', { title: 'Successful' });
-                      }
-                  });
-              }
-          });
-      }
+        if (err) {
+            return next(err);
+        }
+        User.findOne({'local.email': req.user.local.email}, function(err, user) {
+            if (err) {
+                throw err;
+            }
+            if (!user) {
+                console.log('Invalid email received: ' + req.user.local.email);
+                next(err);
+            }
+            if (req.body.credit_card_number.length != 16) {
+                req.flash('error', 'Credit card number must be 16 digit number.');
+                res.locals.error_messages = req.flash('error');
+                res.render('item_buy', { title: 'Check out', item: item, quantity: req.body.quantity, ship_address: req.body.ship_address,credit_card_number: req.body.credit_card_number,  cvv: req.body.cvv, expiry_date: req.body.expiry_date});
+                return;
+            }
+            if (req.body.cvv.length != 3) {
+                req.flash('error', 'CVV number must be 3 digit number.');
+                res.locals.error_messages = req.flash('error');
+                res.render('item_buy', { title: 'Check out', item: item, quantity: req.body.quantity, ship_address: req.body.ship_address,credit_card_number: req.body.credit_card_number,  cvv: req.body.cvv, expiry_date: req.body.expiry_date});
+                return;
+            }
+            else{
+                var currentDate = new Date();
+                var transaction = new Transaction({
+                    buyer: user._id,
+                    item: req.body.itemid,
+                    quantity: req.body.quantity,
+                    ship_address: req.body.ship_address,
+                    credit_card_number: req.body.credit_card_number,
+                    cvv: req.body.cvv,
+                    expiry_date: req.body.expiry_date,
+                    purchase_date: currentDate
+                });
+                if (item.seller.local.email == req.user.local.email) {
+                    req.flash('error', 'You cannot buy your own items');
+                    res.redirect('/items');
+                }
+                else {
+                    req.getValidationResult().then(function (result) {
+                        var errors = result.array();
+                        if (errors.length > 0) {
+                            res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+                            return;
+                        } else {
+                            transaction.save(function (err) {
+                                if (err) {
+                                    throw err;
+                                    next(err);
+                                }
+                                else {
+                                    res.render('transaction_result', {title: 'Successful'});
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
     });
-  });
 }
 
   exports.item_review_post = function(req, res, next) {

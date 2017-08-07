@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09cd4418-f641-4cdb-a273-0fe3249ae4c7" name="Default" comment="Use jQuery to calculate total cost dynamically.">
+    <list default="true" id="09cd4418-f641-4cdb-a273-0fe3249ae4c7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/controllers/itemController.js" afterPath="$PROJECT_DIR$/online-shopping/controllers/itemController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/routes/items.js" afterPath="$PROJECT_DIR$/online-shopping/routes/items.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/item_buy.pug" afterPath="$PROJECT_DIR$/online-shopping/views/item_buy.pug" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,8 +21,18 @@
       <file leaf-file-name="itemController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="567" column="29" lean-forward="true" selection-start-line="567" selection-start-column="29" selection-end-line="567" selection-end-column="29" />
+            <state relative-caret-position="264">
+              <caret line="504" column="63" lean-forward="false" selection-start-line="504" selection-start-column="63" selection-end-line="504" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/views/layout.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -33,6 +43,56 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="371">
               <caret line="33" column="72" lean-forward="true" selection-start-line="33" selection-start-column="72" selection-end-line="33" selection-end-column="72" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item_buy.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/views/item_buy.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_flash.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/views/_flash.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item_detail.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/views/item_detail.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1098">
+              <caret line="116" column="81" lean-forward="true" selection-start-line="116" selection-start-column="2" selection-end-line="116" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item_form.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/views/item_form.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="98" lean-forward="false" selection-start-line="11" selection-start-column="58" selection-end-line="11" selection-end-column="98" />
               <folding />
             </state>
           </provider>
@@ -49,10 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hidden</find>
-      <find>function</find>
-      <find>login</find>
-      <find>filter</find>
       <find>query</find>
       <find>item_list</find>
       <find>console.</find>
@@ -79,6 +135,10 @@
       <find>sanitize(req.</find>
       <find>item_create_post</find>
       <find>upload</find>
+      <find>flash</find>
+      <find>credit</find>
+      <find>res.render('item_buy'</find>
+      <find>item.seller</find>
     </findStrings>
     <replaceStrings>
       <replace>mongoSanitize</replace>
@@ -109,11 +169,11 @@
         <option value="$PROJECT_DIR$/online-shopping/controllers/passport.js" />
         <option value="$PROJECT_DIR$/online-shopping/routes/index.js" />
         <option value="$PROJECT_DIR$/online-shopping/public/scripts/total_cost.js" />
-        <option value="$PROJECT_DIR$/online-shopping/views/item_buy.pug" />
         <option value="$PROJECT_DIR$/online-shopping/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" />
         <option value="$PROJECT_DIR$/online-shopping/views/not_authorized.pug" />
         <option value="$PROJECT_DIR$/online-shopping/routes/items.js" />
+        <option value="$PROJECT_DIR$/online-shopping/views/item_buy.pug" />
         <option value="$PROJECT_DIR$/online-shopping/controllers/itemController.js" />
       </list>
     </option>
@@ -172,6 +232,12 @@
               <item name="online_shopping_project" type="b2602c69:ProjectViewProjectNode" />
               <item name="online_shopping_project" type="462c0819:PsiDirectoryNode" />
               <item name="online-shopping" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="online_shopping_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="online_shopping_project" type="462c0819:PsiDirectoryNode" />
+              <item name="online-shopping" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -219,7 +285,7 @@
       <updated>1501652087339</updated>
       <workItem from="1501652089737" duration="1929000" />
       <workItem from="1501704917311" duration="7644000" />
-      <workItem from="1501825134357" duration="45323000" />
+      <workItem from="1501825134357" duration="52706000" />
     </task>
     <task id="LOCAL-00001" summary="Add style to login/signup/profile pages">
       <created>1501824359280</created>
@@ -277,11 +343,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502072266104</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Authorization check for before buying an item, writing a review, updating or deleting an item">
+      <created>1502078317821</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1502078317821</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54896000" />
+    <option name="totallyTimeSpent" value="62279000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -296,7 +369,7 @@
     <frame x="0" y="23" width="1280" height="705" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20492454" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2152502" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26096737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
@@ -385,7 +458,8 @@
     <MESSAGE value="Use jQuery to calculate total cost dynamically." />
     <MESSAGE value="Sanitize user inputs used in DB queries." />
     <MESSAGE value="Improve logic used to calculate total cost to avoid entrering non-numeric or negative values for quantity." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve logic used to calculate total cost to avoid entrering non-numeric or negative values for quantity." />
+    <MESSAGE value="Authorization check for before buying an item, writing a review, updating or deleting an item" />
+    <option name="LAST_COMMIT_MESSAGE" value="Authorization check for before buying an item, writing a review, updating or deleting an item" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -636,34 +710,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="66" column="28" lean-forward="false" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_detail.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="116" column="81" lean-forward="true" selection-start-line="116" selection-start-column="2" selection-end-line="116" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/public/scripts/total_cost.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_buy.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -724,10 +774,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_form.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="98" lean-forward="false" selection-start-line="11" selection-start-column="58" selection-end-line="11" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/_header.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-69">
+          <caret line="2" column="51" lean-forward="false" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/layout.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_buy.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/_flash.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_detail.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1098">
+          <caret line="116" column="81" lean-forward="true" selection-start-line="116" selection-start-column="2" selection-end-line="116" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="567" column="29" lean-forward="true" selection-start-line="567" selection-start-column="29" selection-end-line="567" selection-end-column="29" />
+        <state relative-caret-position="264">
+          <caret line="504" column="63" lean-forward="false" selection-start-line="504" selection-start-column="63" selection-end-line="504" selection-end-column="63" />
           <folding />
         </state>
       </provider>
