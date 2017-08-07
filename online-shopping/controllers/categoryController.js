@@ -1,3 +1,4 @@
+var mongoSanitize = require('express-mongo-sanitize');
 var Category = require('../models/category');
 var Item = require('../models/item');
 var paginate = require('express-paginate');
@@ -57,6 +58,7 @@ exports.category_detail = function(req, res, next) {
   req.sanitizeQuery('sort').escape();
   req.sanitizeQuery('sort').trim();
 
+
   // Default is relevant
   var sort = { view_count: 'desc' };
   if (req.query.sort=='price-asc') { sort = { price: 'asc' } }
@@ -65,6 +67,7 @@ exports.category_detail = function(req, res, next) {
   var page = req.query.page ? req.query.page : 1;
   var limit = 5;
 
+  mongoSanitize.sanitize(req.params);
   var query = {
     category : req.params.id
   };
@@ -81,7 +84,8 @@ exports.category_detail = function(req, res, next) {
       Item.paginate(query, options, callback);
     },
     category: function(callback) {
-      Category.findById(req.params.id).exec(callback);
+      var category_id = mongoSanitize.sanitize(req.params.id);
+      Category.findById(category_id).exec(callback);
     }
   }, function(err, results) {
     if (err) { next(err); }
@@ -112,7 +116,7 @@ exports.category_create_post = function(req, res, next) {
   req.filter('name').trim();
 
   var category = new Category({
-    name: req.body.name,
+    name: mongoSanitize.sanitize(req.body.name),
   });
 
   req.getValidationResult().then(function(result) {
@@ -132,7 +136,8 @@ exports.category_update_get = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  Category.findById(req.params.id)
+  var category_id = mongoSanitize.sanitize(req.params.id);
+  Category.findById(category_id)
   .exec(function(err, category) {
     if (err) { next(err); }
     res.render('category_form', { title: 'Update Category: ' + category.name, category: category });
@@ -149,8 +154,8 @@ exports.category_update_post = function(req, res, next) {
   req.filter('name').trim();
 
   var category = new Category({
-    name: req.body.name,
-    _id: req.params.id
+    name: mongoSanitize.sanitize(req.body.name),
+    _id: mongoSanitize.sanitize(req.params.id)
   });
 
   req.getValidationResult().then(function(result) {
@@ -158,7 +163,8 @@ exports.category_update_post = function(req, res, next) {
     if (errors.length > 0) {
       res.render('category_form', { title: 'Update Category: ' + category.name, category: category, errors: errors });
     } else {
-      Category.findByIdAndUpdate(req.params.id, category, {}, function(err, thecategory) {
+      var category_id = mongoSanitize.sanitize(req.params.id);
+      Category.findByIdAndUpdate(category_id, category, {}, function(err, thecategory) {
         if (err) { return next(err); }
         res.redirect(thecategory.url);
       });

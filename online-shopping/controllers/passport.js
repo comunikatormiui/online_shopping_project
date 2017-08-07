@@ -1,11 +1,16 @@
 //Referencd: http://passportjs.org/docs
-
+var mongoSanitize = require('express-mongo-sanitize');
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var config = require('./config');
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
 
 module.exports = function(passport, User) {
     passport.serializeUser(function(user, done) {
@@ -25,8 +30,26 @@ module.exports = function(passport, User) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
+
+        req.checkBody('fname', 'User first name must be specified').notEmpty();
+        req.checkBody('lname', 'User last name must be specified').notEmpty();
+        req.checkBody('email', 'User email must be specified').notEmpty();
+        req.checkBody('password', 'User password must be specified').notEmpty();
+
+        req.filter('email').escape();
+        req.filter('email').trim();
+        req.filter('password').escape();
+        req.filter('password').trim();
+        req.filter('fname').escape();
+        req.filter('fname').trim();
+        req.filter('lname').escape();
+        req.filter('lname').trim();
+
+        mongoSanitize.sanitize(req.body);
         var fname = req.body.fname;
         var lname = req.body.lname;
+        email = email;
+        password = password;
 
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
@@ -36,16 +59,21 @@ module.exports = function(passport, User) {
                     return done(null, false, req.flash('error', 'The email already exists.'));
                 }
                 else {
-                    var newUser  = new User();
-                    newUser.local.fname = fname;
-                    newUser.local.lname = lname;
-                    newUser.local.email    = email;
-                    newUser.local.password = newUser.generateHash(password);
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, newUser);
-                    });
+                    if(validateEmail(email)){
+                        var newUser  = new User();
+                        newUser.local.fname = fname;
+                        newUser.local.lname = lname;
+                        newUser.local.email    = email;
+                        newUser.local.password = newUser.generateHash(password);
+                        newUser.save(function(err) {
+                            if (err)
+                                throw err;
+                            return done(null, newUser);
+                        });
+                    }
+                    else{
+                        return done(null, false, req.flash('error', 'The provided email is not in a valid format.'));
+                    }
                 }
             });
         });
@@ -57,6 +85,19 @@ module.exports = function(passport, User) {
             passReqToCallback : true
         },
         function(req, email, password, done) {
+
+            email = mongoSanitize.sanitize(email);
+            password = mongoSanitize.sanitize(password);
+
+            req.checkBody('email', 'User email must be specified').notEmpty();
+            req.checkBody('password', 'User password must be specified').notEmpty();
+
+            req.filter('email').escape();
+            req.filter('email').trim();
+            req.filter('password').escape();
+            req.filter('password').trim();
+
+            console.log(email);
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 if (err)
                     return done(err);
