@@ -13,7 +13,7 @@ var ItemSchema = Schema({
 ItemSchema
 .virtual('url')
 .get(function() {
-  return '/items/' + this._id;
+  return '/items/' + this.slug;
 });
 
 module.exports = mongoose.model('Item', ItemSchema);

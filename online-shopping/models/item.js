@@ -27,6 +27,12 @@ ItemSchema
 });
 
 ItemSchema
+    .virtual('shortURL')
+    .get(function() {
+        return this.slug;
+    });
+
+ItemSchema
 .virtual('imageUrl')
 .get(function() {
   return '/uploads/' + this.image;
