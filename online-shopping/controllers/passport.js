@@ -1,5 +1,5 @@
 //Referencd: http://passportjs.org/docs
-
+var mongoSanitize = require('express-mongo-sanitize');
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
@@ -25,8 +25,26 @@ module.exports = function(passport, User) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
+
+        req.checkBody('fname', 'User first name must be specified').notEmpty();
+        req.checkBody('lname', 'User last name must be specified').notEmpty();
+        req.checkBody('email', 'User email must be specified').notEmpty();
+        req.checkBody('password', 'User password must be specified').notEmpty();
+
+        req.filter('email').escape();
+        req.filter('email').trim();
+        req.filter('password').escape();
+        req.filter('password').trim();
+        req.filter('fname').escape();
+        req.filter('fname').trim();
+        req.filter('lname').escape();
+        req.filter('lname').trim();
+
+        mongoSanitize.sanitize(req.body);
         var fname = req.body.fname;
         var lname = req.body.lname;
+        email = email;
+        password = password;
 
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
@@ -57,6 +75,19 @@ module.exports = function(passport, User) {
             passReqToCallback : true
         },
         function(req, email, password, done) {
+
+            email = mongoSanitize.sanitize(email);
+            password = mongoSanitize.sanitize(password);
+
+            req.checkBody('email', 'User email must be specified').notEmpty();
+            req.checkBody('password', 'User password must be specified').notEmpty();
+
+            req.filter('email').escape();
+            req.filter('email').trim();
+            req.filter('password').escape();
+            req.filter('password').trim();
+
+            console.log(email);
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 if (err)
                     return done(err);

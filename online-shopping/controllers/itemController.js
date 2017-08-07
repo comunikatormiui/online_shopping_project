@@ -1,3 +1,4 @@
+var mongoSanitize = require('express-mongo-sanitize');
 var Item = require('../models/item');
 var Category = require('../models/category');
 var User = require('../models/user');
@@ -59,7 +60,8 @@ exports.item_list = function(req, res, next) {
 
 exports.wishlist = function(req, res, next) {
   // Get wishlist from current user
-  User.findById(req.user._id)
+  var user_id = mongoSanitize.sanitize(req.user._id);
+  User.findById(user_id)
   .populate('local.wishlist')
   .exec(function(err, user) {
     if (err) { return next(err); }
@@ -75,11 +77,13 @@ exports.wishlist_add = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  Item.findById(req.params.id)
+  var item_id = mongoSanitize.sanitize(req.params.id);
+
+  Item.findById(item_id)
   .exec(function(err, item) {
     if (err) { return next(err); }
 
-    var conditions = { _id : req.user._id };
+    var conditions = { _id : item_id };
     var update = { $addToSet : { 'local.wishlist' : item }};
 
     User.update(conditions, update)
@@ -95,11 +99,13 @@ exports.wishlist_delete = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  Item.findById(req.params.id)
+  var item_id = mongoSanitize.sanitize(req.params.id);
+
+  Item.findById(item_id)
   .exec(function(err, item) {
     if (err) { return next(err); }
-
-    var conditions = { _id : req.user._id };
+    var user_id = mongoSanitize.sanitize(req.user._id);
+    var conditions = { _id : user_id };
     var update = { $pull : { 'local.wishlist' : item._id }};
 
     User.update(conditions, update)
@@ -159,9 +165,9 @@ exports.item_search = function(req, res, next) {
 }
 
 exports.item_detail = function(req, res, next) {
+  mongoSanitize.sanitize(req.params);
   req.filter('id').escape();
   req.filter('id').trim();
-
   Item.findById(req.params.id)
   .populate('seller').populate('category')
   .exec(function (err, item) {
@@ -198,6 +204,7 @@ exports.item_create_get = function(req, res) {
 
 exports.item_create_post = function(req, res, next) {
   console.log(req.body);
+  mongoSanitize.sanitize(req.body);
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
@@ -223,6 +230,8 @@ exports.item_create_post = function(req, res, next) {
 
   //res.send(req.files);
   //var path = req.files[0].path;
+  mongoSanitize.sanitize(req.files[0]);
+  mongoSanitize.sanitize(req.body);
   if (req.files[0])
     var imageName = req.files[0].originalname;
   else
@@ -290,7 +299,8 @@ exports.item_update_get = function(req, res, next) {
 
   async.parallel({
     item: function(callback) {
-      Item.findById(req.params.id).exec(callback);
+      var item_id = mongoSanitize.sanitize(req.params.id);
+      Item.findById(item_id).exec(callback);
     },
     category: function(callback) {
       Category.find({}, 'name').sort({ name: 'ascending'}).exec(callback);
@@ -307,6 +317,7 @@ exports.item_update_post = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
+  req.body = mongoSanitize.sanitize(req.body);
   req.checkBody('name', 'Item name must be specified').notEmpty();
   req.checkBody('price', 'Price must be specified').notEmpty();
   req.checkBody('price', 'Price: only floating-point number is allowed').isFloat();
@@ -329,8 +340,9 @@ exports.item_update_post = function(req, res, next) {
   req.filter('lng').escape();
   req.filter('lng').trim();
 
-
-  Item.findById(req.params.id).populate('seller').exec(function(err, item) {
+  mongoSanitize.sanitize(req.params);
+  var item_id = req.params.id;
+  Item.findById(item_id).populate('seller').exec(function(err, item) {
     if (err) { return next(err); }
 
     // If user is not item owner, redirect them to /items
@@ -369,7 +381,7 @@ exports.item_update_post = function(req, res, next) {
           item.price_history.push({ price: req.body.price, date: new Date() });
 
           if (req.files[0])
-            var imageName = req.files[0].originalname;
+            var imageName = mongoSanitize.sanitize(req.files[0].originalname);
 
           item.save(function(err) {
             if (err) { return next(err); }
@@ -382,6 +394,7 @@ exports.item_update_post = function(req, res, next) {
 }
 
 exports.item_delete = function(req, res, next) {
+  mongoSanitize.sanitize(req.body);
   req.filter('id').escape();
   req.filter('id').trim();
   Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
@@ -391,6 +404,7 @@ exports.item_delete = function(req, res, next) {
 }
 
 exports.item_buy_get = function(req, res, next) {
+  mongoSanitize.sanitize(req.params);
   req.filter('id').escape();
   req.filter('id').trim();
 
@@ -418,6 +432,7 @@ exports.item_buy_get = function(req, res, next) {
 // }
 
 exports.item_buy_post = function(req, res, next) {
+  mongoSanitize.sanitize(req.body);
   req.checkBody('quantity', 'quantity must be specified').notEmpty();
   req.checkBody('quantity', 'quantity: only integer number is allowed').isInt();
   req.checkBody('ship_address', 'Shipping address must be specified').notEmpty();
@@ -477,6 +492,8 @@ exports.item_buy_post = function(req, res, next) {
 }
 
   exports.item_review_post = function(req, res, next) {
+    mongoSanitize.sanitize(req.body);
+    mongoSanitize.sanitize(req.user.local.email);
     req.checkBody('item', 'Item name must be specified').notEmpty();
     req.checkBody('rating', 'rating must be specified').notEmpty().isInt();
 
@@ -502,8 +519,6 @@ exports.item_buy_post = function(req, res, next) {
       .exec(function (err, item) {
         if (err) { return next(err); }
         if (req.user != null && item.seller.local.email == req.user.local.email){
-          //res.render('item_detail', { title: item.name, item: item, user : 'seller',
-          //                            error : 'Seller cannot rate his/her own item.'});
           res.redirect(item.url);
           return;
         }
@@ -526,8 +541,6 @@ exports.item_buy_post = function(req, res, next) {
         Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
           {upsert:true}, function(err, review){
             if(err){
-              //res.render('item_detail', { title: item.name, item: item, user : 'buyer',
-              //                            error : 'Failed to add your review. Please try again.'});
               console.log(err);
               res.redirect(item.url);
             }
@@ -543,7 +556,6 @@ exports.item_buy_post = function(req, res, next) {
                 if (err) {
                   next(err);
                 } else {
-
                   // round rating so it can only be 1, 1.5, 2, ... , 4.5, 5.0
                   item.rating = Math.round(reviewInfo[0].average * 2) / 2;
                   item.review_count =  reviewInfo[0].count;
