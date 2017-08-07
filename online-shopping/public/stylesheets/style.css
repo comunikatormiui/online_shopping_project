@@ -115,7 +115,7 @@ input {
 	color: red;
 	margin: 5px;
 }
-
+*/
 table {
   border: 1px solid;
 }
@@ -125,8 +125,7 @@ table {
 }
 
 td, th {
-  padding-top: 7px;
-  padding-bottom: 7px;
+    padding: 7px;
 }
 
 tr:nth-child(even) {
@@ -135,7 +134,7 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
   background: #FFF
 }
-*/
+
 #review_table {
   border: 1px solid;
   border-color: #CCCCCC;
@@ -533,16 +532,18 @@ h3 {
     background: #1fa194;
 }
 
+/*
 body {
-    background: #ccd4d3; /* fallback for old browsers */
-    background: -webkit-linear-gradient(right, #ccd4d3, #e6e6e6);
-    background: -moz-linear-gradient(right, #ccd4d3, #e6e6e6);
-    background: -o-linear-gradient(right, #ccd4d3, #e6e6e6);
-    background: linear-gradient(to left, #ccd4d3, #e6e6e6);
+    background: #ffffff; // fallback for old browsers
+    background: -webkit-linear-gradient(right, #ffffff, #e6e6e6);
+    background: -moz-linear-gradient(right, #ffffff, #e6e6e6);
+    background: -o-linear-gradient(right, #ffffff, #e6e6e6);
+    background: linear-gradient(to left, #ffffff, #e6e6e6);
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+*/
 
 /* in case the need for submenu
 //Reference: https://stackoverflow.com/questions/8878033/how-to-make-twitter-bootstrap-menu-dropdown-on-hover-rather-than-click

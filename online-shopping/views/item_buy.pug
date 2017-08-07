@@ -12,7 +12,7 @@ block content
     form(method='POST' action=item.url+'/buy')
       div.form-group
         label(for='quantity') Quantity:
-        input#quantity.form-control(type='text' name='quantity' required='true')
+        input#quantity.form-control(type='number' name='quantity' required='true' value='1')
       div.form-group
         label(for='ship_address') Shipping address:
         input#ship_address.form-control(type='text', placeholder='Country, Province, City', name='ship_address', value='')
