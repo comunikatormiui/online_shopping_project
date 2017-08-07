@@ -32,7 +32,7 @@ exports.catListForHome = function(req, res, next) {
   async.parallel({
     categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
     cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);},
-    items: function(callback) { Item.find({}, 'lat lng').exec(callback); }
+    items: function(callback) { Item.find({}, 'lat lng name').exec(callback); }
   }, function(err, results) {
       if (err) next(err);
       // add count property to each category object

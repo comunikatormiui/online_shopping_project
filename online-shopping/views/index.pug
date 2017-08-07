@@ -126,75 +126,64 @@ block content
 
     script.
       function getLocation() {
-      if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-      alert("Geolocation is not supported by this browser.");
-      }
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
       }
       
       function showPosition(position) {
-      var lat = position.coords.latitude;
-      var lng = position.coords.longitude;
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
       
-      var uluru = {lat: lat, lng: lng};
-      var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: uluru
-      });
+        var uluru = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: uluru
+        });
 
-      
-      var contentString = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">You Are Here</h1>'+
-        '<div id="bodyContent">'+
-        '<p><b>Your Currect Location based on Geolocation</b></p>'+
-        '</div>'+
-        '</div>';
+        var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">You Are Here</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>Your Currect Location based on Geolocation</b></p>'+
+          '</div>'+
+          '</div>';
         
-      //-marker info for items
-      var itemstring = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">Item</h1>'+
-        '<div id="bodyContent">'+
-        '<p><b>Click To Buy</b></p>'+
-        '</div>'+
-        '</div>';
-
-      var infowindow = new google.maps.InfoWindow({
-      content: contentString
+        var infowindow = new google.maps.InfoWindow();
+      
+        var markeru = new google.maps.Marker({
+          position: uluru,
+          map: map
         });
-
-
-      var markeru = new google.maps.Marker({
-      position: uluru,
-      map: map
-      });
-      
-      markeru.addListener('click', function() {
-           infowindow.open(map, markeru);
-         });
-      
-      for(var i = 0; i < #{items.length}; i++) {
-      var lat = !{JSON.stringify(items)}[i].lat;
-      var lng = !{JSON.stringify(items)}[i].lng;
-      var marker = new google.maps.Marker({
-      position: { lat: lat, lng: lng },
-      map: map
-      });
-      
-      var infowindoww = new google.maps.InfoWindow({
-      content: itemstring
+        
+        markeru.addListener('click', function() {
+          infowindow.setContent(contentString);
+          infowindow.open(map, markeru);
         });
+        
+        var localItems = !{JSON.stringify(items)};
+        
+        function addMarker(name, url, lat, lng) {
+          var latLng = new google.maps.LatLng( lat, lng);
+          var marker = new google.maps.Marker({
+            position : latLng,
+            map      : map
+          });
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent("<a href='" + url + "'>" + name + "</a>");
+            infowindow.open(map, marker);
+          });
+        }
       
-      marker.addListener('click', function() {
-           infowindoww.open(map, marker);
-         });
-      }
+        for(var i = 0; i < localItems.length; i++) {
+          addMarker(localItems[i].name, '/items/' + localItems[i]._id, localItems[i].lat, localItems[i].lng);
+        }
+        
       }      
-      console.log('doc loaded');
+
       function initMap() {
         getLocation();
       }
