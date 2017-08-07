@@ -7,6 +7,11 @@ var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var config = require('./config');
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 module.exports = function(passport, User) {
     passport.serializeUser(function(user, done) {
         done(null, user.id);
@@ -54,16 +59,21 @@ module.exports = function(passport, User) {
                     return done(null, false, req.flash('error', 'The email already exists.'));
                 }
                 else {
-                    var newUser  = new User();
-                    newUser.local.fname = fname;
-                    newUser.local.lname = lname;
-                    newUser.local.email    = email;
-                    newUser.local.password = newUser.generateHash(password);
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, newUser);
-                    });
+                    if(validateEmail(email)){
+                        var newUser  = new User();
+                        newUser.local.fname = fname;
+                        newUser.local.lname = lname;
+                        newUser.local.email    = email;
+                        newUser.local.password = newUser.generateHash(password);
+                        newUser.save(function(err) {
+                            if (err)
+                                throw err;
+                            return done(null, newUser);
+                        });
+                    }
+                    else{
+                        return done(null, false, req.flash('error', 'The provided email is not in a valid format.'));
+                    }
                 }
             });
         });

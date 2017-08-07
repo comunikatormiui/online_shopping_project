@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="09cd4418-f641-4cdb-a273-0fe3249ae4c7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/controllers/itemController.js" afterPath="$PROJECT_DIR$/online-shopping/controllers/itemController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/item_buy.pug" afterPath="$PROJECT_DIR$/online-shopping/views/item_buy.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/controllers/passport.js" afterPath="$PROJECT_DIR$/online-shopping/controllers/passport.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,11 +17,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="itemController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="signup.pug" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/online-shopping/views/signup.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="218">
+              <caret line="19" column="54" lean-forward="false" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="itemController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
               <caret line="504" column="63" lean-forward="false" selection-start-line="504" selection-start-column="63" selection-end-line="504" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="passport.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/online-shopping/controllers/passport.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="74" column="112" lean-forward="false" selection-start-line="74" selection-start-column="112" selection-end-line="74" selection-end-column="112" />
               <folding />
             </state>
           </provider>
@@ -109,7 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>query</find>
       <find>item_list</find>
       <find>console.</find>
       <find>params</find>
@@ -139,6 +157,7 @@
       <find>credit</find>
       <find>res.render('item_buy'</find>
       <find>item.seller</find>
+      <find>signup</find>
     </findStrings>
     <replaceStrings>
       <replace>mongoSanitize</replace>
@@ -160,13 +179,11 @@
         <option value="$PROJECT_DIR$/online-shopping/public/scripts/rating_logic.js" />
         <option value="$PROJECT_DIR$/online-shopping/views/item_detail.pug" />
         <option value="$PROJECT_DIR$/online-shopping/views/profile.pug" />
-        <option value="$PROJECT_DIR$/online-shopping/views/signup.pug" />
         <option value="$PROJECT_DIR$/online-shopping/views/login.pug" />
         <option value="$PROJECT_DIR$/online-shopping/controllers/index.js" />
         <option value="$PROJECT_DIR$/online-shopping/package.json" />
         <option value="$PROJECT_DIR$/online-shopping/node_modules/express-mongo-sanitize/index.js" />
         <option value="$PROJECT_DIR$/online-shopping/app.js" />
-        <option value="$PROJECT_DIR$/online-shopping/controllers/passport.js" />
         <option value="$PROJECT_DIR$/online-shopping/routes/index.js" />
         <option value="$PROJECT_DIR$/online-shopping/public/scripts/total_cost.js" />
         <option value="$PROJECT_DIR$/online-shopping/public/stylesheets/style.css" />
@@ -175,6 +192,8 @@
         <option value="$PROJECT_DIR$/online-shopping/routes/items.js" />
         <option value="$PROJECT_DIR$/online-shopping/views/item_buy.pug" />
         <option value="$PROJECT_DIR$/online-shopping/controllers/itemController.js" />
+        <option value="$PROJECT_DIR$/online-shopping/controllers/passport.js" />
+        <option value="$PROJECT_DIR$/online-shopping/views/signup.pug" />
       </list>
     </option>
   </component>
@@ -232,7 +251,7 @@
               <item name="online_shopping_project" type="b2602c69:ProjectViewProjectNode" />
               <item name="online_shopping_project" type="462c0819:PsiDirectoryNode" />
               <item name="online-shopping" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="online_shopping_project" type="b2602c69:ProjectViewProjectNode" />
@@ -285,7 +304,7 @@
       <updated>1501652087339</updated>
       <workItem from="1501652089737" duration="1929000" />
       <workItem from="1501704917311" duration="7644000" />
-      <workItem from="1501825134357" duration="52706000" />
+      <workItem from="1501825134357" duration="55085000" />
     </task>
     <task id="LOCAL-00001" summary="Add style to login/signup/profile pages">
       <created>1501824359280</created>
@@ -350,11 +369,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502078317821</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="In case of error in item_buy page, it populate form and display error message.">
+      <created>1502087644448</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1502087644448</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62279000" />
+    <option name="totallyTimeSpent" value="64658000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -459,7 +485,8 @@
     <MESSAGE value="Sanitize user inputs used in DB queries." />
     <MESSAGE value="Improve logic used to calculate total cost to avoid entrering non-numeric or negative values for quantity." />
     <MESSAGE value="Authorization check for before buying an item, writing a review, updating or deleting an item" />
-    <option name="LAST_COMMIT_MESSAGE" value="Authorization check for before buying an item, writing a review, updating or deleting an item" />
+    <MESSAGE value="In case of error in item_buy page, it populate form and display error message." />
+    <option name="LAST_COMMIT_MESSAGE" value="In case of error in item_buy page, it populate form and display error message." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -574,14 +601,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/signup.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="12" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -742,14 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/passport.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-731">
-          <caret line="79" column="45" lean-forward="false" selection-start-line="79" selection-start-column="45" selection-end-line="79" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-11">
@@ -834,6 +845,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="504" column="63" lean-forward="false" selection-start-line="504" selection-start-column="63" selection-end-line="504" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/passport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="74" column="112" lean-forward="false" selection-start-line="74" selection-start-column="112" selection-end-line="74" selection-end-column="112" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/signup.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="19" column="54" lean-forward="false" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
           <folding />
         </state>
       </provider>
