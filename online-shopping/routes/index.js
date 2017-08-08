@@ -63,6 +63,7 @@ router_export = function(router, passport, User){
 		function(req, res){
 			res.render('chat', {
 				user : req.user,
+				title: 'Chat'
 			});
 		}
 	);
