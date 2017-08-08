@@ -156,7 +156,7 @@ var samplePrices = [30, 40, 100, 60];
 function createItems(cb) {
   async.parallel([
     function(callback) {
-      itemCreate('The War (4th Album) [KOREAN / Private ver.]', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', users[0],48.70, 49.21287, -122.55659, 'TheWar.jpg', samplePrices, callback);
+      itemCreate('The War (4th Album) Private ver', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', users[0],48.70, 49.21287, -122.55659, 'TheWar.jpg', samplePrices, callback);
     },
     function(callback) {
       itemCreate('Sapiens: A Brief History of Humankind', categories[0],
@@ -178,13 +178,13 @@ function createItems(cb) {
       itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', users[0], 9.99, 49.21287, -122.55659, 'AmericanDad-Volume4.jpg', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('iPhone 7', categories[3], 'Brand New - In Box - Rare Pink Color', users[0], 600.00, 49.21245, -122.55641, 'iphone.jpg', samplePrices, callback);
+      itemCreate('iPhone 7', categories[3], 'Brand New - In Box - Rare Pink Color', users[0], 600.00, 49.21245, -122.55641, 'iphone2.jpg', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('Keurig', categories[3], 'Keurig K15 Classic Brewer', users[0], 100.00, 49.21245, -122.76898, 'Keurig.jpg', samplePrices, callback);
+      itemCreate('Keurig', categories[3], 'Keurig K15 Classic Brewer', users[0], 100.00, 49.21245, -122.76898, 'Keurig2.jpg', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('Mainstays Oscillating Fan', categories[2], 'To keep cool on a hot day!', users[0], 20.99, 49.28967, -122.55671, 'fan.jpg', samplePrices, callback);
+      itemCreate('Mainstays Oscillating Fan', categories[2], 'To keep cool on a hot day!', users[0], 20.99, 49.28967, -122.55671, 'fan2.jpg', samplePrices, callback);
     },
   ],
   cb);

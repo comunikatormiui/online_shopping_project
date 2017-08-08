@@ -376,7 +376,7 @@ tr:nth-child(odd) {
   margin: 1em 0 0.3em 0;
 }
 
-.item-detail .category span {
+.item-detail .category a {
   border: 1px solid #ddd;
   padding: 0.3em 0.5em;
   color: #666;
@@ -435,8 +435,10 @@ h3 {
 }
 .carousel-item img{
   display: block;
-  margin-left: 100px;
-  margin-top:auto;
+  -margin-left: 100px;
+  -margin-top:auto;
+  max-width: 100%; /* img-responsive */
+  max-height: 200px;
 }
 
 .carouselframe{
@@ -618,3 +620,15 @@ body {
   left: -6px;
 }
 */
+
+.zoom .small img{
+  display: block;
+  max-width: 100%; /* img-responsive */
+  max-height: 100%;
+}
+
+.imageforupdate img{
+  display: block;
+  max-width: 100%; /* img-responsive */
+  max-height: 100%;
+}

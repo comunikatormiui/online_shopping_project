@@ -7,13 +7,54 @@ block content
         br 
         br
         hr
-        div.zoom
-          div.small
-            if item.image
-              img.img-product(src=item.imageUrl)
-          div.large
-            if item.image
-              img.img-product(src=item.imageUrl)
+        if (item.image_total.length == 3)
+          div.carouselframe
+            div#myCarousel.carousel.slide(data-ride='carousel')
+              ol.carousel-indicators
+                li(data-target='#myCarousel', data-slide-to='0', class='active')
+                li(data-target='#myCarousel', data-slide-to='1')
+                li(data-target='#myCarousel', data-slide-to='2')
+              div.carousel-inner(role='listbox')
+                div.carousel-item.active
+                  img.d-block.img-fluid(src=item.imageSingleUrl0)
+                div.carousel-item
+                  img.pic(src=item.imageSingleUrl1)   
+                div.carousel-item
+                  img.d-block.img-fluid(src=item.imageSingleUrl2)
+                  //- div.zoom
+                  //-   div.small
+                  //-     if item.image_total[0]
+                  //-       img.d-block.img-fluid(src='/uploads/TheWar.jpg')
+                  //-   div.large
+                  //-     if item.image_total[0]
+                  //-       img.d-block.img-fluid(src='/uploads/TheWar.jpg')
+              a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
+                i.fa.fa-chevron-left(aria-hidden='true')
+              a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
+                i.fa.fa-chevron-right(aria-hidden='true')
+        else if (item.image_total.length == 2)
+          div.carouselframe
+            div#myCarousel.carousel.slide(data-ride='carousel')
+              ol.carousel-indicators
+                li(data-target='#myCarousel', data-slide-to='0', class='active')
+                li(data-target='#myCarousel', data-slide-to='1')
+              div.carousel-inner(role='listbox')
+                div.carousel-item.active
+                  img.d-block.img-fluid(src=item.imageSingleUrl0)
+                div.carousel-item
+                  img.pic(src=item.imageSingleUrl1)   
+              a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
+                i.fa.fa-chevron-left(aria-hidden='true')
+              a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
+                i.fa.fa-chevron-right(aria-hidden='true')          
+        else    
+          div.zoom
+            div.small
+              if item.image
+                img.img-product(src=item.imageUrl)
+            div.large
+              if item.image
+                img.img-product(src=item.imageUrl)
         hr
       .detail.col-md-8
         span.name #{title}
@@ -22,8 +63,10 @@ block content
           br
           a.btn.btn-secondary(href='/contact' role='button') Email Seller
         
+        //a(href='/categories/'+cat.slug) #{cat.name}
         .category 
-          span #{item.category.name}
+          //span (href = '/categories/' + item.category.slug) #{item.category.name}
+          a(href='/categories/' + item.category.slug) #{item.category.name}
         
         span.price CDN$ #{item.price}
         
@@ -98,8 +141,7 @@ block content
       p(class="error") #{error}
   if (message)
       p(class="message") #{message}
-
-
+    
   script.
     var prices = !{JSON.stringify(item.prices)};
   script(type='text/javascript', src='/scripts/chart.js')

@@ -166,21 +166,28 @@ block content
         });
         
         var localItems = !{JSON.stringify(items)};
+        console.log(localItems)
         
-        function addMarker(name, url, lat, lng) {
+        function addMarker(name, lat, lng) {
           var latLng = new google.maps.LatLng( lat, lng);
           var marker = new google.maps.Marker({
             position : latLng,
             map      : map
-          });
+            });
+          var slug = name.replace(/ /g ,"-");
+          var slug2 = slug.replace(/:/g ,'');
+          var slug3 = slug2.replace(/[{(/.)}]/g, '');
+          //- var slug7 = slug6.replace(/./g ,'');
+          var slugl = slug3.toLowerCase();
+          console.log(slugl);
           google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent("<a href='" + url + "'>" + name + "</a>");
+            infowindow.setContent("<a href='/items/" + slugl + "'>" + name + "</a>");
             infowindow.open(map, marker);
           });
         }
       
         for(var i = 0; i < localItems.length; i++) {
-          addMarker(localItems[i].name, '/items/' + localItems[i]._id, localItems[i].lat, localItems[i].lng);
+          addMarker(localItems[i].name, localItems[i].lat, localItems[i].lng);
         }
         
       }      
