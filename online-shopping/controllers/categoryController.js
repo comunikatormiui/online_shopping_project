@@ -7,7 +7,7 @@ var async = require('async');
 
 exports.category_list = function(req, res, next) {
   async.parallel({
-    categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
+    categories: function(callback) {Category.find({}).sort({ name: 'ascending' }).exec(callback);},
     cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);}
   }, function(err, results) {
       if (err) next(err);
@@ -68,9 +68,6 @@ exports.category_detail = function(req, res, next) {
   var limit = 5;
 
   mongoSanitize.sanitize(req.params);
-  var query = {
-    category : req.params.id
-  };
 
   var options = {
     page: page,
@@ -78,31 +75,39 @@ exports.category_detail = function(req, res, next) {
     sort: sort,
     populate: ['seller', 'category']
   };
-
-  async.parallel({
-    items: function(callback) {
-      Item.paginate(query, options, callback);
-    },
-    category: function(callback) {
-      var category_id = mongoSanitize.sanitize(req.params.id);
-      Category.findById(category_id).exec(callback);
-    }
-  }, function(err, results) {
-    if (err) { next(err); }
-
-    res.render('category_detail', {
-      title: results.category.name,
-      item_list: results.items.docs,
-      cat_name: 'Category: ' + results.category.name,
-      pageCount: results.items.pages,
-      itemCount: results.items.total,
-      pages: paginate.getArrayPages(req)(3, results.items.pages, page),
-      page: page,
-      limit: results.items.limit,
-      sortBy: req.query.sort // could be null
+  var category_slug = mongoSanitize.sanitize(req.params.id);
+  Category.findOne({'slug' : category_slug})
+      .exec(function(err, category) {
+        if (err) {
+            next(err);
+            return;
+        }
+        else if(!category){
+            req.flash('error', 'Category does not exists.');
+            res.redirect('/categories');
+            return;
+        }
+        var query = {
+            category : category._id
+        };
+        Item.paginate(query, options, function(err, items){
+          if (err) {
+              next(err);
+              return;
+          }
+          res.render('category_detail', {
+              title: category.name,
+              item_list: items.docs,
+              cat_name: 'Category: ' + category.name,
+              pageCount: items.pages,
+              itemCount: items.total,
+              pages: paginate.getArrayPages(req)(3, items.pages, page),
+              page: page,
+              limit: items.limit,
+              sortBy: req.query.sort // could be null
+          });
+        });
     });
-
-  });
 }
 
 exports.category_create_get = function(req, res, next) {
@@ -137,7 +142,7 @@ exports.category_update_get = function(req, res, next) {
   req.filter('id').trim();
 
   var category_id = mongoSanitize.sanitize(req.params.id);
-  Category.findById(category_id)
+  Category.findOne({'slug': category_id})
   .exec(function(err, category) {
     if (err) { next(err); }
     res.render('category_form', { title: 'Update Category: ' + category.name, category: category });
@@ -154,17 +159,18 @@ exports.category_update_post = function(req, res, next) {
   req.filter('name').trim();
 
   var category = new Category({
-    name: mongoSanitize.sanitize(req.body.name),
-    _id: mongoSanitize.sanitize(req.params.id)
+    name: mongoSanitize.sanitize(req.body.name)
   });
+  category = category.toObject();
+  delete category["_id"];
 
   req.getValidationResult().then(function(result) {
     var errors = result.array();
     if (errors.length > 0) {
       res.render('category_form', { title: 'Update Category: ' + category.name, category: category, errors: errors });
     } else {
-      var category_id = mongoSanitize.sanitize(req.params.id);
-      Category.findByIdAndUpdate(category_id, category, {}, function(err, thecategory) {
+      var category_slug = mongoSanitize.sanitize(req.params.id);
+      Category.findOneAndUpdate({'slug' : category_slug}, category, {}, function(err, thecategory) {
         if (err) { return next(err); }
         res.redirect(thecategory.url);
       });

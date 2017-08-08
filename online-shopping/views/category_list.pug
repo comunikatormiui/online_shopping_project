@@ -7,7 +7,7 @@ block content
   ul.cat-list.row
     each cat in category_list
       li.col-sm-6
-        a(href='/categories/'+cat._id) #{cat.name}
+        a(href='/categories/'+cat.slug) #{cat.name}
         if cat.count == 0
           span.badge.badge-warning.badge-pill.float-right #{cat.count}
         else
