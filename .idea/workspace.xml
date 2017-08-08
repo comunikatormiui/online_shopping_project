@@ -101,7 +101,7 @@
                 <marker date="1502159104000" expanded="true" signature="3098:3166" ph="..." />
                 <marker date="1502159104000" expanded="true" signature="3245:3253" ph="..." />
                 <marker date="1502159104000" expanded="true" signature="3261:3302" ph=" items = !{JSON.stringify(items)};" />
-                <marker date="1502159104000" expanded="true" signature="3310:3372" ph=" script(type='text/javascript', src='/scripts/maps.js')" />
+                <!-- <marker date="1502159104000" expanded="true" signature="3310:3372" ph=" script(type='text/javascript', src='/scripts/maps.js')" /> -->
                 <marker date="1502159104000" expanded="true" signature="3483:5743" ph="..." />
               </folding>
             </state>
@@ -1080,7 +1080,7 @@
             <marker date="1502159104000" expanded="true" signature="3098:3166" ph="..." />
             <marker date="1502159104000" expanded="true" signature="3245:3253" ph="..." />
             <marker date="1502159104000" expanded="true" signature="3261:3302" ph=" items = !{JSON.stringify(items)};" />
-            <marker date="1502159104000" expanded="true" signature="3310:3372" ph=" script(type='text/javascript', src='/scripts/maps.js')" />
+            <!-- <marker date="1502159104000" expanded="true" signature="3310:3372" ph=" script(type='text/javascript', src='/scripts/maps.js')" /> -->
             <marker date="1502159104000" expanded="true" signature="3483:5743" ph="..." />
           </folding>
         </state>
