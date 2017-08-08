@@ -30,7 +30,7 @@ exports.category_list = function(req, res, next) {
 
 exports.catListForHome = function(req, res, next) {
   async.parallel({
-    categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
+    categories: function(callback) {Category.find({}).sort({ name: 'ascending' }).exec(callback);},
     cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);},
     items: function(callback) { Item.find({}, 'lat lng name').exec(callback); }
   }, function(err, results) {
@@ -48,7 +48,7 @@ exports.catListForHome = function(req, res, next) {
         if (!found)
           categories[i].count = 0;
       }
-      res.render('index', { title: 'Our Shopping Page', catListForHome: categories, items: results.items });
+      res.render('index', { title: 'Our Shopping Page', catListForHome: results.categories, items: results.items });
   });
 };
 
