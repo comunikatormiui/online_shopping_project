@@ -16,7 +16,7 @@ header.navbar.navbar-light.bg-faded.navbar-toggleable-md
       //-   div.dropdown-menu(aria-labelledby='dropdownHOME')
       //-     each cat in catListForHome
       //-       a.dropdown-item(href='/categories/'+cat._id) #{cat.name}
-      li.nav-item
+      li.nav-item(class= title=='Chat' ? 'active' : '')
         a.nav-link(href="/chat/") Chat
     ul.navbar-nav
       li.nav-item
