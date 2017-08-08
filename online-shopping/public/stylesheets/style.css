@@ -435,9 +435,9 @@ h3 {
 }
 .carousel-item img{
   display: block;
-  margin-left: 100px;
-  margin-top:auto;
-  max-width: 250px; /* img-responsive */
+  -margin-left: 100px;
+  -margin-top:auto;
+  max-width: 100%; /* img-responsive */
   max-height: 200px;
 }
 
@@ -620,3 +620,15 @@ body {
   left: -6px;
 }
 */
+
+.zoom .small img{
+  display: block;
+  max-width: 100%; /* img-responsive */
+  max-height: 100%;
+}
+
+.imageforupdate img{
+  display: block;
+  max-width: 100%; /* img-responsive */
+  max-height: 100%;
+}

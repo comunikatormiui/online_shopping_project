@@ -44,25 +44,26 @@ block content
           input#lng.form-control(type='text' name='lng' value=(undefined===item ? '-122.1' : item.lng) require='true')
 
         br
-        if !item
-          p Upload your image here: 
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-        else if (item.image == 'question-mark.svg')
-          p Upload your image here: 
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-        else if item
-          img(src=item.imageUrl)
-          p OR You can upload new files: 
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
-          p #[input(type='file', name='imageupload', title='Please choose your image')]
+        div.imageforupdate
+          if !item
+            p Upload your image here: 
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+          else if (item.image == 'question-mark.svg')
+            p Upload your image here: 
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+          else if item
+            img(src=item.imageUrl)
+            br
+            p OR You can upload new files: 
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
+            p #[input(type='file', name='imageupload', title='Please choose your image')]
         br
         br
-
         button.btn.btn-primary(type='submit') Submit
         a.btn.btn-secondary.float-right(href='/items') Cancel
 
