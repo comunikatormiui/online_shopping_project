@@ -6,6 +6,7 @@ block content
     p#profile_name Hello #{user.local.fname}
 
       form(method='POST' action='/profile')
+        input(type='hidden', name='_csrf', value=_csrf)
         div.form-group
           p#user_id Email:  #{user.local.email}
 

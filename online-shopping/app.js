@@ -13,6 +13,7 @@ var User = require('./models/user'); //---------------------
 var paginate = require('express-paginate');
 var image = require('./routes/imagefile');
 var nodemailer = require('nodemailer');
+var csrf = require('csurf')
 //var io = require("socket.io");
 //var socket = io.listen(1234, "0.0.0.0");
 var usrs = {};
@@ -70,12 +71,14 @@ app.use(session({ secret: 'online-shopping_secret_key' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(csrf());
 
 app.use(function(req, res, next) {
 	res.locals.login = req.isAuthenticated();
 	res.locals.success_messages = req.flash('success');
 	res.locals.warning_messages = req.flash('warning');
 	res.locals.error_messages = req.flash('error');
+	res.locals._csrf = req.csrfToken();
 	next();
 });
 
