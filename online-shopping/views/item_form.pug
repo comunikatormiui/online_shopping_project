@@ -45,12 +45,21 @@ block content
 
         br
         if !item
-          p Upload your image here: #[input(type='file', name='imageupload', title='Please choose your image')]
+          p Upload your image here: 
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
         else if (item.image == 'question-mark.svg')
-          p Upload your image here: #[input(type='file', name='imageupload', title='Please choose your image')]
+          p Upload your image here: 
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
         else if item
           img(src=item.imageUrl)
-          p OR You can upload a new one: #[input(type='file', name='imageupload', title='Please choose your image')]
+          p OR You can upload new files: 
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
+          p #[input(type='file', name='imageupload', title='Please choose your image')]
         br
         br
 
