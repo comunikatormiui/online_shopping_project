@@ -65,7 +65,45 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="101">
               <caret line="10" column="67" lean-forward="false" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
-              <folding />
+              <folding>
+                <marker date="1502159104000" expanded="true" signature="20:5882" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="51:5882" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="111:485" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="311:485" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="546:1873" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="570:1873" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="630:729" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="740:954" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="966:1594" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1011:1205" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1123:1205" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1219:1388" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1314:1388" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1402:1594" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1518:1594" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1604:1733" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1743:1873" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="1894:1916" ph=" Trending products" />
+                <marker date="1502159104000" expanded="true" signature="1937:3166" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2000:3166" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2036:2376" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2054:2189" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2156:2189" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2326:2376" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2410:2763" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2428:2563" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2530:2563" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2707:2763" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2781:3166" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2797:3166" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2815:2947" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="2914:2947" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="3098:3166" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="3245:3253" ph="..." />
+                <marker date="1502159104000" expanded="true" signature="3261:3302" ph=" items = !{JSON.stringify(items)};" />
+                <marker date="1502159104000" expanded="true" signature="3310:3372" ph=" script(type='text/javascript', src='/scripts/maps.js')" />
+                <marker date="1502159104000" expanded="true" signature="3483:5743" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -271,7 +309,9 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/online-shopping/controllers/categoryController.js</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/online-shopping/views/index.pug</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/online-shopping/views/item_form.pug</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -484,11 +524,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502158985344</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fix url of category in dropdown list">
+      <created>1502159054929</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1502159054929</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68668000" />
+    <option name="totallyTimeSpent" value="68733000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -997,7 +1044,45 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="10" column="67" lean-forward="false" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
-          <folding />
+          <folding>
+            <marker date="1502159104000" expanded="true" signature="20:5882" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="51:5882" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="111:485" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="311:485" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="546:1873" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="570:1873" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="630:729" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="740:954" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="966:1594" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1011:1205" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1123:1205" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1219:1388" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1314:1388" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1402:1594" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1518:1594" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1604:1733" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1743:1873" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="1894:1916" ph=" Trending products" />
+            <marker date="1502159104000" expanded="true" signature="1937:3166" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2000:3166" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2036:2376" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2054:2189" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2156:2189" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2326:2376" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2410:2763" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2428:2563" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2530:2563" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2707:2763" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2781:3166" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2797:3166" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2815:2947" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="2914:2947" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="3098:3166" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="3245:3253" ph="..." />
+            <marker date="1502159104000" expanded="true" signature="3261:3302" ph=" items = !{JSON.stringify(items)};" />
+            <marker date="1502159104000" expanded="true" signature="3310:3372" ph=" script(type='text/javascript', src='/scripts/maps.js')" />
+            <marker date="1502159104000" expanded="true" signature="3483:5743" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
