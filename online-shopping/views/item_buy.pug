@@ -10,6 +10,8 @@ block content
     p #[strong Sold by:] #{item.seller.local.fname} #{item.seller.local.lname}
 
     form(method='POST' action=item.url+'/buy')
+      input(type='hidden', name='_csrf', value=_csrf)
+
       div.form-group
         label(for='quantity') Quantity:
         input#quantity.form-control(type='number' name='quantity' required='true' value=(undefined===quantity ? '1' : quantity))

@@ -102,6 +102,7 @@ block content
     br
     if login
       form(method='POST' action=item.url+'/review' id='review_form')
+          input(type='hidden', name='_csrf', value=_csrf)
           div.form-group
               label(for='review') #[strong Rate]
               .rateyo(data-rateyo-rating='0%', data-rateyo-spacing='10px', data-rateyo-rated-fill='#ffdb03')

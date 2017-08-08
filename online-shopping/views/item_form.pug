@@ -6,7 +6,7 @@ block content
     div.col-lg-2
       h4= title
     div.col-lg-10
-      form(method='POST' action='' enctype='multipart/form-data')
+      form(method='POST' action='?_csrf='+_csrf enctype='multipart/form-data')
         div.form-group
           label(for='name') Name:
           input#name.form-control(type='text' name='name' value=(undefined===item ? '' : item.name) required='true')
@@ -45,7 +45,7 @@ block content
 
         br
         div.imageforupdate
-          if !item
+          if !item 
             p Upload your image here: 
             p #[input(type='file', name='imageupload', title='Please choose your image')]
             p #[input(type='file', name='imageupload', title='Please choose your image')]
@@ -56,7 +56,42 @@ block content
             p #[input(type='file', name='imageupload', title='Please choose your image')]
             p #[input(type='file', name='imageupload', title='Please choose your image')]
           else if item
-            img(src=item.imageUrl)
+            if (item.image_total.length == 3)
+              div.carouselframe
+                div#myCarousel.carousel.slide(data-ride='carousel')
+                  ol.carousel-indicators
+                    li(data-target='#myCarousel', data-slide-to='0', class='active')
+                    li(data-target='#myCarousel', data-slide-to='1')
+                    li(data-target='#myCarousel', data-slide-to='2')
+                  div.carousel-inner(role='listbox')
+                    div.carousel-item.active
+                      img.d-block.img-fluid(src=item.imageSingleUrl0)
+                    div.carousel-item
+                      img.pic(src=item.imageSingleUrl1)   
+                    div.carousel-item
+                      img.d-block.img-fluid(src=item.imageSingleUrl2)
+                  a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
+                    i.fa.fa-chevron-left(aria-hidden='true')
+                  a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
+                    i.fa.fa-chevron-right(aria-hidden='true')
+            else if (item.image_total.length == 2)
+              div.carouselframe
+                div#myCarousel.carousel.slide(data-ride='carousel')
+                  ol.carousel-indicators
+                    li(data-target='#myCarousel', data-slide-to='0', class='active')
+                    li(data-target='#myCarousel', data-slide-to='1')
+                  div.carousel-inner(role='listbox')
+                    div.carousel-item.active
+                      img.d-block.img-fluid(src=item.imageSingleUrl0)
+                    div.carousel-item
+                      img.pic(src=item.imageSingleUrl1)   
+                  a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
+                    i.fa.fa-chevron-left(aria-hidden='true')
+                  a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
+                    i.fa.fa-chevron-right(aria-hidden='true')          
+            else    
+              img.img-product(src=item.imageUrl)
+            
             br
             p OR You can upload new files: 
             p #[input(type='file', name='imageupload', title='Please choose your image')]
