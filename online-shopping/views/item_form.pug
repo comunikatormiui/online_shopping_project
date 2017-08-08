@@ -6,7 +6,7 @@ block content
     div.col-lg-2
       h4= title
     div.col-lg-10
-      form(method='POST' action='' enctype='multipart/form-data')
+      form(method='POST' action='?_csrf='+_csrf enctype='multipart/form-data')
         div.form-group
           label(for='name') Name:
           input#name.form-control(type='text' name='name' value=(undefined===item ? '' : item.name) required='true')
