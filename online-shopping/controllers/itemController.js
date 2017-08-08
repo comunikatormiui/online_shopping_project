@@ -256,20 +256,22 @@ exports.item_create_post = function(req, res, next) {
   mongoSanitize.sanitize(req.files[2]);
   mongoSanitize.sanitize(req.body);
   var imageNumber = 0;
+  var imageName0;
+  //assume user upload image according to the order
   if (req.files[0]){
-    var imageName0 = req.files[0].originalname;
+    imageName0 = req.files[0].originalname;
     imageNumber++;
   }
   if (req.files[1]){
-    var imageName1 = req.files[1].originalname;
+    imageName0 = req.files[1].originalname;
     imageNumber++;
   }
   if (req.files[2]){
-    var imageName2 = req.files[2].originalname;
+    imageName0 = req.files[2].originalname;
     imageNumber++;
   }
-  else{
-    var imageName0 = 'question-mark.svg';
+  if (!req.files[0] && !req.files[1] && !req.files[2]){
+      imageName0 = 'question-mark.svg';
   }
 
   /*var imagepath = {}; //imagepath contains two objects, path and the imageName
@@ -430,18 +432,19 @@ exports.item_update_post = function(req, res, next) {
           item.price_history.push({ price: req.body.price, date: new Date() });
 
           var imageNumber=0;
+          var imageName0;
           if (req.files[0]){
-            var imageName0 = mongoSanitize.sanitize(req.files[0].originalname);
+            imageName0 = mongoSanitize.sanitize(req.files[0].originalname);
             imageNumber++;}
           if (req.files[1]){
-            var imageName1 = mongoSanitize.sanitize(req.files[1].originalname);
+            imageName0 = mongoSanitize.sanitize(req.files[1].originalname);
             imageNumber++;}
           if (req.files[2]){
-            var imageName2 = mongoSanitize.sanitize(req.files[2].originalname);
+            imageName0 = mongoSanitize.sanitize(req.files[2].originalname);
             imageNumber++;}
-          else{
-            var imageName0 = 'question-mark.svg';
-          }
+          if (!req.files[0] && !req.files[1] && !req.files[2]){
+              imageName0 = 'question-mark.svg';}
+
           for(var i=0; i<imageNumber; i++){
             item.image_total.push({ image: req.files[i].originalname });
             console.log(item.image_total);

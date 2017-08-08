@@ -42,14 +42,14 @@ ItemSchema
 ItemSchema
 .virtual('imageSingleUrl1')
 .get(function() {
-    if (this.image_total[1].image)
+    if (this.image_total[1])
       return '/uploads/' + this.image_total[1].image;
 });
 
 ItemSchema
 .virtual('imageSingleUrl2')
 .get(function() {
-    if (this.image_total[2].image)
+    if (this.image_total[2])
       return '/uploads/' + this.image_total[2].image;
 });
 
