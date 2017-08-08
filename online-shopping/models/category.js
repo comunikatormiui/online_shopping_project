@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+URLSlugs = require('mongoose-url-slugs');
 
 var Schema = mongoose.Schema;
 
@@ -9,7 +10,9 @@ var CategorySchema = Schema({
 CategorySchema
 .virtual('url')
 .get(function () {
-    return '/categories/' + this._id;
+    return '/categories/' + this.slug;
 })
+
+CategorySchema.plugin(URLSlugs('name'));
 
 module.exports = mongoose.model('Category', CategorySchema);

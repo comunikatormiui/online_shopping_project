@@ -3,11 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="09cd4418-f641-4cdb-a273-0fe3249ae4c7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" afterPath="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/controllers/itemController.js" afterPath="$PROJECT_DIR$/online-shopping/controllers/itemController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/models/item.js" afterPath="$PROJECT_DIR$/online-shopping/models/item.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/models/wishlist.js" afterPath="$PROJECT_DIR$/online-shopping/models/wishlist.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/item_detail.pug" afterPath="$PROJECT_DIR$/online-shopping/views/item_detail.pug" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/wishlist.pug" afterPath="$PROJECT_DIR$/online-shopping/views/wishlist.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/models/category.js" afterPath="$PROJECT_DIR$/online-shopping/models/category.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/category_list.pug" afterPath="$PROJECT_DIR$/online-shopping/views/category_list.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/index.pug" afterPath="$PROJECT_DIR$/online-shopping/views/index.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/item_list.pug" afterPath="$PROJECT_DIR$/online-shopping/views/item_list.pug" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,81 +22,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="itemController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="categoryController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/online-shopping/controllers/categoryController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="161" column="47" lean-forward="true" selection-start-line="161" selection-start-column="47" selection-end-line="161" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="itemController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="653" column="49" lean-forward="false" selection-start-line="653" selection-start-column="49" selection-end-line="653" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item_form.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/views/item_form.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="wishlist.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/views/wishlist.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="65" lean-forward="false" selection-start-line="19" selection-start-column="65" selection-end-line="19" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/models/user.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="items.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/routes/items.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item_detail.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/views/item_detail.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-242">
-              <caret line="73" column="13" lean-forward="false" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="wishlist.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/models/wishlist.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/online-shopping/models/item.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="29" column="14" lean-forward="false" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
+            <state relative-caret-position="196">
+              <caret line="629" column="8" lean-forward="false" selection-start-line="629" selection-start-column="8" selection-end-line="630" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -112,19 +53,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>item_detail</find>
-      <find>findOne</find>
-      <find>profile</find>
-      <find>Item</find>
-      <find>Category</find>
-      <find>imageName</find>
-      <find>.sanitize</find>
-      <find>mongoSanitize</find>
-      <find>review</find>
-      <find>item_review_post</find>
-      <find>sanitize(req.user</find>
-      <find>sanitize</find>
-      <find>quan</find>
       <find>sort</find>
       <find>options</find>
       <find>sanitize(req.</find>
@@ -141,7 +69,20 @@
       <find>view_count</find>
       <find>findone</find>
       <find>req.user.local.email</find>
+      <find>review</find>
+      <find>findById</find>
+      <find>res.redirec</find>
+      <find>render</find>
+      <find>query</find>
       <find>req.params.id</find>
+      <find>category_form</find>
+      <find>cat</find>
+      <find>cat.</find>
+      <find>cat._id</find>
+      <find>'item_list'</find>
+      <find>async.parallel</find>
+      <find>object</find>
+      <find>category</find>
     </findStrings>
     <replaceStrings>
       <replace>mongoSanitize</replace>
@@ -168,7 +109,6 @@
         <option value="$PROJECT_DIR$/online-shopping/app.js" />
         <option value="$PROJECT_DIR$/online-shopping/routes/index.js" />
         <option value="$PROJECT_DIR$/online-shopping/public/scripts/total_cost.js" />
-        <option value="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" />
         <option value="$PROJECT_DIR$/online-shopping/views/not_authorized.pug" />
         <option value="$PROJECT_DIR$/online-shopping/routes/items.js" />
         <option value="$PROJECT_DIR$/online-shopping/views/item_buy.pug" />
@@ -182,7 +122,12 @@
         <option value="$PROJECT_DIR$/online-shopping/views/wishlist.pug" />
         <option value="$PROJECT_DIR$/online-shopping/views/item_form.pug" />
         <option value="$PROJECT_DIR$/online-shopping/views/item_detail.pug" />
+        <option value="$PROJECT_DIR$/online-shopping/views/category_list.pug" />
+        <option value="$PROJECT_DIR$/online-shopping/models/category.js" />
+        <option value="$PROJECT_DIR$/online-shopping/views/index.pug" />
+        <option value="$PROJECT_DIR$/online-shopping/views/item_list.pug" />
         <option value="$PROJECT_DIR$/online-shopping/controllers/itemController.js" />
+        <option value="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" />
       </list>
     </option>
   </component>
@@ -241,18 +186,6 @@
               <item name="online_shopping_project" type="462c0819:PsiDirectoryNode" />
               <item name="online-shopping" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="online_shopping_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="online_shopping_project" type="462c0819:PsiDirectoryNode" />
-              <item name="online-shopping" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="online_shopping_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="online_shopping_project" type="462c0819:PsiDirectoryNode" />
-              <item name="online-shopping" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -5547,11 +5480,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502135270635</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Use slug for all URLs to replace item id.">
+      <created>1502143939734</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1502143939735</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77695000" />
+    <option name="totallyTimeSpent" value="84345000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -5669,37 +5609,16 @@
     <MESSAGE value="Authorization check for before buying an item, writing a review, updating or deleting an item" />
     <MESSAGE value="In case of error in item_buy page, it populate form and display error message." />
     <MESSAGE value="If item cannot be found redirect to items page" />
-    <option name="LAST_COMMIT_MESSAGE" value="If item cannot be found redirect to items page" />
+    <MESSAGE value="Use slug for all URLs to replace item id." />
+    <option name="LAST_COMMIT_MESSAGE" value="Use slug for all URLs to replace item id." />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/online-shopping/public/stylesheets/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8145">
-          <caret line="543" column="1" lean-forward="false" selection-start-line="543" selection-start-column="1" selection-end-line="543" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_buy.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/login.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -5746,14 +5665,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/models/category.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/models/image.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -5762,20 +5673,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/_head.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/category_detail.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/category_form.pug">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -5867,14 +5764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/categoryController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="75" column="15" lean-forward="true" selection-start-line="75" selection-start-column="15" selection-end-line="75" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-11">
@@ -5887,13 +5776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-69">
           <caret line="2" column="51" lean-forward="false" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/layout.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="19" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -5950,17 +5832,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_list.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/_item_row.pug">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -5988,14 +5864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/models/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/models/wishlist.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -6012,30 +5880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/routes/items.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_form.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/models/item.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="29" column="14" lean-forward="false" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/item_detail.pug">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-242">
@@ -6044,10 +5888,114 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/models/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/routes/items.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/models/item.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="29" column="24" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/category_detail.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/models/category.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/routes/categories.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/category_form.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="62" lean-forward="false" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/category_list.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/index.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_form.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="28" column="29" lean-forward="false" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/item_list.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="16" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/views/layout.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="19" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/controllers/itemController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="653" column="49" lean-forward="false" selection-start-line="653" selection-start-column="49" selection-end-line="653" selection-end-column="49" />
+        <state relative-caret-position="196">
+          <caret line="629" column="8" lean-forward="false" selection-start-line="629" selection-start-column="8" selection-end-line="630" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/categoryController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="161" column="47" lean-forward="true" selection-start-line="161" selection-start-column="47" selection-end-line="161" selection-end-column="47" />
           <folding />
         </state>
       </provider>

@@ -7,7 +7,7 @@ block content
       br
       br
       each cat in catListForItemPage
-        a(href='/categories/'+cat._id) #{cat.name}
+        a(href='/categories/'+cat.slug) #{cat.name}
         br
     div.col-md-9
       h3= title

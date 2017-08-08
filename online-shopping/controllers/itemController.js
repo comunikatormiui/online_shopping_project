@@ -38,7 +38,7 @@ exports.item_list = function(req, res, next) {
     populate: ['seller', 'category']
   };
   async.parallel({
-    categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
+    categories: function(callback) {Category.find({}).sort({ name: 'ascending' }).exec(callback);},
     cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);},
     items: function(callback){Item.paginate({},options,callback);},
   },function(err, results){
@@ -342,6 +342,7 @@ exports.item_update_get = function(req, res, next) {
     }
     if(!results.item){
         res.redirect('/items');
+        return;
     }
     if(results.item.seller.local.email == req.user.local.email) {
         res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
