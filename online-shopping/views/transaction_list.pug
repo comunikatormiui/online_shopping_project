@@ -22,7 +22,7 @@ block content
       tr
         td #{prettyDate(transaction.purchase_date)}
         td
-          a(href='/items/' + transaction.item._id) #{transaction.item.name}
+          a(href=transaction.item.url) #{transaction.item.name}
         td #{transaction.quantity}
         - var price = transaction.quantity*transaction.item.price
         td #{price}
