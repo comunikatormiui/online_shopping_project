@@ -38,7 +38,7 @@ exports.item_list = function(req, res, next) {
     populate: ['seller', 'category']
   };
   async.parallel({
-    categories: function(callback) {Category.find({}, 'name').sort({ name: 'ascending' }).exec(callback);},
+    categories: function(callback) {Category.find({}).sort({ name: 'ascending' }).exec(callback);},
     cat_count: function(callback) {Item.aggregate({ '$group': { '_id': '$category', 'count': { '$sum': 1}}}).exec(callback);},
     items: function(callback){Item.paginate({},options,callback);},
   },function(err, results){
@@ -107,13 +107,17 @@ exports.wishlist_add = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  var item_id = mongoSanitize.sanitize(req.params.id);
+  var item_slug = mongoSanitize.sanitize(req.params.id);
 
-  Item.findById(item_id)
+  Item.findOne({'slug' : item_slug})
   .exec(function(err, item) {
     if (err) { return next(err); }
-
-    var conditions = { _id : item_id };
+    if(!item) {
+        req.flash('error', 'Item does not exist.');
+        res.redirect('/items');
+        return;
+    }
+    var conditions = { _id : req.user._id };
     var update = { $addToSet : { 'local.wishlist' : item }};
 
     User.update(conditions, update)
@@ -129,9 +133,9 @@ exports.wishlist_delete = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  var item_id = mongoSanitize.sanitize(req.params.id);
+  var item_slug = mongoSanitize.sanitize(req.params.id);
 
-  Item.findById(item_id)
+  Item.findOne({'slug':item_slug})
   .exec(function(err, item) {
     if (err) { return next(err); }
     var user_id = mongoSanitize.sanitize(req.user._id);
@@ -194,17 +198,21 @@ exports.item_detail = function(req, res, next) {
   mongoSanitize.sanitize(req.params);
   req.filter('id').escape();
   req.filter('id').trim();
-  Item.findById(req.params.id)
+  Item.findOne({'slug' : req.params.id})
   .populate('seller').populate('category')
   .exec(function (err, item) {
     if (err) { return next(err); }
     if (req.user != null && item.seller.local.email == req.user.local.email){user = 'seller';}
     else{user = 'buyer';}
+    if(!item){
+        res.redirect('/items');
+        return;
+    }
     // Increment view count and save
     item.view_count++;
     item.save(function(err, updatedItem) {
         if (err) { return next(err); }
-        Review.find({item: req.params.id})
+        Review.find({item: item._id})
         .populate('reviewer')
         .exec(function (err, list_reviews){
             if (err){return next(err);}
@@ -320,8 +328,8 @@ exports.item_update_get = function(req, res, next) {
 
   async.parallel({
     item: function(callback) {
-      var item_id = mongoSanitize.sanitize(req.params.id);
-      Item.findById(item_id)
+      mongoSanitize.sanitize(req.params.id);
+      Item.findOne({'slug': req.params.id})
           .populate('seller')
           .exec(callback);
     },
@@ -331,6 +339,10 @@ exports.item_update_get = function(req, res, next) {
   }, function(err, results) {
     if (err) {
       next(err);
+    }
+    if(!results.item){
+        res.redirect('/items');
+        return;
     }
     if(results.item.seller.local.email == req.user.local.email) {
         res.render('item_form', { title: 'Update Item', category_list: results.category, item: results.item, selected_category: results.item.category });
@@ -370,8 +382,8 @@ exports.item_update_post = function(req, res, next) {
   req.filter('lng').trim();
 
   mongoSanitize.sanitize(req.params);
-  var item_id = req.params.id;
-  Item.findById(item_id)
+  var item_slug = req.params.id;
+  Item.findOne({'slug': item_slug})
   .populate('seller')
   .exec(function(err, item) {
     if (err) { return next(err); }
@@ -452,7 +464,7 @@ exports.item_buy_get = function(req, res, next) {
   req.filter('id').escape();
   req.filter('id').trim();
 
-  Item.findById(req.params.id)
+  Item.findOne({'slug': req.params.id})
   .populate('seller')
   .exec(function (err, item) {
     if (err) { return next(err); }
@@ -467,10 +479,11 @@ exports.item_buy_get = function(req, res, next) {
 }
 
 // exports.item_maps = function(req, res, next){
+//   mongoSanitize.sanitize(req.params);
 //   req.filter('id').escape();
 //   req.filter('id').trim();
 //
-//   Item.findById(req.params.id)
+//   Item.findOne(req.params.id)
 //   .populate('seller')
 //   .exec(function (err, item) {
 //     if (err) { return next(err); }
@@ -589,8 +602,8 @@ exports.item_buy_post = function(req, res, next) {
         console.log('Invalid email received: ' + req.user.local.email);
         next(err);
       }
-      var itemID = req.params.id;
-      Item.findById(itemID)
+      var item_slug = req.params.id;
+      Item.findOne({'slug': item_slug})
       .populate('seller')
       .exec(function (err, item) {
         if (err) { return next(err); }
@@ -600,8 +613,14 @@ exports.item_buy_post = function(req, res, next) {
         }
         var currentDate = new Date();
 
+        if(!item) {
+            req.flash('error', 'Item does not exists.');
+            res.redirect('/items');
+            return;
+        }
+
         var review = new Review({
-          item: itemID,
+          item: item._id,
           reviewer: user._id,
           review: req.body.review,
           rating: req.body.rate_field,
@@ -611,7 +630,7 @@ exports.item_buy_post = function(req, res, next) {
         review = review.toObject();
         delete review["_id"];
 
-        Review.findOneAndUpdate({'item': itemID, 'reviewer': user._id}, review,
+        Review.findOneAndUpdate({'item': item._id, 'reviewer': user._id}, review,
           {upsert:true}, function(err, review){
             if(err){
               console.log(err);
@@ -633,7 +652,7 @@ exports.item_buy_post = function(req, res, next) {
                   item.rating = Math.round(reviewInfo[0].average * 2) / 2;
                   item.review_count =  reviewInfo[0].count;
 
-                  Item.findByIdAndUpdate(itemID, item, {})
+                  Item.findByIdAndUpdate(item._id, item, {})
                   .exec(function(err, updatedItem) {
                     if (err) {
                       next(err);
