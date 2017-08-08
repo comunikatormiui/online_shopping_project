@@ -39,3 +39,5 @@ We also support production mode deployment:
 3. vagrant up && vagrant ssh
 4. "cd project/online-shopping
 5. go to “localhost:9000"
+
+Our default/preferred web browser to run our application is Chrome.
