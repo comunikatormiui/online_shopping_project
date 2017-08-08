@@ -48,7 +48,7 @@ exports.catListForHome = function(req, res, next) {
         if (!found)
           categories[i].count = 0;
       }
-      res.render('index', { title: 'Our Shopping Page', catListForHome: categories, items: results.items });
+      res.render('index', { title: 'Our Shopping Page', catListForHome: results.categories, items: results.items });
   });
 };
 
