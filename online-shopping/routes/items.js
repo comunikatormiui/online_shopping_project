@@ -33,7 +33,6 @@ router.get('/', item_controller.item_list);
 router.get('/:id/buy', login_routing.isLoggedIn, item_controller.item_buy_get);
 router.post('/:id/buy', login_routing.isLoggedIn, item_controller.item_buy_post);
 router.post('/:id/review', login_routing.isLoggedIn, item_controller.item_review_post);
-
-
+router.get('/:id/login', login_routing.isLoggedIn, item_controller.item_detail);
 
 module.exports = router;
