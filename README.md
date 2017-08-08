@@ -1,17 +1,12 @@
 To view our website:
 
-1) Clone the repository
-2) From the online_shopping_project directory use "vagrant up"
-3) On your web browser navigate to "localhost:9000"
+1) Clone the repository with the tag provided
+2) Navigate to the project directory
+3) vagrant up
+4) Navigate to localhost:9000
 
-Key features include (in their initial, unfinished state):
-
-- Register and Login system 
-- Profile page to view/edit your personal information
-- Directory of items for sale
-- List of categories which filter items
-- IRC chat to discuss items
-- Search feature to look up items
+For a description of features see this google doc
+https://docs.google.com/document/d/1MG3sDiKH2JIFg9v0CPO1ZawU-zJGDXzOGPIUprLrGK8/edit?usp=sharing
 
 
 // Alternative instructions below:
@@ -21,7 +16,7 @@ You can launch our app locally by:
 1. git clone the application
 2. cd to online_shopping_project
 3. our app has two part:
-	3.1. "cd online_shopping_project/online-shopping" 
+	3.1. "cd online_shopping_project/online-shopping"
 		 "npm install"
 		 "node populatedb" and then "npm run devstart"
 		 go to "localhost:3000"
