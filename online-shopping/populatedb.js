@@ -156,7 +156,7 @@ var samplePrices = [30, 40, 100, 60];
 function createItems(cb) {
   async.parallel([
     function(callback) {
-      itemCreate('The War (4th Album) [KOREAN / Private ver.]', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', users[0],48.70, 49.21287, -122.55659, 'TheWar.jpg', samplePrices, callback);
+      itemCreate('The War (4th Album) Private ver', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', users[0],48.70, 49.21287, -122.55659, 'TheWar.jpg', samplePrices, callback);
     },
     function(callback) {
       itemCreate('Sapiens: A Brief History of Humankind', categories[0],
