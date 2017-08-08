@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="09cd4418-f641-4cdb-a273-0fe3249ae4c7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/views/transaction_list.pug" afterPath="$PROJECT_DIR$/online-shopping/views/transaction_list.pug" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" afterPath="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="categoryController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="categoryController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/online-shopping/controllers/categoryController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="175" column="9" lean-forward="true" selection-start-line="175" selection-start-column="9" selection-end-line="175" selection-end-column="9" />
+            <state relative-caret-position="65">
+              <caret line="32" column="52" lean-forward="false" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -57,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.pug" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/online-shopping/views/index.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="42" column="54" lean-forward="false" selection-start-line="42" selection-start-column="54" selection-end-line="42" selection-end-column="54" />
+            <state relative-caret-position="101">
+              <caret line="10" column="67" lean-forward="true" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -104,8 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>app</find>
-      <find>find</find>
       <find>index</find>
       <find>item_detail</find>
       <find>findOne</find>
@@ -134,6 +132,8 @@
       <find>You must</find>
       <find>item_</find>
       <find>item._id</find>
+      <find>res.render('index</find>
+      <find>category</find>
     </findStrings>
     <replaceStrings>
       <replace>mongoSanitize</replace>
@@ -167,10 +167,10 @@
         <option value="$PROJECT_DIR$/online-shopping/controllers/passport.js" />
         <option value="$PROJECT_DIR$/online-shopping/views/signup.pug" />
         <option value="$PROJECT_DIR$/online-shopping/public/stylesheets/style.css" />
-        <option value="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" />
         <option value="$PROJECT_DIR$/online-shopping/routes/items.js" />
         <option value="$PROJECT_DIR$/online-shopping/views/item_detail.pug" />
         <option value="$PROJECT_DIR$/online-shopping/views/transaction_list.pug" />
+        <option value="$PROJECT_DIR$/online-shopping/controllers/categoryController.js" />
       </list>
     </option>
   </component>
@@ -470,11 +470,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502151804552</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Update item address in transaction list">
+      <created>1502152563302</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1502152563302</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66724000" />
+    <option name="totallyTimeSpent" value="68498000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -495,7 +502,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17868853" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20491803" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24983388" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295838" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -592,7 +599,8 @@
     <MESSAGE value="Authorization check for before buying an item, writing a review, updating or deleting an item" />
     <MESSAGE value="In case of error in item_buy page, it populate form and display error message." />
     <MESSAGE value="Redirect user to login page before leaving a review" />
-    <option name="LAST_COMMIT_MESSAGE" value="Redirect user to login page before leaving a review" />
+    <MESSAGE value="Update item address in transaction list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update item address in transaction list" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -960,14 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/categoryController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="175" column="9" lean-forward="true" selection-start-line="175" selection-start-column="9" selection-end-line="175" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/item_buy.pug">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -986,8 +986,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/online-shopping/views/index.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="42" column="54" lean-forward="false" selection-start-line="42" selection-start-column="54" selection-end-line="42" selection-end-column="54" />
+        <state relative-caret-position="101">
+          <caret line="10" column="67" lean-forward="true" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/online-shopping/controllers/categoryController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="32" column="52" lean-forward="false" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
           <folding />
         </state>
       </provider>
