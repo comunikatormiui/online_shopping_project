@@ -63,8 +63,10 @@ block content
           br
           a.btn.btn-secondary(href='/contact' role='button') Email Seller
         
+        //a(href='/categories/'+cat.slug) #{cat.name}
         .category 
-          span #{item.category.name}
+          //span (href = '/categories/' + item.category.slug) #{item.category.name}
+          a(href='/categories/' + item.category.slug) #{item.category.name}
         
         span.price CDN$ #{item.price}
         
