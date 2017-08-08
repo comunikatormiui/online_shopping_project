@@ -443,6 +443,7 @@ exports.item_update_post = function(req, res, next) {
           item.lng = req.body.lng;
           item.price_history.push({ price: req.body.price, date: new Date() });
 
+          //in update page, if user still upload new files:
           var imageNumber=0;
           var imageName0;
           if (req.files[0]){
@@ -457,9 +458,19 @@ exports.item_update_post = function(req, res, next) {
           if (!req.files[0] && !req.files[1] && !req.files[2]){
               imageName0 = 'question-mark.svg';}
 
-          for(var i=0; i<imageNumber; i++){
-            item.image_total.push({ image: req.files[i].originalname });
-            console.log(item.image_total);
+          if (imageNumber + item.image_total.length <= 3)
+            for(var i=0; i<imageNumber; i++){
+              item.image_total.push({ image: req.files[i].originalname });
+              //console.log(item.image_total);
+            }
+          else{
+            for (var i=0; i<imageNumber; i++){
+              //console.log(item.image_total);
+              //item.image_total[i].pop;
+              item.image_total.splice(i,1); //pop
+              //console.log(item.image_total);
+              item.image_total.push({ image: req.files[i].originalname});
+            }
           }
 
           item.save(function(err) {
