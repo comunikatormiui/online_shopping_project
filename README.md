@@ -9,7 +9,11 @@ For a description of features see this google doc
 https://docs.google.com/document/d/1MG3sDiKH2JIFg9v0CPO1ZawU-zJGDXzOGPIUprLrGK8/edit?usp=sharing
 
 Several Items and Users have been pre-loaded. Most items are being sold by user1, for testing of edit/deleting
-To test buy features, you must be logged in as another user1.
+To test buy features, you must be logged in as another user1. Email functionaliy is currently linked to user1 email only. To view emails sent to user1 please 
+log in to the following gmail account:
+
+cmpt470user@gmail.com 
+Password: cmpt470us
 
 Username:				Password:
 * user1@sfu.ca		password
