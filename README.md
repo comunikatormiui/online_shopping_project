@@ -13,7 +13,7 @@ To test buy features, you must be logged in as another user1. Email functionaliy
 log in to the following gmail account:
 
 cmpt470user@gmail.com 
-Password: cmpt470us
+Password: cmpt470usr
 
 Username:				Password:
 * user1@sfu.ca		password
