@@ -13,11 +13,11 @@ module.exports = {
 	facebook: {
 		clientID: '1404935769542854' ,
 		clientSecret: '127989e8dbaab25fe9188d66b86399c8' ,
-		callbackURL: 'http://localhost:9000/auth/facebook/callback'
+		callbackURL: 'http://localhost:8000/auth/facebook/callback'
 	},
 	github: {
 		clientID: '199216a5a104204bccfe',
 		clientSecret: '5d0efa59c4fcaf86594189c62fc4aa6b6bc5b179',
-		callbackURL: 'http://localhost:9000/auth/github/callback'
+		callbackURL: 'http://localhost:8000/auth/github/callback'
 	},
 }
