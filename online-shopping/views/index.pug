@@ -1,5 +1,197 @@
 extends layout
-
 block content
-  h1= title
-  p Welcome to #{title}
+  //-header
+  br
+  div.container
+    p.titlep Welcome to our shopping site
+    div.shopByDepartment.dropdown
+      a.btn.btn-secondary.dropdown-toggle(id='dropdownMenuLink', href='#', data-toggle='dropdown', aria-haspopup='false', aria-expanded='false') Shop by Department
+      div.dropdown-menu.dropdown-menu-right(aria-labelledby='dropdownMenuLink')
+        each cat in catListForHome
+          a.dropdown-item(href='/categories/'+cat.slug) #{cat.name}
+    br
+    br
+    //-body
+    //-daily deals carousel
+    div.carouselframe
+      div#myCarousel.carousel.slide(data-ride='carousel')
+        div.carousel-outer
+          p.dailyDeals Daily Deals
+          a.seeItemDetail(href='/items') See All
+        ol.carousel-indicators
+          li(data-target='#myCarousel', data-slide-to='0', class='active')
+          li(data-target='#myCarousel', data-slide-to='1')
+          li(data-target='#myCarousel', data-slide-to='2')
+
+        div.carousel-inner(role='listbox')
+          div.carousel-item
+            img.d-block.img-fluid(src='uploads/toTheBone.jpg', alt='First slide')
+            div.carousel-caption.d-none.d-md-block
+              h2 To The Bone now only for $10!
+          div.carousel-item
+            img.pic(src='uploads/GoPro.jpg', alt='Second slide')
+            div.carousel-caption.d-none.d-md-block
+              h2 Good price for Go Pro
+          div.carousel-item.active
+            img.d-block.img-fluid(src='uploads/TheWar.jpg', alt='Third slide')
+            div.carousel-caption.d-none.d-md-block
+              h2 EXO KoKoBop is Coming!
+
+        a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
+            i.fa.fa-chevron-left(aria-hidden='true')
+        a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
+            i.fa.fa-chevron-right(aria-hidden='true')
+
+    //-cards
+    //-Trending products
+
+    br
+    br
+    h4.trending
+     small | Trending |
+
+      br
+      br
+      .row
+
+
+        .col-lg-4
+          .card
+            .view.overlay.hm-white-slight
+              img.img-fluid(src='uploads/iphone.jpg', alt='')
+              a(href='#')
+                .mask
+
+            .card-block
+              h4.card-title iPhone 7
+              p.card-text Brand new in box
+              br
+              a.btn.btn-danger(href='/items/iphone-7') Buy Now
+
+
+
+        .col-lg-4
+          .card
+            .view.overlay.hm-white-slight
+              img.img-fluid(src='uploads/Keurig.jpg', alt='')
+              a(href='#')
+                .mask
+
+            .card-block
+              h4.card-title Keurig
+              p.card-text Keurig K15 Classic Brewer
+              br
+              a.btn.btn-danger(href='/items/keurig') Buy Now
+
+
+
+        .col-lg-4
+          .card
+            .view.overlay.hm-white-slight
+              img.img-fluid(src='uploads/fan.jpg', alt='')
+              a(href='#')
+                .mask
+
+            .card-block
+              h4.card-title Mainstays Oscillating Fan
+              p.card-text 12" Table Fan
+              br
+              a.btn.btn-danger(href='/items/mainstays-oscillating-fan') Buy Now
+
+
+
+
+    //- Map
+    br
+    br
+    h2.h2-responsive Items Near You:
+    br
+    #map
+
+
+    //-   items = !{JSON.stringify(items)};
+
+    //-script(type='text/javascript', src='/scripts/maps.js')
+
+
+    br
+    //-footer
+
+    .copyright(style='text-align: center')
+      | © 2017 Group 14
+
+
+    br
+
+
+    script.
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+
+      function showPosition(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+
+        var uluru = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: uluru
+        });
+
+        var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">You Are Here</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>Your Currect Location based on Geolocation</b></p>'+
+          '</div>'+
+          '</div>';
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var markeru = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+
+        markeru.addListener('click', function() {
+          infowindow.setContent(contentString);
+          infowindow.open(map, markeru);
+        });
+
+        var localItems = !{JSON.stringify(items)};
+        console.log(localItems)
+
+        function addMarker(name, lat, lng) {
+          var latLng = new google.maps.LatLng( lat, lng);
+          var marker = new google.maps.Marker({
+            position : latLng,
+            map      : map
+            });
+          var slug = name.replace(/ /g ,"-");
+          var slug2 = slug.replace(/:/g ,'');
+          var slug3 = slug2.replace(/[{(/.)}]/g, '');
+          //- var slug7 = slug6.replace(/./g ,'');
+          var slugl = slug3.toLowerCase();
+          console.log(slugl);
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent("<a href='/items/" + slugl + "'>" + name + "</a>");
+            infowindow.open(map, marker);
+          });
+        }
+
+        for(var i = 0; i < localItems.length; i++) {
+          addMarker(localItems[i].name, localItems[i].lat, localItems[i].lng);
+        }
+
+      }
+
+      function initMap() {
+        getLocation();
+      }
+    script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')

@@ -1,19 +1,170 @@
 extends layout
 
 block content
-  h2= title
-  br
-  p #[strong Price:] CDN$ #{item.price}
-  p #[strong Category:] #{item.category.name}
-  p #[strong Sold by:] #{item.seller}
-  if item.description
-    p #[strong Description:] #{item.description}
+  .item-detail
+    .row
+      .pic.col-md-4.text-center
+        br 
+        br
+        hr
+        if (item.image_total.length == 3)
+          div.carouselframe
+            div#myCarousel.carousel.slide(data-ride='carousel')
+              ol.carousel-indicators
+                li(data-target='#myCarousel', data-slide-to='0', class='active')
+                li(data-target='#myCarousel', data-slide-to='1')
+                li(data-target='#myCarousel', data-slide-to='2')
+              div.carousel-inner(role='listbox')
+                div.carousel-item.active
+                  img.d-block.img-fluid(src=item.imageSingleUrl0)
+                div.carousel-item
+                  img.pic(src=item.imageSingleUrl1)   
+                div.carousel-item
+                  img.d-block.img-fluid(src=item.imageSingleUrl2)
+                  //- div.zoom
+                  //-   div.small
+                  //-     if item.image_total[0]
+                  //-       img.d-block.img-fluid(src='/uploads/TheWar.jpg')
+                  //-   div.large
+                  //-     if item.image_total[0]
+                  //-       img.d-block.img-fluid(src='/uploads/TheWar.jpg')
+              a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
+                i.fa.fa-chevron-left(aria-hidden='true')
+              a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
+                i.fa.fa-chevron-right(aria-hidden='true')
+        else if (item.image_total.length == 2)
+          div.carouselframe
+            div#myCarousel.carousel.slide(data-ride='carousel')
+              ol.carousel-indicators
+                li(data-target='#myCarousel', data-slide-to='0', class='active')
+                li(data-target='#myCarousel', data-slide-to='1')
+              div.carousel-inner(role='listbox')
+                div.carousel-item.active
+                  img.d-block.img-fluid(src=item.imageSingleUrl0)
+                div.carousel-item
+                  img.pic(src=item.imageSingleUrl1)   
+              a.carousel-control-prev(href='#myCarousel', role='button', data-slide='prev')
+                i.fa.fa-chevron-left(aria-hidden='true')
+              a.carousel-control-next(href='#myCarousel', role='button',data-slide='next')
+                i.fa.fa-chevron-right(aria-hidden='true')          
+        else    
+          div.zoom
+            div.small
+              if item.image
+                img.img-product(src=item.imageUrl)
+            div.large
+              if item.image
+                img.img-product(src=item.imageUrl)
+        hr
+      .detail.col-md-8
+        span.name #{title}
+        if (user=='buyer')
+          a.btn.btn-danger.float-right.buy(href=item.url + '/buy') Buy
+          br
+          a.btn.btn-secondary(href='/contact' role='button') Email Seller
+        
+        //a(href='/categories/'+cat.slug) #{cat.name}
+        .category 
+          //span (href = '/categories/' + item.category.slug) #{item.category.name}
+          a(href='/categories/' + item.category.slug) #{item.category.name}
+        
+        span.price CDN$ #{item.price}
+        
+        .section
+          span.title Product Info
+          span.description #{item.description}
+        
+        .section
+          span.title Seller
+          span.description #{item.seller.local.fname} #{item.seller.local.lname}
+        
+        .section
+          span.title Price History
+          span.description
+            if item.price_history.length > 1
+              canvas#myChart
+            else 
+              | Not enough information
+        
+        .section.last
+          span.title Item Location
+          .description.map-wrapper
+            #map
+  
+  if (user == 'seller')
+    a.btn.btn-secondary(href=item.url+'/update' role='button') Update
 
-  a.btn.btn-secondary(href='/items/'+item._id+'/update' role='button') Update
-  
-  form(method='POST' action=item.url+'/delete')
-      div.form-group
-        input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
-      button.btn.btn-danger(type='submit') Delete
-  
-  
+    form(method='POST' action=item.url+'/delete')
+        input(type='hidden', name='_csrf', value=_csrf)
+        div.form-group
+          input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+        button.btn.btn-danger(type='submit') Delete
+  else
+    br
+    if login
+      form(method='POST' action=item.url+'/review' id='review_form')
+          input(type='hidden', name='_csrf', value=_csrf)
+          div.form-group
+              label(for='review') #[strong Rate]
+              .rateyo(data-rateyo-rating='0%', data-rateyo-spacing='10px', data-rateyo-rated-fill='#ffdb03')
+          div.form-group
+            label(for='review') #[strong Review:]
+            textarea#review.form-control(name='review', required='true')
+          div.form-group
+              input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+          div.form-group
+              input#rate_field.form-control(type='hidden',name='rate_field', required='true', value=1)
+          button.btn.btn-danger(type='submit') Write A Review
+    else 
+      a(href=item.url+'/login') Log in to leave a review
+
+  br
+  label(for='previous_reviews') #[strong Previous Reviews:]
+  -function prettyDate(dateString){
+      //if it's already a date object and not a string you don't need this line:
+      -var date = new Date(dateString);
+      -var d = date.getDate();
+      -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+      -var m = monthNames[date.getMonth()];
+      -var y = date.getFullYear();
+      -return d+' '+m+' '+y;
+  -}
+  div
+    table#review_table
+        each review in review_list
+          tr
+            td#review_section #{review.review}
+            td#reviewer_name #{review.reviewer.local.fname + ' (' + Math.round(review.rating * 10)/10 + '/5)'}
+            td#review_date #{prettyDate(review.review_date)}
+        else
+          li No review
+
+  if (error)
+      p(class="error") #{error}
+  if (message)
+      p(class="message") #{message}
+    
+  script.
+    var prices = !{JSON.stringify(item.prices)};
+  script(type='text/javascript', src='/scripts/chart.js')
+  script.
+    function initMap() {
+    var uluru = {lat:#{item.lat}, lng:#{item.lng}};
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: uluru
+    });
+    var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+    });
+    }
+  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZUN--NvPNLqcKGh2w1zLbh0butq7Y1w&callback=initMap')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+  script(src='/scripts/jquery.anythingzoomer.js')
+  script.
+    $(function(){
+      $(".zoom").anythingZoomer();
+    });
+  script(type = 'text/javascript', src = '/scripts/rating_logic.js')
+  script(type = 'text/javascript', src = '/scripts/rating.js')

@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  .form
+    h2=title
+
+    br
+    p #[strong Item:] #{item.name}
+    p #[strong Price:] CDN$ #{item.price}
+    p #[strong Sold by:] #{item.seller.local.fname} #{item.seller.local.lname}
+
+    form(method='POST' action=item.url+'/buy')
+      input(type='hidden', name='_csrf', value=_csrf)
+
+      div.form-group
+        label(for='quantity') Quantity:
+        input#quantity.form-control(type='number' name='quantity' required='true' value=(undefined===quantity ? '1' : quantity))
+      div.form-group
+        label(for='ship_address') Shipping address:
+        input#ship_address.form-control(type='text', placeholder='Country, Province, City', name='ship_address', value=(ship_address===undefined ? '' : ship_address))
+      br
+      h3="Payment method"
+      div.form-group
+        label(for='credit_card_number') Credit Number:
+        input#credit_card_number.form-control(type='text' name='credit_card_number'  required='true' value=(credit_card_number===undefined ? '' : credit_card_number))
+      div.form-group
+        label(for='cvv') CVV:
+        input#cvv.form-control(type='text' name='cvv'  required='true' value=(cvv===undefined ? '' : cvv))
+      div.form-group.input
+        label(for='expiry_date') Expiry Date:
+        input#expiry_date.form-control(type='date', placeholder='' required='true' name='expiry_date', value=(expiry_date===undefined ? '' : expiry_date))
+
+      br
+      h3="Bill"
+      p #[strong Total cost:] CDN$
+      span(id='total') #{item.price}
+
+      div.form-group
+        input#itemid.form-control(type='hidden',name='itemid', required='true', value=item._id )
+
+      br
+      button.btn.btn-primary(type='submit') Place the order
+
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
+
+  //script.
+  //  var data-daily-price = item.prices;
+
+  script.
+    var prices = !{JSON.stringify(item.price)};
+  script(type='text/javascript', src='/scripts/jqueryEffects.js')
+
+  script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+  script(type = 'text/javascript', src = '/scripts/total_cost.js')

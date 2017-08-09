@@ -1,28 +1,39 @@
 extends layout
 
 block content
-	form(method = 'POST' action = '/signup')
+	.form
+		form.signup-form(method = 'POST' action = '/signup')
+			input(type='hidden', name='_csrf', value=_csrf)
+				
+			div.form-group
+				label(for='fname') First Name:
+			div.form-group
+				input#fname.form-control(type='text', placeholder='first Name' name='fname')
 
-		div.form-group
-			label(for='fname') First Name:
-		div.form-group
-			input#name.form-control(type='text', placeholder='First Name' name='fname')
+			div.form-group
+				label(for='lname') Last Name:
+			div.form-group.input
+				input#lname.form-control(type='text', placeholder='last Name' name='lname')
 
-		div.form-group
-			label(for='lname') Last Name:
-		div.form-group.input
-			input#name.form-control(type='text', placeholder='Last Name' name='lname')
+			div.form-group
+				label(for = 'email') Email:
+			div.form-group.input
+				input#email.form-control(type = 'email', placeholder = 'name@email.com' name = 'email')
 
-		div.form-group
-			label(for = 'email') Email:
-		div.form-group.input
-			input#name.form-control(type = 'email', placeholder = 'name@email.com' name = 'email')
+			div.form-group
+				label(for = 'pw') Password:
+			div.form-group
+				input#pw.form-control(type = 'password' name = 'password')
 
-		div.form-group
-			label(for = 'pw') Password:
-		div.form-group
-			input#pw.form-control(type = 'password' name = 'password')
+			button.btn.btn-primary(type='submit') Sign up
+			br
+			br
+			form.signup.signup-form.span4(action="/users/session", method="post")
+				//img(src="/images/facebook.png")
+				a.btn.btn-social.btn-dblue.btn-primary.fbbtn(href="/auth/facebook") Sign Up with Facebook
+				br
+				br
+				//img(src="/images/github.png")
+				a.btn.btn-social.btn-dblue.btn-primary.githubbtn(href="/auth/github") Sign Up with GitHub
 
-		button.btn.btn-primary(type='submit') Sign up
-
-	.error #{message}
+		.error #{message}

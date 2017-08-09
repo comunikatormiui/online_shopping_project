@@ -1,34 +1,634 @@
-body {
+/*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
+*/
+/* Header */
 
-nav {
+#msgs { list-style-type: none; border: none; padding: 10px;  width: 100%; }
+#msg { list-style-type: none; margin: 0; padding: 0;  border: none; padding: 10px;  width: 100%; position: relative; bottom: 0;}
+#send {width: 100%; float: bottom; }
+#msgs li { padding: 5px; border: none; padding: 10px;  width: 100%; }
+#msgs li:nth-child(odd) { background: #eee; }
+
+
+header {
   margin-bottom: 1em;
+  padding-bottom: 0 !important;
 }
 
-a {
-  color: #00B7FF;
+
+header a {
+  height: 40px;
+  padding: 0 !important;
+  margin-top: 8px;
+  padding-left: .5rem !important;
+  padding-right: .5rem !important;
+  /*margin-left: .5rem;
+  margin-right: .5rem;*/
 }
+
+header .navbar-brand {
+  margin-top: 0;
+}
+
+/* link color gradually changes when hover */
+/*header .nav-link {
+    color: #9E1526;
+    -webkit-transition: color 0.5s;
+    -moz-transition:    color 0.5s;
+    -ms-transition:     color 0.5s;
+    -o-transition:      color 0.5s;
+    transition:         color 0.5s;
+}*/
+
+header .nav-link:hover {
+  /*color: #9E1526 !important;*/
+  border-bottom: 3px solid #ccc;
+}
+
+/* underline active page */
+header .nav-item.active a {
+  border-bottom: 3px solid #9E1526;
+}
+
+
+/* move search field a bit to the left */
+header form {
+  margin-right: 1em;
+}
+
+/* 991px is when navbar shrinks to mobile version*/
+@media (max-width: 991px) {
+  /* no longer underline active page, make it bold instead */
+  header .nav-item.active a {
+    border-bottom: 0;
+    font-weight: bold;
+  }
+  header form {
+    margin-right: 0;
+  }
+  /* to make logo stay in the same position */
+  header .navbar-brand {
+    height: 36px;
+    margin-top: 4px;
+  }
+  /* add some space between button and bottom of header */
+  header {
+    padding-bottom: 8px !important;
+  }
+  header .nav-link:hover {
+    /*color: #9E1526 !important;*/
+    border-bottom: 0;
+  }
+}
+
+/* End header */
 
 input {
-	border: 2px solid blue;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    padding: 3px;
-    width: 70%
+  border: 2px solid blue;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 3px;
+  width: 70%
 }
 
 #profile_name {
-	color: blue;
+	color: #1e7f72;
 	font: 18px "Lucida Grande";
 	font-weight: bold;
 }
 
 #user_id {
-	color: green;
+	color: #000000;
 }
+
+#map {
+  padding: 20px;
+  width: 100%;
+  height: 400px;
+
+}
+
+/*#homeMap {
+  padding: 20px;
+  width: 100%;
+  height: 400px;
+  background-color: tan;
+}*
 
 .error {
 	color: red;
 	margin: 5px;
+}
+*/
+table {
+  border: 1px solid;
+}
+
+table {
+  width: 80%;
+}
+
+td, th {
+  padding: 7px;
+}
+
+tr:nth-child(even) {
+  background: #CCC
+}
+tr:nth-child(odd) {
+  background: #FFF
+}
+
+#review_table {
+  border: 1px solid;
+  border-color: #CCCCCC;
+  width: 100%;
+  border-left: hidden;
+  border-right: hidden;
+  margin-bottom: 30px;
+}
+
+#review_table tr {
+    background-color: white;
+    border-bottom: 1px solid;
+    border-color: #CCCCCC;
+}
+
+#review_table tr td {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#review_section {
+    padding-left: 5px;
+    width: 70%;
+}
+
+#reviewer_name {
+    width: 15%;
+    text-align: center;
+}
+
+#review_date {
+    text-align: center;
+}
+
+
+
+.error {
+  color: red;
+}
+
+.message {
+  color: green;
+}
+
+.rate_widget {
+    border:     1px solid #CCC;
+    overflow:   visible;
+    padding:    10px;
+    position:   relative;
+    width:      180px;
+    height:     32px;
+}
+/*
+.ratings_stars {
+    background: url('star_empty.png') no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    2px;
+    width:      32px;
+}
+.ratings_vote {
+    background: url('star_full.png') no-repeat;
+}
+.ratings_over {
+    background: url('star_highlight.png') no-repeat;
+}
+/* Item List */
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item-list li {
+  overflow: hidden;
+  padding: 1em 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.item-list li:last-child {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.item-list img {
+  margin-right: 1em;
+  max-width: 100%; /* img-responsive */
+  height: auto;  /* img-responsive */
+  max-height: 220px;
+}
+
+.item-list .name {
+  display: block;
+  word-wrap: break-word;   /*start new line*/
+}
+
+.item-list .seller {
+  display: block;
+}
+
+.item-list .category {
+  display: block;
+}
+
+.item-list .price {
+  float: right;
+  margin-top: 0;
+}
+
+.item-list .rating {
+  display: block;
+  margin-top: 1em;
+}
+
+.item-list .review-count {
+  color: #777;
+}
+
+.item-list .view {
+  display: block;
+}
+
+.item-list .wishlist-button {
+  float: right;
+}
+
+.item-list .fa-star, .item-list .fa-star-half-o, .item-list .fa-star-o {
+  color: #FFC300;
+}
+
+.item-list .rating .fa {
+  margin-right: 2px;
+}
+
+@media (max-width: 576px) {
+
+  .item-list .price {
+    float: none;
+    margin-top: 1em;
+    display: block;
+  }
+
+  .item-list .wishlist-button {
+    float: none;
+    display: block;
+    margin-top: 1em;
+  }
+
+  .item-list .detail {
+    margin-top: 1em;
+    text-align: center;
+  }
+}
+
+.list-head {
+  border-top: 1px solid #d3d3d3;
+  margin: 0.5em 0 0.5em 0;
+  padding: 1em 0 0.5em 0;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.list-head .left {
+  display: flex;
+}
+
+.list-head .right {
+  display: flex;
+}
+
+@media (max-width: 576px) {
+
+  .list-head {
+    display: block;
+  }
+
+  .list-head .left {
+    display: block;
+  }
+
+  .list-head .right {
+    margin-top: 1em;
+  }
+}
+
+/* Category List */
+
+.cat-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cat-list li {
+  padding: 0.7em;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.cat-list li:nth-child(odd) {
+  border-right: 1px solid #d3d3d3;
+}
+
+.cat-list li:first-child, .cat-list li:nth-child(2) {
+  border-top: 1px solid #d3d3d3;
+}
+
+@media (max-width: 576px) {
+
+  .cat-list li {
+    padding: 1em;
+  }
+  .cat-list li:nth-child(2) {
+    border-top: 0;
+  }
+  .cat-list li:nth-child(odd) {
+    border-right: 0;
+  }
+}
+
+/* Item detail */
+
+.item-detail .name {
+  display: inline-block;
+  font-size: 200%;
+}
+
+.item-detail .buy {
+  margin-top: 0.3em;
+}
+
+.item-detail div.category {
+  display: block;
+  margin: 1em 0 0.3em 0;
+}
+
+.item-detail .category a {
+  border: 1px solid #ddd;
+  padding: 0.3em 0.5em;
+  color: #666;
+}
+
+.item-detail .price {
+  display: block;
+  margin-top: 3em;
+  margin-bottom: 2em;
+  font-weight: bold;
+}
+
+.item-detail .section {
+  border-top: 1px solid #ddd;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+}
+
+.item-detail .section.last {
+  border-bottom: 1px solid #ddd;
+}
+
+.item-detail .section .title {
+  border-top: 0;
+  color: #9E1526;
+  font-size: 130%;
+}
+
+.item-detail .section .description {
+  display: block;
+  margin-top: 0.5em;
+
+  margin-left: 1em;
+}
+
+.item-detail .map-wrapper {
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+}
+
+
+/* Heading */
+
+h3 {
+  display: inline-block;
+}
+
+.carousel-control .fa-chevron-left, .carousel-control .fa-chevron-right {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: inline-block;
+}
+.fa.fa-chevron-left, .fa.fa-chevron-right{
+  color: #828080;
+}
+.carousel-item img{
+  display: block;
+  -margin-left: 100px;
+  -margin-top:auto;
+  max-width: 100%; /* img-responsive */
+  max-height: 200px;
+}
+
+.carouselframe{
+  color: red;
+  margin-top: 24px;
+  background-color: #ffffff;
+}
+
+.dailyDeals{
+  font-size: 24px;
+  margin-left: 40px;
+  margin-top: 20px;
+  font: bold;
+  float: left;
+  color: #078889;
+}
+
+.seeItemDetail{
+  float: right;
+  margin-top: 28px;
+  margin-right: 150px;
+  font-size: 20px;
+  color: #078889;
+}
+
+.carousel-caption h2{
+  color: #078889;
+  float: right;
+}
+
+.titlep{
+  float: left;
+}
+
+
+/*for dropdown*/
+.dropdown-menu li:hover .sub-menu {
+  visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.shopByDepartment{
+  float: right;
+}
+
+.login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+.signup-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 600px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: left;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form button, .form a.githubbtn, .form a.fbbtn{
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #1fa89b;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.form button:hover,.form button:active,.form button:focus {
+    background: #1fa194;
+}
+
+
+/* github signup button*/
+.form a.githubbtn{
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #2fcb53;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form a.githubbtn:hover{
+    background: #269f42;
+}
+
+/* github signup button*/
+.form a.fbbtn{
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #365899;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form a.fbbtn:hover{
+    background: #4267b2;
+}
+/*
+body {
+    background: #ffffff; // fallback for old browsers
+    background: -webkit-linear-gradient(right, #ffffff, #e6e6e6);
+    background: -moz-linear-gradient(right, #ffffff, #e6e6e6);
+    background: -o-linear-gradient(right, #ffffff, #e6e6e6);
+    background: linear-gradient(to left, #ffffff, #e6e6e6);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+*/
+
+
+/* chat style */
+
+#msgs { list-style-type: none; margin: 0; padding: 0; }
+#msgs li { padding: 5px 10px; }
+#msgs li:nth-child(odd) { background: #eee; }
+
+/* in case the need for submenu
+//Reference: https://stackoverflow.com/questions/8878033/how-to-make-twitter-bootstrap-menu-dropdown-on-hover-rather-than-click
+.navbar .sub-menu:before {
+  border-bottom: 7px solid transparent;
+  border-left: none;
+  border-right: 7px solid rgba(0, 0, 0, 0.2);
+  border-top: 7px solid transparent;
+  left: -7px;
+  top: 10px;
+}
+
+.navbar .sub-menu:after {
+  border-top: 6px solid transparent;
+  border-left: none;
+  border-right: 6px solid #fff;
+  border-bottom: 6px solid transparent;
+  left: 10px;
+  top: 11px;
+  left: -6px;
+}
+*/
+
+.zoom .small img{
+  display: block;
+  max-width: 100%; /* img-responsive */
+  max-height: 100%;
+}
+
+.imageforupdate img{
+  display: block;
+  max-width: 100%; /* img-responsive */
+  max-height: 100%;
 }

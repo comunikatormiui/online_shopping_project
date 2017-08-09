@@ -6,10 +6,13 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 
 var async = require('async');
 var Item = require('./models/item');
+var User = require('./models/user');
 var Category = require('./models/category');
+var Review = require('./models/review');
 
 var categories = [];
 var items = [];
+var users = [];
 
 function categoryCreate(name, cb) {
   var category = new Category({ name: name });
@@ -18,33 +21,65 @@ function categoryCreate(name, cb) {
       cb(err, null);
       return;
     }
-    console.log('New category: ' + category);
+    // console.log('New category: ' + category);
     categories.push(category);
     cb(null, category);
   });
 }
 
-function itemCreate(name, category, description, seller, price, cb) {
+function userCreate(email, password, firstname, lastname, cb) {
+  var user = new User({
+    local: {
+      email: email,
+      password: User.generateHash(password),
+      fname: firstname,
+      lname: lastname
+    }
+  });
+  user.save(function(err) {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+    users.push(user);
+    cb(null, user);
+  });
+}
+
+function itemCreate(name, category, description, seller, price, lat, lng, image, prices, cb) {
+   //res.send(req.files);
   var item = new Item({
     name: name,
     category: category,
     description: description,
     seller: seller,
-    price: price
+    price: price,
+    lat: lat,
+    lng: lng,
+    image: image
   });
+
+  for (var i = 0; i < prices.length; i++) {
+    var date = new Date();
+    date.setHours(date.getHours() - prices.length + i);
+    item.price_history.push({ price: prices[i], date: date });
+  }
+
+  item.price_history.push({ price: price, date: new Date() });
+
   item.save(function (err) {
     if (err) {
       cb(err, null);
       return;
     }
-    console.log('New item: ' + item);
+    // console.log('New item: ' + item);
     items.push(item);
     cb(null, item);
   });
 }
 
 function createCategories(cb) {
-  async.parallel([
+  async.series([
     function(callback) {
       categoryCreate('Books', callback); // 0
     },
@@ -83,40 +118,86 @@ function createCategories(cb) {
     },
     function(callback) {
       categoryCreate('Automotive & Industrial', callback); // 12
+    },
+    function(callback) {
+      categoryCreate('Other', callback); // 13
     }
   ],
   cb);
 }
+
+// email, password, firstname, lastname
+
+function createUsers(cb) {
+  async.series([
+    function(callback) {
+      userCreate('user1@sfu.ca', 'password', 'John', 'Doe', callback);
+    },
+    function(callback) {
+      userCreate('user2@sfu.ca', 'password', 'Emma', 'Doe', callback);
+    },
+    function(callback) {
+      userCreate('user3@sfu.ca', 'password', 'Harry', 'Doe', callback);
+    },
+    function(callback) {
+      userCreate('user4@sfu.ca', 'password', 'Orisa', 'Doe', callback);
+    }
+  ],
+  cb);
+}
+
+
 // 0 - Books, 1 - Music, 2 - Movies, 3 - Electronics, 4 - Software, 5 - Video games, 6 - Home
 // 7 - Tools, 8 - Health, 9 - Toys, 10 - Clothing, 11 - Sports, 12 - Automotive
-// name, category, description, seller, price, cb
+// name, category, description, seller, price, lat, lng image, cb
+
+var samplePrices = [30, 40, 100, 60];
 
 function createItems(cb) {
   async.parallel([
     function(callback) {
-      itemCreate('Sapiens: A Brief History of Humankind', categories[0], '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', 'Yuval Noah Harari', 14.85, callback);
+      itemCreate('The War (4th Album) Private ver', categories[1], 'CD+Photobook+Photocard+Folded Poster+Free Gift', users[0],48.70, 49.21287, -122.55659, 'TheWar.jpg', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('To The Bone', categories[1], 'Pre-order now.', 'Steven Wilson', 15.25, callback);
+      itemCreate('Sapiens: A Brief History of Humankind', categories[0],
+        '100,000 years ago, at least six species of human inhabited the earth. Today there is just one. Us.Homo Sapiens.', users[0], 14.85, 49.286787, -122.932259, 'sapiens.png', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', 'GoPro', 529.99, callback);
+      itemCreate('To The Bone', categories[1], 'Pre-order now.', users[0], 15.25, 49.25287, -122.54259, 'toTheBone.jpg', samplePrices, callback);
     },
     function(callback) {
-      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', 'SODIAL(R)', 20, callback);
+      itemCreate('GoPro HERO5 Black', categories[3], 'Stunning 4K video and 12MP photos in Single, Burst and Time Lapse modes.', users[0], 529.99, 49.21287, -122.55659, 'GoPro.jpg', samplePrices,callback);
     },
     function(callback) {
-      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', 'Kaspersky', 34.99, callback);
+      itemCreate('Office Chair Armrest', categories[6], '100% Brand New', users[0], 20, 49.21287, -122.55659, 'OfficeChairArmrest.jpg', samplePrices,callback);
     },
     function(callback) {
-      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', 'Amazon', 9.99, callback);
-    }
+      itemCreate('Kaspersky Internet Security 2017', categories[4], 'Defends you against viruses, Internet attacks, fraud, snoopers, cybercriminals & more', users[0], 34.99, 49.21287, -122.55659, 'KasperskyInternetSecurity2017.jpg', samplePrices,callback);
+    },
+    function(callback) {
+      itemCreate('American Dad: Volume 4', categories[2], 'This season is among the best. For any American dad fan this season is a must', users[0], 9.99, 49.21287, -122.55659, 'AmericanDad-Volume4.jpg', samplePrices, callback);
+    },
+    function(callback) {
+      itemCreate('iPhone 7', categories[3], 'Brand New - In Box - Rare Pink Color', users[0], 600.00, 49.21245, -122.55641, 'iphone2.jpg', samplePrices, callback);
+    },
+    function(callback) {
+      itemCreate('Keurig', categories[3], 'Keurig K15 Classic Brewer', users[0], 100.00, 49.21245, -122.76898, 'Keurig2.jpg', samplePrices, callback);
+    },
+    function(callback) {
+      itemCreate('Mainstays Oscillating Fan', categories[2], 'To keep cool on a hot day!', users[0], 20.99, 49.28967, -122.55671, 'fan2.jpg', samplePrices, callback);
+    },
   ],
   cb);
 }
 
+Item.collection.drop();
+Category.collection.drop();
+User.collection.drop();
+Review.collection.drop();
+
 async.series([
   createCategories,
+  createUsers,
   createItems
 ],
 function(err, results) {

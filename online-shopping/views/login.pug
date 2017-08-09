@@ -1,14 +1,23 @@
 extends layout
 
 block content
-	.error #{message}
-	form(method = 'POST' action = '/login')
-		div.form-group
-			lable(for = 'email') Email:
-		div.form-group
-			input#name.form-control(type = 'email', placeholder = 'name@email.com' name = 'email')
-		div.form-group
-			lable(for = 'pw') Password:
-		div.form-group
-			input#pw.form-control(type = 'password' name = 'password')
-		button.btn.btn-primary(type='submit') Login
+    .error #{message}
+    .form
+        form.login-form(method = 'POST' action = '/login')
+            input(type='hidden', name='_csrf', value=_csrf)
+            div.form-group
+                lable(for = 'email') Email:
+            div.form-group
+                input#name.form-control(type = 'email', placeholder = 'name@email.com' name = 'email')
+            div.form-group
+                lable(for = 'pw') Password:
+            div.form-group
+                input#pw.form-control(type = 'password', placeholder='password' name = 'password')
+            button.btn.btn-primary(type='submit') Login
+            br
+            br
+            form.signup.signup-form.span4(action="/users/session", method="post")
+                a.btn.btn-social.btn-dblue.btn-primary.fbbtn(href="/auth/facebook") Login with Facebook
+                br
+                br
+                a.btn.btn-social.btn-dblue.btn-secondary.githubbtn(href="/auth/github") Login with GitHub
