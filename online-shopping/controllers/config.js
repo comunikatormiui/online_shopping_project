@@ -16,8 +16,8 @@ module.exports = {
 		callbackURL: 'http://localhost:8000/auth/facebook/callback'
 	},
 	github: {
-		clientID: '199216a5a104204bccfe',
-		clientSecret: '5d0efa59c4fcaf86594189c62fc4aa6b6bc5b179',
+		clientID: 'Iv1.dc584d799983a57e' || '199216a5a104204bccfe',
+		clientSecret: '15ae03bd9bd8726f749497faadefa2e343cd4b03' || '5d0efa59c4fcaf86594189c62fc4aa6b6bc5b179',
 		callbackURL: 'http://localhost:8000/auth/github/callback'
 	},
 }
