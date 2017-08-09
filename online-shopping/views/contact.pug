@@ -4,11 +4,11 @@ block content
   form(method = 'POST' action = '/contact/send')
     input(type='hidden', name='_csrf', value=_csrf)
     div.form-group
-      label Name
-      input.form-control(type='text',name='name', placeholder='Name', required='true')
-    div.form-group
       label Email
-      input.form-control(type='email',name='email', placeholder='Email', required='true')
+      input.form-control(type='email',name='email', placeholder='Email Address', required='true')
+    div.form-group
+      label Subject
+      input.form-control(type='text',name='subject', placeholder='Message Subject', required='true')
     div.form-group
       label Message
       textarea.form-control(name='message',placeholder='message', required='true')

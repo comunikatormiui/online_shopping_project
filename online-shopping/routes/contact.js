@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
+var mongoSanitize = require('express-mongo-sanitize');
+
 
 
 
@@ -19,11 +21,25 @@ router.post('/send', function (req, res, next){
     }
 });
 
+  mongoSanitize.sanitize(req.body);
+  req.checkBody('email', 'Item name must be specified').notEmpty();
+  req.checkBody('subject', 'Price must be specified').notEmpty();
+  req.checkBody('message', 'Category must be specified').notEmpty();
+
+
+
+  req.filter('email').escape();
+  req.filter('email').trim();
+  req.filter('subject').escape();
+  req.filter('subject').trim();
+  req.filter('message').escape();
+  req.filter('message').trim();
+  console.log(req.body.email + "," + req.body.subject + "," + req.body.message)
   var mailOptions = {
    from: 'User1 <user@outlook.com',
-   to: 'cmpt470user@gmail.com',
-   subject: 'Item Inquiry',
-   text: 'I want to buy your product please'
+   to: req.body.email,
+   subject: req.body.subject,
+   text: req.body.message
  }
 
 
