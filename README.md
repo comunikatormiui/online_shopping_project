@@ -17,7 +17,7 @@ Username:				Password:
 * user3@sfu.ca		password
 * user4@sfu.ca		password
 
-
+A note: currently the github signup/login is not working
 
 #### Alternative instructions below:
 
