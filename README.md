@@ -17,6 +17,12 @@ Username:				Password:
 * user3@sfu.ca		password
 * user4@sfu.ca		password
 
-A note: currently the github signup/login is not working
-
 Our default/preferred web browser to run our application is Chrome.
+
+In order to get complete map functionality geolocation must be available and enabled.
+
+
+Known Errors:
+
+- currently the github signup/login is not working
+- Using the search bar while on the chat page causes an error
