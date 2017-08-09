@@ -36,7 +36,7 @@ router.post('/send', function (req, res, next){
   req.filter('message').trim();
   console.log(req.body.email + "," + req.body.subject + "," + req.body.message)
   var mailOptions = {
-   from: 'User1 <user@outlook.com',
+   from: 'NOREPLY <user@outlook.com',
    to: req.body.email,
    subject: req.body.subject,
    text: req.body.message
