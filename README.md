@@ -12,8 +12,9 @@ Several Items and Users have been pre-loaded. Most items are being sold by user1
 To test buy features, you must be logged in as another user1. Email functionaliy is currently linked to user1 email only. To view emails sent to user1 please 
 log in to the following gmail account:
 
-cmpt470user@gmail.com 
-Password: cmpt470usr
+cmpt...user@gmail.com 
+Password: cmpt...usr
+(... represent 470)
 
 Username:				Password:
 * user1@sfu.ca		password
