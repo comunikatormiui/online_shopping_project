@@ -23,12 +23,12 @@
     
 ## Test users
 
-| Username			|	Password |
+| Username      | Password |
 |---------------|----------|
-| user1@sfu.ca	|	password |
-| user2@sfu.ca	|	password |
-| user3@sfu.ca	|	password |
-| user4@sfu.ca	|	password |
+| user1@sfu.ca  | password |
+| user2@sfu.ca  | password |
+| user3@sfu.ca  | password |
+| user4@sfu.ca  | password |
 
 ## Known Issues
 
