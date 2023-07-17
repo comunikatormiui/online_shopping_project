@@ -22,7 +22,7 @@
     "jquery": "~3.2.1",
     "method-override": "~1.0.0",
     "moment": "^2.18.1",
-    "mongoose": "^4.11.2",
+    "mongoose": "^5.13.20",
     "mongoose-paginate": "^5.0.3",
     "mongoose-url-slugs": "~1.0.0",
     "morgan": "~1.8.1",
