@@ -25,7 +25,7 @@
     "mongoose": "^4.11.2",
     "mongoose-paginate": "^5.0.3",
     "mongoose-url-slugs": "~1.0.0",
-    "morgan": "~1.8.1",
+    "morgan": "~1.10.1",
     "multer": "*",
     "passport": "^0.1.18",
     "passport-facebook": "^2.1.1",
